@@ -38,7 +38,7 @@ This brief chapter offers some resources on where to find spatial data you may n
 * Teach you the processes that you might have learned in ArcGIS or other GIS software that you can code yourself in R
 * Teach you some tips and tricks to make pretty maps 
 
-If you would like to follow along, try out some of the examples, and work on some practice exercises, download the file worksheet.R
+If you would like to follow along, try out some of the examples, and work on some practice exercises, download the file worksheet.R and the data from the Data/Exercises folder.
   
 
 ## Notes on Updates

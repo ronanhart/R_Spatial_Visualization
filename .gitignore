@@ -3,4 +3,7 @@
 .RData
 .Ruserdata
 /.Rproj.user/
-Data/*
+Data/demo/*
+Data/Examples/*
+Data/Raw/*
+Data/Visualization/*
