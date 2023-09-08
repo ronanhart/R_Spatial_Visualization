@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Making Pretty Maps | R Spatial and Visualization Workshop</title>
+  <meta name="description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Making Pretty Maps | R Spatial and Visualization Workshop" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="github-repo" content="ronanhart/R_spatial_workshop" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Making Pretty Maps | R Spatial and Visualization Workshop" />
+  
+  <meta name="twitter:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  
+
+<meta name="author" content="Ronan Hart" />
+
+
+<meta name="date" content="2023-09-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="spatial-analysis.html"/>
+<link rel="next" href="where-to-obtain-data-further-resources.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Ecology Center: R Spatial Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to the R Spatial and Visualization Workshop!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i>Table of Contents</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#goals-of-this-workshop"><i class="fa fa-check"></i>Goals of this workshop:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#notes-on-updates"><i class="fa fa-check"></i>Notes on Updates</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-gis-in-r"><i class="fa fa-check"></i>Why GIS in R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites-packages-and-preparation"><i class="fa fa-check"></i>Prerequisites, Packages, and Preparation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>2</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="gis-basics.html"><a href="gis-basics.html#datums-projections-and-coordinate-systems"><i class="fa fa-check"></i><b>2.1</b> Datums, Projections, and Coordinate Systems</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#datums"><i class="fa fa-check"></i>Datums</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#projections"><i class="fa fa-check"></i>Projections</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#coordinate-reference-system"><i class="fa fa-check"></i>Coordinate Reference System</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="gis-basics.html"><a href="gis-basics.html#spatial-data"><i class="fa fa-check"></i><b>2.2</b> Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#vectors"><i class="fa fa-check"></i>Vectors</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#rasters"><i class="fa fa-check"></i>Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="gis-basics.html"><a href="gis-basics.html#vectors-vs-rasters-pros-cons"><i class="fa fa-check"></i><b>2.3</b> Vectors vs Rasters: pros &amp; cons</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html"><i class="fa fa-check"></i><b>3</b> Spatial Data in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#vectors-1"><i class="fa fa-check"></i><b>3.1</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-spreadsheet"><i class="fa fa-check"></i><b>3.1.1</b> Loading vector data from a spreadsheet</a></li>
+<li class="chapter" data-level="3.1.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-shapefile"><i class="fa fa-check"></i><b>3.1.2</b> Loading vector data from a shapefile</a></li>
+<li class="chapter" data-level="3.1.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#projecting-vector-data"><i class="fa fa-check"></i><b>3.1.3</b> Projecting vector data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#saving-vector-data"><i class="fa fa-check"></i><b>3.1.4</b> Saving vector data</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#a-note-about-sf-and-tidyverse"><i class="fa fa-check"></i>A note about <code>sf</code> and <code>tidyverse</code></a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#rasters-1"><i class="fa fa-check"></i><b>3.2</b> Rasters</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#load-a-raster"><i class="fa fa-check"></i><b>3.2.1</b> Load a raster</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#create-a-raster"><i class="fa fa-check"></i><b>3.2.2</b> Create a raster</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#project-a-raster"><i class="fa fa-check"></i><b>3.2.3</b> Project a raster</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#save-a-raster"><i class="fa fa-check"></i><b>3.2.4</b> Save a raster</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn-1"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="spatial-analysis.html"><a href="spatial-analysis.html"><i class="fa fa-check"></i><b>4</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="spatial-analysis.html"><a href="spatial-analysis.html#selecting-attributes"><i class="fa fa-check"></i><b>4.1</b> Selecting Attributes</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-analysis.html"><a href="spatial-analysis.html#select-features-by-location"><i class="fa fa-check"></i><b>4.2</b> Select features by location</a></li>
+<li class="chapter" data-level="4.3" data-path="spatial-analysis.html"><a href="spatial-analysis.html#joining-attributes"><i class="fa fa-check"></i><b>4.3</b> Joining Attributes</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-analysis.html"><a href="spatial-analysis.html#extract-raster-values"><i class="fa fa-check"></i><b>4.4</b> Extract Raster Values</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-analysis.html"><a href="spatial-analysis.html#distance"><i class="fa fa-check"></i><b>4.5</b> Distance</a></li>
+<li class="chapter" data-level="4.6" data-path="spatial-analysis.html"><a href="spatial-analysis.html#calculate-terrain-characteristics"><i class="fa fa-check"></i><b>4.6</b> Calculate Terrain Characteristics</a></li>
+<li class="chapter" data-level="4.7" data-path="spatial-analysis.html"><a href="spatial-analysis.html#re-classify-rasters"><i class="fa fa-check"></i><b>4.7</b> Re-Classify Rasters</a></li>
+<li class="chapter" data-level="4.8" data-path="spatial-analysis.html"><a href="spatial-analysis.html#raster-cell-stats"><i class="fa fa-check"></i><b>4.8</b> Raster Cell Stats</a></li>
+<li class="chapter" data-level="4.9" data-path="spatial-analysis.html"><a href="spatial-analysis.html#a-note-about-loops"><i class="fa fa-check"></i><b>4.9</b> A Note About Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html"><i class="fa fa-check"></i><b>5</b> Making Pretty Maps</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#usa-population"><i class="fa fa-check"></i><b>5.1</b> USA Population</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#change-in-population"><i class="fa fa-check"></i><b>5.1.1</b> Change in Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#yellowstone"><i class="fa fa-check"></i><b>5.2</b> Yellowstone</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#hillshade"><i class="fa fa-check"></i><b>5.2.1</b> Hillshade</a></li>
+<li class="chapter" data-level="5.2.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#inset"><i class="fa fa-check"></i><b>5.2.2</b> Inset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#landcover"><i class="fa fa-check"></i><b>5.3</b> Landcover</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#map-elements"><i class="fa fa-check"></i><b>5.3.1</b> Map Elements</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html"><i class="fa fa-check"></i><b>6</b> Where to Obtain Data &amp; Further Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources"><i class="fa fa-check"></i><b>6.1</b> Data Sources</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#maps-package"><i class="fa fa-check"></i><b>6.1.1</b> <code>maps</code> package</a></li>
+<li class="chapter" data-level="6.1.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#utah-gis"><i class="fa fa-check"></i><b>6.1.2</b> Utah GIS</a></li>
+<li class="chapter" data-level="6.1.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#other-environmental-rasters"><i class="fa fa-check"></i><b>6.1.3</b> Other Environmental Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#more-resources"><i class="fa fa-check"></i><b>6.2</b> More Resources</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#learn-more-about-gis-in-general"><i class="fa fa-check"></i><b>6.2.1</b> Learn more about GIS in general</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#acknowledgements"><i class="fa fa-check"></i><b>6.3</b> Acknowledgements</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources-used-in-this-workshop"><i class="fa fa-check"></i><b>6.3.1</b> Data sources used in this workshop:</a></li>
+<li class="chapter" data-level="6.3.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#figure-citations"><i class="fa fa-check"></i><b>6.3.2</b> Figure Citations</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Spatial and Visualization Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="making-pretty-maps" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Making Pretty Maps<a href="making-pretty-maps.html#making-pretty-maps" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Now that we’ve learned how to do some spatial analysis, you likely want to make a nice looking map to put in a manuscript or presentation.</p>
+<p><em>Note:</em> This workshop is currently a work in progress. All of the mapping elements are present, but the presentation and setup portion are yet to be added. I appreciate your patience as I finish this up in my free time.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="making-pretty-maps.html#cb202-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb202-2"><a href="making-pretty-maps.html#cb202-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb202-3"><a href="making-pretty-maps.html#cb202-3" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code></pre></div>
+<div id="usa-population" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> USA Population<a href="making-pretty-maps.html#usa-population" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="making-pretty-maps.html#cb203-1" tabindex="-1"></a><span class="co"># Load the US population shapefile</span></span>
+<span id="cb203-2"><a href="making-pretty-maps.html#cb203-2" tabindex="-1"></a>usa <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;Data/Visualization/US_states&quot;</span>, <span class="at">quiet =</span> T)</span>
+<span id="cb203-3"><a href="making-pretty-maps.html#cb203-3" tabindex="-1"></a><span class="fu">head</span>(usa)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 5 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -124.3834 ymin: 30.24071 xmax: -71.78015 ymax: 42.04937
+## Geodetic CRS:  WGS 84
+##         STATE  POP2020  POP2010           DIVISION    REGION
+## 1     Alabama  5024279  4779736 East South Central     South
+## 2     Arizona  7151502  6392017           Mountain      West
+## 3    Arkansas  3011524  2915918 West South Central     South
+## 4  California 39538223 37253956            Pacific      West
+## 5    Colorado  5773714  5029196           Mountain      West
+## 6 Connecticut  3605944  3574097        New England Northeast
+##                         geometry
+## 1 MULTIPOLYGON (((-87.46201 3...
+## 2 MULTIPOLYGON (((-114.6374 3...
+## 3 MULTIPOLYGON (((-94.05103 3...
+## 4 MULTIPOLYGON (((-120.006 42...
+## 5 MULTIPOLYGON (((-102.0552 4...
+## 6 MULTIPOLYGON (((-73.49902 4...</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="making-pretty-maps.html#cb205-1" tabindex="-1"></a><span class="co"># plot to see what it looks like</span></span>
+<span id="cb205-2"><a href="making-pretty-maps.html#cb205-2" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb205-3"><a href="making-pretty-maps.html#cb205-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/usa-1.png" width="672" /></p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="making-pretty-maps.html#cb206-1" tabindex="-1"></a><span class="co"># Fill the states based on their population</span></span>
+<span id="cb206-2"><a href="making-pretty-maps.html#cb206-2" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb206-3"><a href="making-pretty-maps.html#cb206-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020))</span></code></pre></div>
+<p><img src="_main_files/figure-html/usaPop-1.png" width="672" /></p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="making-pretty-maps.html#cb207-1" tabindex="-1"></a><span class="co"># Add Canada and Mexico to the map</span></span>
+<span id="cb207-2"><a href="making-pretty-maps.html#cb207-2" tabindex="-1"></a><span class="co"># Adds context for the US (isn&#39;t floating in some void but exists in the world)</span></span>
+<span id="cb207-3"><a href="making-pretty-maps.html#cb207-3" tabindex="-1"></a></span>
+<span id="cb207-4"><a href="making-pretty-maps.html#cb207-4" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb207-5"><a href="making-pretty-maps.html#cb207-5" tabindex="-1"></a></span>
+<span id="cb207-6"><a href="making-pretty-maps.html#cb207-6" tabindex="-1"></a>can_mex <span class="ot">&lt;-</span> maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">&quot;world&quot;</span>, <span class="at">plot =</span> F, <span class="at">fill =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb207-7"><a href="making-pretty-maps.html#cb207-7" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb207-8"><a href="making-pretty-maps.html#cb207-8" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb207-9"><a href="making-pretty-maps.html#cb207-9" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>)) </span>
+<span id="cb207-10"><a href="making-pretty-maps.html#cb207-10" tabindex="-1"></a><span class="fu">ggplot</span>(can_mex) <span class="sc">+</span></span>
+<span id="cb207-11"><a href="making-pretty-maps.html#cb207-11" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/can_mex-1.png" width="672" /></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="making-pretty-maps.html#cb208-1" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb208-2"><a href="making-pretty-maps.html#cb208-2" tabindex="-1"></a>  <span class="co"># make the outline around the states white</span></span>
+<span id="cb208-3"><a href="making-pretty-maps.html#cb208-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb208-4"><a href="making-pretty-maps.html#cb208-4" tabindex="-1"></a>  <span class="co"># remove the outline around Canada and Mexico and grey them out</span></span>
+<span id="cb208-5"><a href="making-pretty-maps.html#cb208-5" tabindex="-1"></a>  <span class="co"># (focuses the eye towards what&#39;s important about this map ie US population)</span></span>
+<span id="cb208-6"><a href="making-pretty-maps.html#cb208-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/naPop-1.png" width="672" /></p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="making-pretty-maps.html#cb209-1" tabindex="-1"></a><span class="co"># Add North American lakes to the map</span></span>
+<span id="cb209-2"><a href="making-pretty-maps.html#cb209-2" tabindex="-1"></a></span>
+<span id="cb209-3"><a href="making-pretty-maps.html#cb209-3" tabindex="-1"></a>lakes <span class="ot">&lt;-</span> maps<span class="sc">::</span><span class="fu">map</span>(<span class="st">&quot;lakes&quot;</span>, <span class="at">plot =</span> F, <span class="at">fill =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb209-4"><a href="making-pretty-maps.html#cb209-4" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb209-5"><a href="making-pretty-maps.html#cb209-5" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">4326</span>)</span>
+<span id="cb209-6"><a href="making-pretty-maps.html#cb209-6" tabindex="-1"></a><span class="fu">st_bbox</span>(<span class="fu">bind_rows</span>(usa, can_mex))</span></code></pre></div>
+<pre><code>##       xmin       ymin       xmax       ymax 
+## -179.23109   18.86546  -67.00742   71.43979</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="making-pretty-maps.html#cb211-1" tabindex="-1"></a>na_lakes <span class="ot">&lt;-</span> lakes <span class="sc">%&gt;%</span></span>
+<span id="cb211-2"><a href="making-pretty-maps.html#cb211-2" tabindex="-1"></a>  <span class="fu">st_crop</span>(<span class="fu">st_bbox</span>(<span class="fu">bind_rows</span>(usa, can_mex)))</span>
+<span id="cb211-3"><a href="making-pretty-maps.html#cb211-3" tabindex="-1"></a><span class="fu">ggplot</span>(na_lakes) <span class="sc">+</span></span>
+<span id="cb211-4"><a href="making-pretty-maps.html#cb211-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/naPopLakes-1.png" width="672" /></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="making-pretty-maps.html#cb212-1" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb212-2"><a href="making-pretty-maps.html#cb212-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb212-3"><a href="making-pretty-maps.html#cb212-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb212-4"><a href="making-pretty-maps.html#cb212-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> na_lakes, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb212-5"><a href="making-pretty-maps.html#cb212-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/naPopLakes-2.png" width="672" /></p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="making-pretty-maps.html#cb213-1" tabindex="-1"></a><span class="co"># Filter out Alaska and Hawaii to create just the contiguous USA polygons</span></span>
+<span id="cb213-2"><a href="making-pretty-maps.html#cb213-2" tabindex="-1"></a>contig_usa <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb213-3"><a href="making-pretty-maps.html#cb213-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>STATE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Alaska&quot;</span>, <span class="st">&quot;Hawaii&quot;</span>))</span>
+<span id="cb213-4"><a href="making-pretty-maps.html#cb213-4" tabindex="-1"></a><span class="fu">ggplot</span>(contig_usa) <span class="sc">+</span></span>
+<span id="cb213-5"><a href="making-pretty-maps.html#cb213-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/contig-1.png" width="672" /></p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="making-pretty-maps.html#cb214-1" tabindex="-1"></a><span class="co"># Project the contiguous USA to Conus Albers (EPSG:6350)</span></span>
+<span id="cb214-2"><a href="making-pretty-maps.html#cb214-2" tabindex="-1"></a><span class="co"># Standard projection for US maps</span></span>
+<span id="cb214-3"><a href="making-pretty-maps.html#cb214-3" tabindex="-1"></a>contig_usa <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(contig_usa, <span class="dv">6350</span>) </span>
+<span id="cb214-4"><a href="making-pretty-maps.html#cb214-4" tabindex="-1"></a><span class="fu">ggplot</span>(contig_usa) <span class="sc">+</span></span>
+<span id="cb214-5"><a href="making-pretty-maps.html#cb214-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/contigAlbers-1.png" width="672" /></p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="making-pretty-maps.html#cb215-1" tabindex="-1"></a><span class="co"># Project Canada, Mexico, and the lakes to Conus Albers and add to the map</span></span>
+<span id="cb215-2"><a href="making-pretty-maps.html#cb215-2" tabindex="-1"></a>can_mex <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(can_mex, <span class="dv">6350</span>)</span>
+<span id="cb215-3"><a href="making-pretty-maps.html#cb215-3" tabindex="-1"></a>lakes <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(lakes, <span class="dv">6350</span>)</span>
+<span id="cb215-4"><a href="making-pretty-maps.html#cb215-4" tabindex="-1"></a><span class="fu">ggplot</span>(contig_usa) <span class="sc">+</span></span>
+<span id="cb215-5"><a href="making-pretty-maps.html#cb215-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb215-6"><a href="making-pretty-maps.html#cb215-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb215-7"><a href="making-pretty-maps.html#cb215-7" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> na_lakes, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb215-8"><a href="making-pretty-maps.html#cb215-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/contigPop-1.png" width="672" /></p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="making-pretty-maps.html#cb216-1" tabindex="-1"></a><span class="co"># Zoom the view window to just the contiguous USA</span></span>
+<span id="cb216-2"><a href="making-pretty-maps.html#cb216-2" tabindex="-1"></a><span class="fu">st_bbox</span>(contig_usa)</span></code></pre></div>
+<pre><code>##       xmin       ymin       xmax       ymax 
+## -2353797.2   321803.8  2254131.0  3163215.2</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="making-pretty-maps.html#cb218-1" tabindex="-1"></a>us_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(contig_usa) <span class="sc">+</span></span>
+<span id="cb218-2"><a href="making-pretty-maps.html#cb218-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb218-3"><a href="making-pretty-maps.html#cb218-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb218-4"><a href="making-pretty-maps.html#cb218-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> na_lakes, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb218-5"><a href="making-pretty-maps.html#cb218-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb218-6"><a href="making-pretty-maps.html#cb218-6" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb218-7"><a href="making-pretty-maps.html#cb218-7" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;ymin&quot;</span>] <span class="sc">-</span> <span class="fl">1e5</span>, <span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;ymax&quot;</span>] <span class="sc">+</span> <span class="fl">1e6</span>)) </span>
+<span id="cb218-8"><a href="making-pretty-maps.html#cb218-8" tabindex="-1"></a>us_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/zoomContigPop-1.png" width="672" /></p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="making-pretty-maps.html#cb219-1" tabindex="-1"></a><span class="co"># Filter to create an Alaska and a Hawaii polygon</span></span>
+<span id="cb219-2"><a href="making-pretty-maps.html#cb219-2" tabindex="-1"></a><span class="co"># We&#39;ll add these to the map as inset maps</span></span>
+<span id="cb219-3"><a href="making-pretty-maps.html#cb219-3" tabindex="-1"></a>alaska <span class="ot">&lt;-</span> <span class="fu">filter</span>(usa, STATE <span class="sc">==</span> <span class="st">&quot;Alaska&quot;</span>)</span>
+<span id="cb219-4"><a href="making-pretty-maps.html#cb219-4" tabindex="-1"></a>alaska <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(alaska, <span class="dv">3338</span>)</span>
+<span id="cb219-5"><a href="making-pretty-maps.html#cb219-5" tabindex="-1"></a></span>
+<span id="cb219-6"><a href="making-pretty-maps.html#cb219-6" tabindex="-1"></a>ak_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(alaska) <span class="sc">+</span></span>
+<span id="cb219-7"><a href="making-pretty-maps.html#cb219-7" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb219-8"><a href="making-pretty-maps.html#cb219-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb219-9"><a href="making-pretty-maps.html#cb219-9" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> na_lakes, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb219-10"><a href="making-pretty-maps.html#cb219-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb219-11"><a href="making-pretty-maps.html#cb219-11" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb219-12"><a href="making-pretty-maps.html#cb219-12" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;ymin&quot;</span>], <span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;ymax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb219-13"><a href="making-pretty-maps.html#cb219-13" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="dv">3338</span>) </span>
+<span id="cb219-14"><a href="making-pretty-maps.html#cb219-14" tabindex="-1"></a>ak_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/alaska-1.png" width="672" /></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="making-pretty-maps.html#cb220-1" tabindex="-1"></a>hawaii <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb220-2"><a href="making-pretty-maps.html#cb220-2" tabindex="-1"></a>  <span class="fu">filter</span>(STATE <span class="sc">==</span> <span class="st">&quot;Hawaii&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb220-3"><a href="making-pretty-maps.html#cb220-3" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(<span class="st">&quot;ESRI:102007&quot;</span>))</span>
+<span id="cb220-4"><a href="making-pretty-maps.html#cb220-4" tabindex="-1"></a></span>
+<span id="cb220-5"><a href="making-pretty-maps.html#cb220-5" tabindex="-1"></a>hi_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hawaii) <span class="sc">+</span></span>
+<span id="cb220-6"><a href="making-pretty-maps.html#cb220-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb220-7"><a href="making-pretty-maps.html#cb220-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb220-8"><a href="making-pretty-maps.html#cb220-8" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb220-9"><a href="making-pretty-maps.html#cb220-9" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;ymin&quot;</span>], <span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;ymax&quot;</span>])) </span>
+<span id="cb220-10"><a href="making-pretty-maps.html#cb220-10" tabindex="-1"></a>hi_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/hawaii-1.png" width="672" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="making-pretty-maps.html#cb221-1" tabindex="-1"></a><span class="co"># Use the library &#39;cowplot&#39; to add figures on top of other figures</span></span>
+<span id="cb221-2"><a href="making-pretty-maps.html#cb221-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="making-pretty-maps.html#cb222-1" tabindex="-1"></a><span class="co"># &#39;ggdraw&#39; is cowplot&#39;s version of &#39;ggplot&#39;</span></span>
+<span id="cb222-2"><a href="making-pretty-maps.html#cb222-2" tabindex="-1"></a><span class="co"># &#39;draw_plot&#39; is cowplot&#39;s version of &#39;geom_sf&#39;</span></span>
+<span id="cb222-3"><a href="making-pretty-maps.html#cb222-3" tabindex="-1"></a></span>
+<span id="cb222-4"><a href="making-pretty-maps.html#cb222-4" tabindex="-1"></a><span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb222-5"><a href="making-pretty-maps.html#cb222-5" tabindex="-1"></a>  <span class="fu">draw_plot</span>(us_plot) <span class="sc">+</span></span>
+<span id="cb222-6"><a href="making-pretty-maps.html#cb222-6" tabindex="-1"></a>  <span class="co"># the x and y arguments tell cowplot where these figures should go on</span></span>
+<span id="cb222-7"><a href="making-pretty-maps.html#cb222-7" tabindex="-1"></a>  <span class="co">#   the map (based on, I beleive, the bottom left corner)</span></span>
+<span id="cb222-8"><a href="making-pretty-maps.html#cb222-8" tabindex="-1"></a>  <span class="co">#   The units are in pixels from 0 (bottom/left) to 1 (top/right)</span></span>
+<span id="cb222-9"><a href="making-pretty-maps.html#cb222-9" tabindex="-1"></a>  <span class="co"># The &#39;height&#39; argument tells cowplot how big/small this figure should be</span></span>
+<span id="cb222-10"><a href="making-pretty-maps.html#cb222-10" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: these values are very subjective to your plotting window. If you </span></span>
+<span id="cb222-11"><a href="making-pretty-maps.html#cb222-11" tabindex="-1"></a>  <span class="co">#   are saving this as a picture file, be sure to check frequently that it looks</span></span>
+<span id="cb222-12"><a href="making-pretty-maps.html#cb222-12" tabindex="-1"></a>  <span class="co">#   right, because it will likely look different than in your plotting window </span></span>
+<span id="cb222-13"><a href="making-pretty-maps.html#cb222-13" tabindex="-1"></a>  <span class="co">#   in R studio</span></span>
+<span id="cb222-14"><a href="making-pretty-maps.html#cb222-14" tabindex="-1"></a>  <span class="fu">draw_plot</span>(ak_plot, <span class="at">x =</span> <span class="fl">0.035</span>, <span class="at">y =</span> <span class="fl">0.75</span>, <span class="at">width =</span> <span class="fl">0.25</span>, <span class="at">height =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb222-15"><a href="making-pretty-maps.html#cb222-15" tabindex="-1"></a>  <span class="fu">draw_plot</span>(hi_plot, <span class="at">x =</span> <span class="fl">0.035</span>, <span class="at">y =</span> <span class="fl">0.015</span>, <span class="at">width =</span> <span class="fl">0.25</span>, <span class="at">height =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/panels-1.png" width="672" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="making-pretty-maps.html#cb223-1" tabindex="-1"></a><span class="co"># Right now this doesn&#39;t look good. We&#39;ll need to remove the legend from the </span></span>
+<span id="cb223-2"><a href="making-pretty-maps.html#cb223-2" tabindex="-1"></a><span class="co"># Alaska and Hawaii maps. But we also want to be sure that AK and HI&#39;s population</span></span>
+<span id="cb223-3"><a href="making-pretty-maps.html#cb223-3" tabindex="-1"></a><span class="co"># is shown visually on the same scale as the contiguous US (right now they&#39;re)</span></span>
+<span id="cb223-4"><a href="making-pretty-maps.html#cb223-4" tabindex="-1"></a><span class="co"># on their own scales, so the color shown is mis-representing the population</span></span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="making-pretty-maps.html#cb224-1" tabindex="-1"></a><span class="co"># Let&#39;s bin the US populations in a way that makes more sense to look at </span></span>
+<span id="cb224-2"><a href="making-pretty-maps.html#cb224-2" tabindex="-1"></a><span class="co"># &#39;BAMMtools&#39; has a function for Jenks Breaks, which is a standard way to bin</span></span>
+<span id="cb224-3"><a href="making-pretty-maps.html#cb224-3" tabindex="-1"></a><span class="co">#   continuous values</span></span>
+<span id="cb224-4"><a href="making-pretty-maps.html#cb224-4" tabindex="-1"></a><span class="fu">library</span>(BAMMtools)</span>
+<span id="cb224-5"><a href="making-pretty-maps.html#cb224-5" tabindex="-1"></a>(pop_breaks <span class="ot">&lt;-</span> <span class="fu">getJenksBreaks</span>(<span class="at">var =</span> usa<span class="sc">$</span>POP2020, <span class="at">k =</span> <span class="dv">6</span>))</span></code></pre></div>
+<pre><code>## [1]   576851  3605944  7705281 13002700 29145505 39538223</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="making-pretty-maps.html#cb226-1" tabindex="-1"></a>(pop_breaks <span class="ot">&lt;-</span> <span class="fu">signif</span>(pop_breaks, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 5.8e+05 3.6e+06 7.7e+06 1.3e+07 2.9e+07 4.0e+07</code></pre>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="making-pretty-maps.html#cb228-1" tabindex="-1"></a><span class="co"># Add a flag for each state to mark which population bin it should go in</span></span>
+<span id="cb228-2"><a href="making-pretty-maps.html#cb228-2" tabindex="-1"></a>usa <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb228-3"><a href="making-pretty-maps.html#cb228-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">POP2020_BREAKS =</span> <span class="fu">case_when</span>(</span>
+<span id="cb228-4"><a href="making-pretty-maps.html#cb228-4" tabindex="-1"></a>    POP2020 <span class="sc">&gt;=</span> <span class="fu">min</span>(POP2020) <span class="sc">&amp;</span> POP2020 <span class="sc">&lt;</span> pop_breaks[<span class="dv">2</span>] <span class="sc">~</span> <span class="st">&quot;1&quot;</span>,</span>
+<span id="cb228-5"><a href="making-pretty-maps.html#cb228-5" tabindex="-1"></a>    POP2020 <span class="sc">&gt;=</span> pop_breaks[<span class="dv">2</span>] <span class="sc">&amp;</span> POP2020 <span class="sc">&lt;</span> pop_breaks[<span class="dv">3</span>] <span class="sc">~</span> <span class="st">&quot;2&quot;</span>,</span>
+<span id="cb228-6"><a href="making-pretty-maps.html#cb228-6" tabindex="-1"></a>    POP2020 <span class="sc">&gt;=</span> pop_breaks[<span class="dv">3</span>] <span class="sc">&amp;</span> POP2020 <span class="sc">&lt;</span> pop_breaks[<span class="dv">4</span>] <span class="sc">~</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb228-7"><a href="making-pretty-maps.html#cb228-7" tabindex="-1"></a>    POP2020 <span class="sc">&gt;=</span> pop_breaks[<span class="dv">4</span>] <span class="sc">&amp;</span> POP2020 <span class="sc">&lt;</span> pop_breaks[<span class="dv">5</span>] <span class="sc">~</span> <span class="st">&quot;4&quot;</span>,</span>
+<span id="cb228-8"><a href="making-pretty-maps.html#cb228-8" tabindex="-1"></a>    POP2020 <span class="sc">&gt;=</span> pop_breaks[<span class="dv">5</span>] <span class="sc">&amp;</span> POP2020 <span class="sc">&lt;=</span> <span class="fu">max</span>(POP2020) <span class="sc">~</span> <span class="st">&quot;5&quot;</span>)) </span>
+<span id="cb228-9"><a href="making-pretty-maps.html#cb228-9" tabindex="-1"></a></span>
+<span id="cb228-10"><a href="making-pretty-maps.html#cb228-10" tabindex="-1"></a><span class="co"># Now we&#39;ve binned population into categories</span></span>
+<span id="cb228-11"><a href="making-pretty-maps.html#cb228-11" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb228-12"><a href="making-pretty-maps.html#cb228-12" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020_BREAKS)) </span></code></pre></div>
+<p><img src="_main_files/figure-html/popCat-1.png" width="672" /></p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="making-pretty-maps.html#cb229-1" tabindex="-1"></a><span class="co"># The base color palette can be a little ugly</span></span>
+<span id="cb229-2"><a href="making-pretty-maps.html#cb229-2" tabindex="-1"></a><span class="co"># hcl.pals() gives you a list of pre-made palettes, but you could also</span></span>
+<span id="cb229-3"><a href="making-pretty-maps.html#cb229-3" tabindex="-1"></a><span class="co"># make your own</span></span>
+<span id="cb229-4"><a href="making-pretty-maps.html#cb229-4" tabindex="-1"></a><span class="fu">hcl.pals</span>()</span></code></pre></div>
+<pre><code>##   [1] &quot;Pastel 1&quot;      &quot;Dark 2&quot;        &quot;Dark 3&quot;        &quot;Set 2&quot;        
+##   [5] &quot;Set 3&quot;         &quot;Warm&quot;          &quot;Cold&quot;          &quot;Harmonic&quot;     
+##   [9] &quot;Dynamic&quot;       &quot;Grays&quot;         &quot;Light Grays&quot;   &quot;Blues 2&quot;      
+##  [13] &quot;Blues 3&quot;       &quot;Purples 2&quot;     &quot;Purples 3&quot;     &quot;Reds 2&quot;       
+##  [17] &quot;Reds 3&quot;        &quot;Greens 2&quot;      &quot;Greens 3&quot;      &quot;Oslo&quot;         
+##  [21] &quot;Purple-Blue&quot;   &quot;Red-Purple&quot;    &quot;Red-Blue&quot;      &quot;Purple-Orange&quot;
+##  [25] &quot;Purple-Yellow&quot; &quot;Blue-Yellow&quot;   &quot;Green-Yellow&quot;  &quot;Red-Yellow&quot;   
+##  [29] &quot;Heat&quot;          &quot;Heat 2&quot;        &quot;Terrain&quot;       &quot;Terrain 2&quot;    
+##  [33] &quot;Viridis&quot;       &quot;Plasma&quot;        &quot;Inferno&quot;       &quot;Rocket&quot;       
+##  [37] &quot;Mako&quot;          &quot;Dark Mint&quot;     &quot;Mint&quot;          &quot;BluGrn&quot;       
+##  [41] &quot;Teal&quot;          &quot;TealGrn&quot;       &quot;Emrld&quot;         &quot;BluYl&quot;        
+##  [45] &quot;ag_GrnYl&quot;      &quot;Peach&quot;         &quot;PinkYl&quot;        &quot;Burg&quot;         
+##  [49] &quot;BurgYl&quot;        &quot;RedOr&quot;         &quot;OrYel&quot;         &quot;Purp&quot;         
+##  [53] &quot;PurpOr&quot;        &quot;Sunset&quot;        &quot;Magenta&quot;       &quot;SunsetDark&quot;   
+##  [57] &quot;ag_Sunset&quot;     &quot;BrwnYl&quot;        &quot;YlOrRd&quot;        &quot;YlOrBr&quot;       
+##  [61] &quot;OrRd&quot;          &quot;Oranges&quot;       &quot;YlGn&quot;          &quot;YlGnBu&quot;       
+##  [65] &quot;Reds&quot;          &quot;RdPu&quot;          &quot;PuRd&quot;          &quot;Purples&quot;      
+##  [69] &quot;PuBuGn&quot;        &quot;PuBu&quot;          &quot;Greens&quot;        &quot;BuGn&quot;         
+##  [73] &quot;GnBu&quot;          &quot;BuPu&quot;          &quot;Blues&quot;         &quot;Lajolla&quot;      
+##  [77] &quot;Turku&quot;         &quot;Hawaii&quot;        &quot;Batlow&quot;        &quot;Blue-Red&quot;     
+##  [81] &quot;Blue-Red 2&quot;    &quot;Blue-Red 3&quot;    &quot;Red-Green&quot;     &quot;Purple-Green&quot; 
+##  [85] &quot;Purple-Brown&quot;  &quot;Green-Brown&quot;   &quot;Blue-Yellow 2&quot; &quot;Blue-Yellow 3&quot;
+##  [89] &quot;Green-Orange&quot;  &quot;Cyan-Magenta&quot;  &quot;Tropic&quot;        &quot;Broc&quot;         
+##  [93] &quot;Cork&quot;          &quot;Vik&quot;           &quot;Berlin&quot;        &quot;Lisbon&quot;       
+##  [97] &quot;Tofino&quot;        &quot;ArmyRose&quot;      &quot;Earth&quot;         &quot;Fall&quot;         
+## [101] &quot;Geyser&quot;        &quot;TealRose&quot;      &quot;Temps&quot;         &quot;PuOr&quot;         
+## [105] &quot;RdBu&quot;          &quot;RdGy&quot;          &quot;PiYG&quot;          &quot;PRGn&quot;         
+## [109] &quot;BrBG&quot;          &quot;RdYlBu&quot;        &quot;RdYlGn&quot;        &quot;Spectral&quot;     
+## [113] &quot;Zissou 1&quot;      &quot;Cividis&quot;       &quot;Roma&quot;</code></pre>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="making-pretty-maps.html#cb231-1" tabindex="-1"></a><span class="co"># We&#39;ll use the palette &#39;Emrld&#39; (but you could pick any you like)</span></span>
+<span id="cb231-2"><a href="making-pretty-maps.html#cb231-2" tabindex="-1"></a>pop_cols <span class="ot">&lt;-</span> <span class="fu">hcl.colors</span>(<span class="dv">5</span>, <span class="at">palette =</span> <span class="st">&quot;Emrld&quot;</span>)</span>
+<span id="cb231-3"><a href="making-pretty-maps.html#cb231-3" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb231-4"><a href="making-pretty-maps.html#cb231-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020_BREAKS)) <span class="sc">+</span></span>
+<span id="cb231-5"><a href="making-pretty-maps.html#cb231-5" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pop_cols,</span>
+<span id="cb231-6"><a href="making-pretty-maps.html#cb231-6" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">paste</span>(pop_breaks[<span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">2</span>]),</span>
+<span id="cb231-7"><a href="making-pretty-maps.html#cb231-7" tabindex="-1"></a>                               <span class="fu">paste</span>(pop_breaks[<span class="dv">2</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">3</span>]),</span>
+<span id="cb231-8"><a href="making-pretty-maps.html#cb231-8" tabindex="-1"></a>                               <span class="fu">paste</span>(pop_breaks[<span class="dv">3</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">4</span>]),</span>
+<span id="cb231-9"><a href="making-pretty-maps.html#cb231-9" tabindex="-1"></a>                               <span class="fu">paste</span>(pop_breaks[<span class="dv">4</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">5</span>]),</span>
+<span id="cb231-10"><a href="making-pretty-maps.html#cb231-10" tabindex="-1"></a>                               <span class="fu">paste</span>(pop_breaks[<span class="dv">5</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">6</span>])))</span></code></pre></div>
+<p><img src="_main_files/figure-html/emrld-1.png" width="672" /></p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="making-pretty-maps.html#cb232-1" tabindex="-1"></a><span class="co"># Let&#39;s make the legend label into an object so we don&#39;t have to copy-paste</span></span>
+<span id="cb232-2"><a href="making-pretty-maps.html#cb232-2" tabindex="-1"></a><span class="co"># this everytime we need to plot</span></span>
+<span id="cb232-3"><a href="making-pretty-maps.html#cb232-3" tabindex="-1"></a>pop_breaks_labs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste</span>(pop_breaks[<span class="dv">1</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">2</span>]),</span>
+<span id="cb232-4"><a href="making-pretty-maps.html#cb232-4" tabindex="-1"></a>                     <span class="fu">paste</span>(pop_breaks[<span class="dv">2</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">3</span>]),</span>
+<span id="cb232-5"><a href="making-pretty-maps.html#cb232-5" tabindex="-1"></a>                     <span class="fu">paste</span>(pop_breaks[<span class="dv">3</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">4</span>]),</span>
+<span id="cb232-6"><a href="making-pretty-maps.html#cb232-6" tabindex="-1"></a>                     <span class="fu">paste</span>(pop_breaks[<span class="dv">4</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">5</span>]),</span>
+<span id="cb232-7"><a href="making-pretty-maps.html#cb232-7" tabindex="-1"></a>                     <span class="fu">paste</span>(pop_breaks[<span class="dv">5</span>], <span class="st">&quot;-&quot;</span>, pop_breaks[<span class="dv">6</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="making-pretty-maps.html#cb233-1" tabindex="-1"></a><span class="co"># Let&#39;s make the map of the contiguous US as before</span></span>
+<span id="cb233-2"><a href="making-pretty-maps.html#cb233-2" tabindex="-1"></a><span class="co"># (we need to re-make teh contig_usa object since it doesn&#39;t have the population</span></span>
+<span id="cb233-3"><a href="making-pretty-maps.html#cb233-3" tabindex="-1"></a><span class="co"># breaks attributes)</span></span>
+<span id="cb233-4"><a href="making-pretty-maps.html#cb233-4" tabindex="-1"></a>contig_usa <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb233-5"><a href="making-pretty-maps.html#cb233-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>STATE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Alaska&quot;</span>, <span class="st">&quot;Hawaii&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb233-6"><a href="making-pretty-maps.html#cb233-6" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">6350</span>)</span>
+<span id="cb233-7"><a href="making-pretty-maps.html#cb233-7" tabindex="-1"></a>us_pop_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb233-8"><a href="making-pretty-maps.html#cb233-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020_BREAKS), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb233-9"><a href="making-pretty-maps.html#cb233-9" tabindex="-1"></a>          <span class="at">data =</span> contig_usa) <span class="sc">+</span></span>
+<span id="cb233-10"><a href="making-pretty-maps.html#cb233-10" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb233-11"><a href="making-pretty-maps.html#cb233-11" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> na_lakes, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb233-12"><a href="making-pretty-maps.html#cb233-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb233-13"><a href="making-pretty-maps.html#cb233-13" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb233-14"><a href="making-pretty-maps.html#cb233-14" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;ymin&quot;</span>] <span class="sc">-</span> <span class="fl">1e5</span>, <span class="fu">st_bbox</span>(contig_usa)[<span class="st">&quot;ymax&quot;</span>] <span class="sc">+</span> <span class="fl">1e6</span>)) <span class="sc">+</span></span>
+<span id="cb233-15"><a href="making-pretty-maps.html#cb233-15" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pop_cols,</span>
+<span id="cb233-16"><a href="making-pretty-maps.html#cb233-16" tabindex="-1"></a>                    <span class="at">labels =</span> pop_breaks_labs) </span>
+<span id="cb233-17"><a href="making-pretty-maps.html#cb233-17" tabindex="-1"></a>us_pop_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/contigPopMap-1.png" width="672" /></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="making-pretty-maps.html#cb234-1" tabindex="-1"></a><span class="co"># Let&#39;s also remake the AK and HI inset maps</span></span>
+<span id="cb234-2"><a href="making-pretty-maps.html#cb234-2" tabindex="-1"></a><span class="co"># (AK and HI need to be re-made because they don&#39;t have the population breaks</span></span>
+<span id="cb234-3"><a href="making-pretty-maps.html#cb234-3" tabindex="-1"></a><span class="co"># attributes)</span></span>
+<span id="cb234-4"><a href="making-pretty-maps.html#cb234-4" tabindex="-1"></a>alaska <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb234-5"><a href="making-pretty-maps.html#cb234-5" tabindex="-1"></a>  <span class="fu">filter</span>(STATE <span class="sc">==</span> <span class="st">&quot;Alaska&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb234-6"><a href="making-pretty-maps.html#cb234-6" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">data.frame</span>(<span class="at">POP2020_BREAKS =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb234-7"><a href="making-pretty-maps.html#cb234-7" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">3338</span>)</span>
+<span id="cb234-8"><a href="making-pretty-maps.html#cb234-8" tabindex="-1"></a>ak_pop_plot <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb234-9"><a href="making-pretty-maps.html#cb234-9" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020_BREAKS), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb234-10"><a href="making-pretty-maps.html#cb234-10" tabindex="-1"></a>          <span class="at">data =</span> alaska) <span class="sc">+</span></span>
+<span id="cb234-11"><a href="making-pretty-maps.html#cb234-11" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> can_mex, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>) <span class="sc">+</span></span>
+<span id="cb234-12"><a href="making-pretty-maps.html#cb234-12" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> na_lakes, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb234-13"><a href="making-pretty-maps.html#cb234-13" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb234-14"><a href="making-pretty-maps.html#cb234-14" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb234-15"><a href="making-pretty-maps.html#cb234-15" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;ymin&quot;</span>], <span class="fu">st_bbox</span>(alaska)[<span class="st">&quot;ymax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb234-16"><a href="making-pretty-maps.html#cb234-16" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="dv">3338</span>)  <span class="sc">+</span></span>
+<span id="cb234-17"><a href="making-pretty-maps.html#cb234-17" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pop_cols,</span>
+<span id="cb234-18"><a href="making-pretty-maps.html#cb234-18" tabindex="-1"></a>                    <span class="at">labels =</span> pop_breaks_labs)</span>
+<span id="cb234-19"><a href="making-pretty-maps.html#cb234-19" tabindex="-1"></a>ak_pop_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/akPop-1.png" width="672" /></p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="making-pretty-maps.html#cb235-1" tabindex="-1"></a>hawaii <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb235-2"><a href="making-pretty-maps.html#cb235-2" tabindex="-1"></a>  <span class="fu">filter</span>(STATE <span class="sc">==</span> <span class="st">&quot;Hawaii&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb235-3"><a href="making-pretty-maps.html#cb235-3" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(<span class="st">&quot;ESRI:102007&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb235-4"><a href="making-pretty-maps.html#cb235-4" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">data.frame</span>(<span class="at">POP2020_BREAKS =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)))</span>
+<span id="cb235-5"><a href="making-pretty-maps.html#cb235-5" tabindex="-1"></a>hi_pop_plot <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb235-6"><a href="making-pretty-maps.html#cb235-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> POP2020_BREAKS), <span class="at">col =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb235-7"><a href="making-pretty-maps.html#cb235-7" tabindex="-1"></a>          <span class="at">data =</span> hawaii) <span class="sc">+</span></span>
+<span id="cb235-8"><a href="making-pretty-maps.html#cb235-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb235-9"><a href="making-pretty-maps.html#cb235-9" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb235-10"><a href="making-pretty-maps.html#cb235-10" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;ymin&quot;</span>], <span class="fu">st_bbox</span>(hawaii)[<span class="st">&quot;ymax&quot;</span>]))   <span class="sc">+</span></span>
+<span id="cb235-11"><a href="making-pretty-maps.html#cb235-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pop_cols,</span>
+<span id="cb235-12"><a href="making-pretty-maps.html#cb235-12" tabindex="-1"></a>                    <span class="at">labels =</span> pop_breaks_labs)</span>
+<span id="cb235-13"><a href="making-pretty-maps.html#cb235-13" tabindex="-1"></a>hi_pop_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/hiPop-1.png" width="672" /></p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="making-pretty-maps.html#cb236-1" tabindex="-1"></a><span class="co"># Now add everything together</span></span>
+<span id="cb236-2"><a href="making-pretty-maps.html#cb236-2" tabindex="-1"></a>us_pop_map <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb236-3"><a href="making-pretty-maps.html#cb236-3" tabindex="-1"></a>  <span class="fu">draw_plot</span>(us_pop_plot <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Population&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb236-4"><a href="making-pretty-maps.html#cb236-4" tabindex="-1"></a>  <span class="co"># legend.position = &#39;none&#39; removes the legend</span></span>
+<span id="cb236-5"><a href="making-pretty-maps.html#cb236-5" tabindex="-1"></a>  <span class="fu">draw_plot</span>(ak_pop_plot <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&#39;none&#39;</span>,</span>
+<span id="cb236-6"><a href="making-pretty-maps.html#cb236-6" tabindex="-1"></a>                                <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb236-7"><a href="making-pretty-maps.html#cb236-7" tabindex="-1"></a>                                <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb236-8"><a href="making-pretty-maps.html#cb236-8" tabindex="-1"></a>                                <span class="at">plot.background =</span> <span class="fu">element_blank</span>()), </span>
+<span id="cb236-9"><a href="making-pretty-maps.html#cb236-9" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.0375</span>, <span class="at">y =</span> <span class="fl">0.707</span>, <span class="at">width =</span> <span class="fl">0.25</span>, <span class="at">height =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb236-10"><a href="making-pretty-maps.html#cb236-10" tabindex="-1"></a>  <span class="fu">draw_plot</span>(hi_pop_plot <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&#39;none&#39;</span>,</span>
+<span id="cb236-11"><a href="making-pretty-maps.html#cb236-11" tabindex="-1"></a>                                <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb236-12"><a href="making-pretty-maps.html#cb236-12" tabindex="-1"></a>                                <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb236-13"><a href="making-pretty-maps.html#cb236-13" tabindex="-1"></a>                                <span class="at">plot.background =</span> <span class="fu">element_blank</span>()),</span>
+<span id="cb236-14"><a href="making-pretty-maps.html#cb236-14" tabindex="-1"></a>            <span class="at">x =</span> <span class="fl">0.0375</span>, <span class="at">y =</span> <span class="fl">0.0351</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="making-pretty-maps.html#cb237-1" tabindex="-1"></a>us_pop_map</span>
+<span id="cb237-2"><a href="making-pretty-maps.html#cb237-2" tabindex="-1"></a></span>
+<span id="cb237-3"><a href="making-pretty-maps.html#cb237-3" tabindex="-1"></a><span class="co"># Reminder that the xy and width/height for cowplot plots are very subjective,</span></span>
+<span id="cb237-4"><a href="making-pretty-maps.html#cb237-4" tabindex="-1"></a><span class="co"># So you&#39;ll have to check and adjust for your viewing window</span></span></code></pre></div>
+<p><img src="Plots/us_pop_map.png" width="3600" style="display: block; margin: auto;" /></p>
+<div id="change-in-population" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Change in Population<a href="making-pretty-maps.html#change-in-population" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For the last plot we visually showed the current US population with colors
+We can also visually convey information through points and their size
+For this plot, let’s combine the two to create a map showwing the current US population and it’s change from the last census count</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="making-pretty-maps.html#cb238-1" tabindex="-1"></a><span class="co"># Check the dataframe</span></span>
+<span id="cb238-2"><a href="making-pretty-maps.html#cb238-2" tabindex="-1"></a><span class="fu">head</span>(usa)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 6 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -124.3834 ymin: 30.24071 xmax: -71.78015 ymax: 42.04937
+## Geodetic CRS:  WGS 84
+##         STATE  POP2020  POP2010           DIVISION    REGION
+## 1     Alabama  5024279  4779736 East South Central     South
+## 2     Arizona  7151502  6392017           Mountain      West
+## 3    Arkansas  3011524  2915918 West South Central     South
+## 4  California 39538223 37253956            Pacific      West
+## 5    Colorado  5773714  5029196           Mountain      West
+## 6 Connecticut  3605944  3574097        New England Northeast
+##                         geometry POP2020_BREAKS
+## 1 MULTIPOLYGON (((-87.46201 3...              2
+## 2 MULTIPOLYGON (((-114.6374 3...              2
+## 3 MULTIPOLYGON (((-94.05103 3...              1
+## 4 MULTIPOLYGON (((-120.006 42...              5
+## 5 MULTIPOLYGON (((-102.0552 4...              2
+## 6 MULTIPOLYGON (((-73.49902 4...              2</code></pre>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="making-pretty-maps.html#cb240-1" tabindex="-1"></a><span class="co"># we have POP2020 and POP2010, so we can calculate the percent change in population</span></span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="making-pretty-maps.html#cb241-1" tabindex="-1"></a>usa <span class="ot">&lt;-</span> usa <span class="sc">%&gt;%</span></span>
+<span id="cb241-2"><a href="making-pretty-maps.html#cb241-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_perc_change =</span> ((POP2020 <span class="sc">-</span> POP2010)<span class="sc">/</span>POP2010) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb241-3"><a href="making-pretty-maps.html#cb241-3" tabindex="-1"></a><span class="fu">summary</span>(usa<span class="sc">$</span>pop_perc_change)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  -3.199   2.902   5.654   7.018  10.410  18.370</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="making-pretty-maps.html#cb243-1" tabindex="-1"></a><span class="co"># Plot just to check what it looks like. Reminder that our final plot will </span></span>
+<span id="cb243-2"><a href="making-pretty-maps.html#cb243-2" tabindex="-1"></a><span class="co"># have the color-coded current population (the previous map) and the percent</span></span>
+<span id="cb243-3"><a href="making-pretty-maps.html#cb243-3" tabindex="-1"></a><span class="co"># change in population represented by different size points</span></span>
+<span id="cb243-4"><a href="making-pretty-maps.html#cb243-4" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb243-5"><a href="making-pretty-maps.html#cb243-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pop_perc_change))</span></code></pre></div>
+<p><img src="_main_files/figure-html/popPercChange-1.png" width="672" /></p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="making-pretty-maps.html#cb244-1" tabindex="-1"></a><span class="co"># Find the centeroid of each state for the point to fall on</span></span>
+<span id="cb244-2"><a href="making-pretty-maps.html#cb244-2" tabindex="-1"></a>state_center <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(usa)</span>
+<span id="cb244-3"><a href="making-pretty-maps.html#cb244-3" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb244-4"><a href="making-pretty-maps.html#cb244-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> usa) <span class="sc">+</span></span>
+<span id="cb244-5"><a href="making-pretty-maps.html#cb244-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> state_center)</span></code></pre></div>
+<p><img src="_main_files/figure-html/centroid-1.png" width="672" /></p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="making-pretty-maps.html#cb245-1" tabindex="-1"></a><span class="co"># Show the percent change in population based on the point size</span></span>
+<span id="cb245-2"><a href="making-pretty-maps.html#cb245-2" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb245-3"><a href="making-pretty-maps.html#cb245-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> usa) <span class="sc">+</span></span>
+<span id="cb245-4"><a href="making-pretty-maps.html#cb245-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> state_center,</span>
+<span id="cb245-5"><a href="making-pretty-maps.html#cb245-5" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change))</span></code></pre></div>
+<p><img src="_main_files/figure-html/percChangePoint-1.png" width="672" /></p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="making-pretty-maps.html#cb246-1" tabindex="-1"></a><span class="co"># Put the percent change into bins </span></span>
+<span id="cb246-2"><a href="making-pretty-maps.html#cb246-2" tabindex="-1"></a>(pop_change_breaks <span class="ot">&lt;-</span> <span class="fu">getJenksBreaks</span>(<span class="at">var =</span> usa<span class="sc">$</span>pop_perc_change, <span class="at">k =</span> <span class="dv">4</span>))</span></code></pre></div>
+<pre><code>## [1] -3.199039  5.654072 11.881774 18.370193</code></pre>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="making-pretty-maps.html#cb248-1" tabindex="-1"></a><span class="co"># There are some negative percent change values (ie the population decreased)</span></span>
+<span id="cb248-2"><a href="making-pretty-maps.html#cb248-2" tabindex="-1"></a><span class="co"># So let&#39;s filter out the negative changes</span></span>
+<span id="cb248-3"><a href="making-pretty-maps.html#cb248-3" tabindex="-1"></a><span class="co"># (If a state had negative population growth, we will just mark that it was </span></span>
+<span id="cb248-4"><a href="making-pretty-maps.html#cb248-4" tabindex="-1"></a><span class="co"># less than 0)</span></span>
+<span id="cb248-5"><a href="making-pretty-maps.html#cb248-5" tabindex="-1"></a>pop_change_grtr_0 <span class="ot">&lt;-</span> <span class="fu">filter</span>(usa, pop_perc_change <span class="sc">&gt;</span> <span class="dv">0</span>)<span class="sc">$</span>pop_perc_change</span>
+<span id="cb248-6"><a href="making-pretty-maps.html#cb248-6" tabindex="-1"></a><span class="fu">summary</span>(pop_change_grtr_0)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.8911  3.2743  6.5566  7.5301 10.5802 18.3702</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="making-pretty-maps.html#cb250-1" tabindex="-1"></a>(pop_change_breaks <span class="ot">&lt;-</span> <span class="fu">getJenksBreaks</span>(<span class="at">var =</span> pop_change_grtr_0, <span class="at">k =</span> <span class="dv">4</span>))</span></code></pre></div>
+<pre><code>## [1]  0.8910502  6.1316092 11.8817738 18.3701927</code></pre>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="making-pretty-maps.html#cb252-1" tabindex="-1"></a><span class="co"># Mark which bin the state should fall in based on its change in population</span></span>
+<span id="cb252-2"><a href="making-pretty-maps.html#cb252-2" tabindex="-1"></a>state_center <span class="ot">&lt;-</span> state_center <span class="sc">%&gt;%</span></span>
+<span id="cb252-3"><a href="making-pretty-maps.html#cb252-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_perc_change_breaks =</span> <span class="fu">case_when</span>(</span>
+<span id="cb252-4"><a href="making-pretty-maps.html#cb252-4" tabindex="-1"></a>    pop_perc_change <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;1&quot;</span>,</span>
+<span id="cb252-5"><a href="making-pretty-maps.html#cb252-5" tabindex="-1"></a>    pop_perc_change <span class="sc">&gt;=</span> pop_change_breaks[<span class="dv">1</span>] <span class="sc">&amp;</span> pop_perc_change <span class="sc">&lt;</span> pop_change_breaks[<span class="dv">2</span>] <span class="sc">~</span> <span class="st">&quot;2&quot;</span>,</span>
+<span id="cb252-6"><a href="making-pretty-maps.html#cb252-6" tabindex="-1"></a>    pop_perc_change <span class="sc">&gt;=</span> pop_change_breaks[<span class="dv">2</span>] <span class="sc">&amp;</span> pop_perc_change <span class="sc">&lt;</span> pop_change_breaks[<span class="dv">3</span>] <span class="sc">~</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb252-7"><a href="making-pretty-maps.html#cb252-7" tabindex="-1"></a>    pop_perc_change <span class="sc">&gt;=</span> pop_change_breaks[<span class="dv">3</span>] <span class="sc">&amp;</span> pop_perc_change <span class="sc">&lt;=</span> pop_change_breaks[<span class="dv">4</span>] <span class="sc">~</span> <span class="st">&quot;4&quot;</span>))</span>
+<span id="cb252-8"><a href="making-pretty-maps.html#cb252-8" tabindex="-1"></a><span class="fu">head</span>(state_center)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 8 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -119.6015 ymin: 32.80316 xmax: -72.72598 ymax: 41.62566
+## Geodetic CRS:  WGS 84
+##         STATE  POP2020  POP2010           DIVISION    REGION
+## 1     Alabama  5024279  4779736 East South Central     South
+## 2     Arizona  7151502  6392017           Mountain      West
+## 3    Arkansas  3011524  2915918 West South Central     South
+## 4  California 39538223 37253956            Pacific      West
+## 5    Colorado  5773714  5029196           Mountain      West
+## 6 Connecticut  3605944  3574097        New England Northeast
+##                     geometry POP2020_BREAKS pop_perc_change
+## 1 POINT (-86.83042 32.80316)              2       5.1162449
+## 2  POINT (-111.6679 34.3006)              2      11.8817738
+## 3 POINT (-92.44013 34.90418)              1       3.2787616
+## 4 POINT (-119.6015 37.26901)              5       6.1316092
+## 5 POINT (-105.5525 38.99797)              2      14.8039170
+## 6 POINT (-72.72598 41.62566)              2       0.8910502
+##   pop_perc_change_breaks
+## 1                      2
+## 2                      4
+## 3                      2
+## 4                      3
+## 5                      4
+## 6                      2</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="making-pretty-maps.html#cb254-1" tabindex="-1"></a><span class="co"># Check map</span></span>
+<span id="cb254-2"><a href="making-pretty-maps.html#cb254-2" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb254-3"><a href="making-pretty-maps.html#cb254-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> usa) <span class="sc">+</span></span>
+<span id="cb254-4"><a href="making-pretty-maps.html#cb254-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> state_center,</span>
+<span id="cb254-5"><a href="making-pretty-maps.html#cb254-5" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change_breaks))</span></code></pre></div>
+<p><img src="_main_files/figure-html/checkPopChange-1.png" width="672" /></p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="making-pretty-maps.html#cb255-1" tabindex="-1"></a><span class="co"># Let&#39;s manually adjust the sizes to be more clear how the sizes differentiate</span></span>
+<span id="cb255-2"><a href="making-pretty-maps.html#cb255-2" tabindex="-1"></a><span class="fu">ggplot</span>(usa) <span class="sc">+</span></span>
+<span id="cb255-3"><a href="making-pretty-maps.html#cb255-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> usa) <span class="sc">+</span></span>
+<span id="cb255-4"><a href="making-pretty-maps.html#cb255-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> state_center,</span>
+<span id="cb255-5"><a href="making-pretty-maps.html#cb255-5" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change_breaks)) <span class="sc">+</span></span>
+<span id="cb255-6"><a href="making-pretty-maps.html#cb255-6" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/pointSize-1.png" width="672" /></p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="making-pretty-maps.html#cb256-1" tabindex="-1"></a><span class="co"># Now let&#39;s set up state_center like we did with the states themselves</span></span>
+<span id="cb256-2"><a href="making-pretty-maps.html#cb256-2" tabindex="-1"></a><span class="co"># ie filter out AK and HI to make the contiguous USA and AK &amp; HI into their own</span></span>
+<span id="cb256-3"><a href="making-pretty-maps.html#cb256-3" tabindex="-1"></a><span class="co"># objects</span></span>
+<span id="cb256-4"><a href="making-pretty-maps.html#cb256-4" tabindex="-1"></a>contig_state_center <span class="ot">&lt;-</span> state_center <span class="sc">%&gt;%</span></span>
+<span id="cb256-5"><a href="making-pretty-maps.html#cb256-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>STATE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Alaska&quot;</span>, <span class="st">&quot;Hawaii&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb256-6"><a href="making-pretty-maps.html#cb256-6" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">6350</span>)</span>
+<span id="cb256-7"><a href="making-pretty-maps.html#cb256-7" tabindex="-1"></a></span>
+<span id="cb256-8"><a href="making-pretty-maps.html#cb256-8" tabindex="-1"></a>us_pop_plot <span class="sc">+</span></span>
+<span id="cb256-9"><a href="making-pretty-maps.html#cb256-9" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change_breaks),</span>
+<span id="cb256-10"><a href="making-pretty-maps.html#cb256-10" tabindex="-1"></a>          <span class="at">data =</span> contig_state_center) <span class="sc">+</span></span>
+<span id="cb256-11"><a href="making-pretty-maps.html#cb256-11" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">2</span>)) </span></code></pre></div>
+<p><img src="_main_files/figure-html/contigPointCenter-1.png" width="672" /></p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="making-pretty-maps.html#cb257-1" tabindex="-1"></a><span class="co"># Make labels for the percent change legend</span></span>
+<span id="cb257-2"><a href="making-pretty-maps.html#cb257-2" tabindex="-1"></a>(pop_change_breaks_labs <span class="ot">&lt;-</span> <span class="fu">signif</span>(pop_change_breaks, <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## [1]  0.9  6.0 10.0 20.0</code></pre>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="making-pretty-maps.html#cb259-1" tabindex="-1"></a><span class="fu">min</span>(state_center<span class="sc">$</span>pop_perc_change)</span></code></pre></div>
+<pre><code>## [1] -3.199039</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="making-pretty-maps.html#cb261-1" tabindex="-1"></a>(pop_change_labs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;-3% - &quot;</span>, pop_change_breaks_labs[<span class="dv">1</span>], <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb261-2"><a href="making-pretty-maps.html#cb261-2" tabindex="-1"></a>                      <span class="fu">paste0</span>(pop_change_breaks_labs[<span class="dv">1</span>], <span class="st">&quot;% - &quot;</span>, pop_change_breaks_labs[<span class="dv">2</span>], <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb261-3"><a href="making-pretty-maps.html#cb261-3" tabindex="-1"></a>                      <span class="fu">paste0</span>(pop_change_breaks_labs[<span class="dv">2</span>], <span class="st">&quot;% - &quot;</span>, pop_change_breaks_labs[<span class="dv">3</span>], <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb261-4"><a href="making-pretty-maps.html#cb261-4" tabindex="-1"></a>                      <span class="fu">paste0</span>(pop_change_breaks_labs[<span class="dv">3</span>], <span class="st">&quot;% - &quot;</span>, pop_change_breaks_labs[<span class="dv">4</span>], <span class="st">&quot;%&quot;</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;-3% - 0.9%&quot; &quot;0.9% - 6%&quot;  &quot;6% - 10%&quot;   &quot;10% - 20%&quot;</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="making-pretty-maps.html#cb263-1" tabindex="-1"></a>us_pop_change_plot <span class="ot">&lt;-</span> us_pop_plot <span class="sc">+</span></span>
+<span id="cb263-2"><a href="making-pretty-maps.html#cb263-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change_breaks),</span>
+<span id="cb263-3"><a href="making-pretty-maps.html#cb263-3" tabindex="-1"></a>          <span class="at">data =</span> contig_state_center) <span class="sc">+</span></span>
+<span id="cb263-4"><a href="making-pretty-maps.html#cb263-4" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">6</span>, <span class="at">length.out =</span> <span class="dv">4</span>),</span>
+<span id="cb263-5"><a href="making-pretty-maps.html#cb263-5" tabindex="-1"></a>                    <span class="at">labels =</span> pop_change_labs) </span>
+<span id="cb263-6"><a href="making-pretty-maps.html#cb263-6" tabindex="-1"></a>us_pop_change_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/popChangeLabs-1.png" width="672" /></p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="making-pretty-maps.html#cb264-1" tabindex="-1"></a><span class="co"># Repeat for AK &amp; HI</span></span>
+<span id="cb264-2"><a href="making-pretty-maps.html#cb264-2" tabindex="-1"></a>ak_center <span class="ot">&lt;-</span> state_center <span class="sc">%&gt;%</span></span>
+<span id="cb264-3"><a href="making-pretty-maps.html#cb264-3" tabindex="-1"></a>  <span class="fu">filter</span>(STATE <span class="sc">==</span> <span class="st">&quot;Alaska&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb264-4"><a href="making-pretty-maps.html#cb264-4" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">data.frame</span>(<span class="at">pop_perc_change_breaks =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb264-5"><a href="making-pretty-maps.html#cb264-5" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">3338</span>)</span>
+<span id="cb264-6"><a href="making-pretty-maps.html#cb264-6" tabindex="-1"></a></span>
+<span id="cb264-7"><a href="making-pretty-maps.html#cb264-7" tabindex="-1"></a>ak_pop_change_plot <span class="ot">&lt;-</span> ak_pop_plot <span class="sc">+</span></span>
+<span id="cb264-8"><a href="making-pretty-maps.html#cb264-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change_breaks),</span>
+<span id="cb264-9"><a href="making-pretty-maps.html#cb264-9" tabindex="-1"></a>          <span class="at">data =</span> ak_center) <span class="sc">+</span></span>
+<span id="cb264-10"><a href="making-pretty-maps.html#cb264-10" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">2</span>)) </span>
+<span id="cb264-11"><a href="making-pretty-maps.html#cb264-11" tabindex="-1"></a>ak_pop_change_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/popChangeAK-1.png" width="672" /></p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="making-pretty-maps.html#cb265-1" tabindex="-1"></a>hi_center <span class="ot">&lt;-</span> state_center <span class="sc">%&gt;%</span></span>
+<span id="cb265-2"><a href="making-pretty-maps.html#cb265-2" tabindex="-1"></a> <span class="fu">filter</span>(STATE <span class="sc">==</span> <span class="st">&quot;Hawaii&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb265-3"><a href="making-pretty-maps.html#cb265-3" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">data.frame</span>(<span class="at">pop_perc_change_breaks =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb265-4"><a href="making-pretty-maps.html#cb265-4" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(<span class="st">&quot;ESRI:102007&quot;</span>))</span>
+<span id="cb265-5"><a href="making-pretty-maps.html#cb265-5" tabindex="-1"></a></span>
+<span id="cb265-6"><a href="making-pretty-maps.html#cb265-6" tabindex="-1"></a>hi_pop_change_plot <span class="ot">&lt;-</span> hi_pop_plot <span class="sc">+</span></span>
+<span id="cb265-7"><a href="making-pretty-maps.html#cb265-7" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop_perc_change_breaks),</span>
+<span id="cb265-8"><a href="making-pretty-maps.html#cb265-8" tabindex="-1"></a>          <span class="at">data =</span> hi_center) <span class="sc">+</span></span>
+<span id="cb265-9"><a href="making-pretty-maps.html#cb265-9" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">2</span>)) </span>
+<span id="cb265-10"><a href="making-pretty-maps.html#cb265-10" tabindex="-1"></a></span>
+<span id="cb265-11"><a href="making-pretty-maps.html#cb265-11" tabindex="-1"></a>hi_pop_change_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/popChangeHI-1.png" width="672" /></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="making-pretty-maps.html#cb266-1" tabindex="-1"></a><span class="co"># Add everything together</span></span>
+<span id="cb266-2"><a href="making-pretty-maps.html#cb266-2" tabindex="-1"></a>us_pop_change_map <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb266-3"><a href="making-pretty-maps.html#cb266-3" tabindex="-1"></a>  <span class="fu">draw_plot</span>(us_pop_change_plot <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Population&quot;</span>,</span>
+<span id="cb266-4"><a href="making-pretty-maps.html#cb266-4" tabindex="-1"></a>                                      <span class="at">size =</span> <span class="st">&quot;Percent Population Change from 2010&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb266-5"><a href="making-pretty-maps.html#cb266-5" tabindex="-1"></a>  <span class="fu">draw_plot</span>(ak_pop_change_plot <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&#39;none&#39;</span>,</span>
+<span id="cb266-6"><a href="making-pretty-maps.html#cb266-6" tabindex="-1"></a>                            <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb266-7"><a href="making-pretty-maps.html#cb266-7" tabindex="-1"></a>                            <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb266-8"><a href="making-pretty-maps.html#cb266-8" tabindex="-1"></a>                            <span class="at">plot.background =</span> <span class="fu">element_blank</span>()), </span>
+<span id="cb266-9"><a href="making-pretty-maps.html#cb266-9" tabindex="-1"></a>            <span class="at">x =</span> <span class="fl">0.03</span>, <span class="at">y =</span> <span class="fl">0.65</span>, <span class="at">width =</span> <span class="fl">0.25</span>, <span class="at">height =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb266-10"><a href="making-pretty-maps.html#cb266-10" tabindex="-1"></a>  <span class="fu">draw_plot</span>(hi_pop_change_plot <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&#39;none&#39;</span>,</span>
+<span id="cb266-11"><a href="making-pretty-maps.html#cb266-11" tabindex="-1"></a>                            <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb266-12"><a href="making-pretty-maps.html#cb266-12" tabindex="-1"></a>                            <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb266-13"><a href="making-pretty-maps.html#cb266-13" tabindex="-1"></a>                            <span class="at">plot.background =</span> <span class="fu">element_blank</span>()),</span>
+<span id="cb266-14"><a href="making-pretty-maps.html#cb266-14" tabindex="-1"></a>             <span class="at">x =</span> <span class="fl">0.03</span>, <span class="at">y =</span> <span class="fl">0.089</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="making-pretty-maps.html#cb267-1" tabindex="-1"></a>us_pop_change_map</span></code></pre></div>
+<p><img src="Plots/us_pop_change_map.png" width="6000" style="display: block; margin: auto;" /></p>
+<pre><code>##           used  (Mb) gc trigger  (Mb)  max used  (Mb)
+## Ncells 2289154 122.3    5164352 275.9   5164352 275.9
+## Vcells 4245834  32.4  120616605 920.3 123931763 945.6</code></pre>
+</div>
+</div>
+<div id="yellowstone" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Yellowstone<a href="making-pretty-maps.html#yellowstone" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s make a map of species and their general distribution within Yellowstone</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="making-pretty-maps.html#cb269-1" tabindex="-1"></a>ynp <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;Data/Visualization/Yellowstone&quot;</span>, <span class="at">quiet =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb269-2"><a href="making-pretty-maps.html#cb269-2" tabindex="-1"></a>  <span class="co"># be sure it&#39;s projected to WGS 84 (EPSG:4326)</span></span>
+<span id="cb269-3"><a href="making-pretty-maps.html#cb269-3" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">4326</span>)</span>
+<span id="cb269-4"><a href="making-pretty-maps.html#cb269-4" tabindex="-1"></a></span>
+<span id="cb269-5"><a href="making-pretty-maps.html#cb269-5" tabindex="-1"></a><span class="co"># Check that everything looks right</span></span>
+<span id="cb269-6"><a href="making-pretty-maps.html#cb269-6" tabindex="-1"></a><span class="fu">head</span>(ynp)</span></code></pre></div>
+<pre><code>## Simple feature collection with 1 feature and 13 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -111.1543 ymin: 44.13245 xmax: -109.8339 ymax: 45.10785
+## Geodetic CRS:  WGS 84
+##         AREA PERIMETER AB67_ AB67_ID TYPE1           ADMN_TYPE1 TYPE2
+## 1 8842796032  447129.5     2     649     1 Park, monument, etc.     0
+##   ADMN_TYPE2 TYPE3 ADMN_TYPE3 STATE_FIPS STATE_NAME SUB_REGION
+## 1       &lt;NA&gt;     0       &lt;NA&gt;         56    Wyoming        Mtn
+##                         geometry
+## 1 POLYGON ((-110.0112 45.0478...</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="making-pretty-maps.html#cb271-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(ynp))</span></code></pre></div>
+<p><img src="_main_files/figure-html/YNP-1.png" width="672" /></p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="making-pretty-maps.html#cb272-1" tabindex="-1"></a><span class="co"># Load the GPS locations of four different species of wildlife in Yellowstone</span></span>
+<span id="cb272-2"><a href="making-pretty-maps.html#cb272-2" tabindex="-1"></a>ynp_animals <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Visualization/yellowstone_animals.csv&quot;</span>)</span>
+<span id="cb272-3"><a href="making-pretty-maps.html#cb272-3" tabindex="-1"></a></span>
+<span id="cb272-4"><a href="making-pretty-maps.html#cb272-4" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb272-5"><a href="making-pretty-maps.html#cb272-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb272-6"><a href="making-pretty-maps.html#cb272-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ynp) <span class="sc">+</span></span>
+<span id="cb272-7"><a href="making-pretty-maps.html#cb272-7" tabindex="-1"></a>  <span class="co"># add the GPS points to the maps, color based on the species</span></span>
+<span id="cb272-8"><a href="making-pretty-maps.html#cb272-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude, <span class="at">col =</span> Species),</span>
+<span id="cb272-9"><a href="making-pretty-maps.html#cb272-9" tabindex="-1"></a>             <span class="at">data =</span> ynp_animals)</span></code></pre></div>
+<p><img src="_main_files/figure-html/YNP-2.png" width="672" /></p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="making-pretty-maps.html#cb273-1" tabindex="-1"></a><span class="co"># Load the ranges of the wildlife</span></span>
+<span id="cb273-2"><a href="making-pretty-maps.html#cb273-2" tabindex="-1"></a>range <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;Data/Visualization/Species_Range&quot;</span>, <span class="at">quiet =</span> T)</span>
+<span id="cb273-3"><a href="making-pretty-maps.html#cb273-3" tabindex="-1"></a></span>
+<span id="cb273-4"><a href="making-pretty-maps.html#cb273-4" tabindex="-1"></a><span class="co"># The attribute &#39;level&#39; indicates more (smaller percentages) or less (higher percentages) intensely used spaces</span></span>
+<span id="cb273-5"><a href="making-pretty-maps.html#cb273-5" tabindex="-1"></a><span class="fu">head</span>(range)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -111.1123 ymin: 43.30636 xmax: -109.8502 ymax: 45.31349
+## Geodetic CRS:  WGS 84
+##          Use    Species                       geometry
+## 1 0.00000000 Black Bear MULTIPOLYGON (((-110.5497 4...
+## 2 0.04545455 Black Bear MULTIPOLYGON (((-110.504 45...
+## 3 0.09090910 Black Bear MULTIPOLYGON (((-110.4584 4...
+## 4 0.13636364 Black Bear MULTIPOLYGON (((-110.504 45...
+## 5 0.18181819 Black Bear MULTIPOLYGON (((-110.4584 4...
+## 6 0.22727274 Black Bear MULTIPOLYGON (((-110.5192 4...</code></pre>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="making-pretty-maps.html#cb275-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(range))</span></code></pre></div>
+<p><img src="_main_files/figure-html/speciesRange-1.png" width="672" /></p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="making-pretty-maps.html#cb276-1" tabindex="-1"></a><span class="co"># Add the ranges to the yellowstone</span></span>
+<span id="cb276-2"><a href="making-pretty-maps.html#cb276-2" tabindex="-1"></a>ynp_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb276-3"><a href="making-pretty-maps.html#cb276-3" tabindex="-1"></a>  <span class="co"># change the linetype to dotted</span></span>
+<span id="cb276-4"><a href="making-pretty-maps.html#cb276-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ynp, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb276-5"><a href="making-pretty-maps.html#cb276-5" tabindex="-1"></a>  <span class="co"># add the ranges to the map, fill color based on the intesnity of use</span></span>
+<span id="cb276-6"><a href="making-pretty-maps.html#cb276-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Use), <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb276-7"><a href="making-pretty-maps.html#cb276-7" tabindex="-1"></a>          <span class="at">data =</span> range) <span class="sc">+</span></span>
+<span id="cb276-8"><a href="making-pretty-maps.html#cb276-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude, <span class="at">col =</span> Species),</span>
+<span id="cb276-9"><a href="making-pretty-maps.html#cb276-9" tabindex="-1"></a>             <span class="at">data =</span> ynp_animals, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb276-10"><a href="making-pretty-maps.html#cb276-10" tabindex="-1"></a>  <span class="co"># Give an outline to the points</span></span>
+<span id="cb276-11"><a href="making-pretty-maps.html#cb276-11" tabindex="-1"></a>  <span class="co"># (Note: this can also be done by changing the shape type to &#39;21&#39;, </span></span>
+<span id="cb276-12"><a href="making-pretty-maps.html#cb276-12" tabindex="-1"></a>  <span class="co"># which gives a point a fill and a color. </span></span>
+<span id="cb276-13"><a href="making-pretty-maps.html#cb276-13" tabindex="-1"></a>  <span class="co"># The reason why I don&#39;t have that here is because the fill colors for the </span></span>
+<span id="cb276-14"><a href="making-pretty-maps.html#cb276-14" tabindex="-1"></a>  <span class="co"># species ranges and points would be the same, and we want to give them </span></span>
+<span id="cb276-15"><a href="making-pretty-maps.html#cb276-15" tabindex="-1"></a>  <span class="co"># different color palettes)</span></span>
+<span id="cb276-16"><a href="making-pretty-maps.html#cb276-16" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">data =</span> ynp_animals, </span>
+<span id="cb276-17"><a href="making-pretty-maps.html#cb276-17" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;grey30&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb276-18"><a href="making-pretty-maps.html#cb276-18" tabindex="-1"></a>ynp_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/rangeMap-1.png" width="672" /></p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="making-pretty-maps.html#cb277-1" tabindex="-1"></a><span class="co"># Right now all the GPS points and ranges are on top of each other in one plot</span></span>
+<span id="cb277-2"><a href="making-pretty-maps.html#cb277-2" tabindex="-1"></a><span class="co"># So it&#39;s difficult to see what&#39;s happening</span></span>
+<span id="cb277-3"><a href="making-pretty-maps.html#cb277-3" tabindex="-1"></a>ynp_plot <span class="ot">&lt;-</span> ynp_plot <span class="sc">+</span></span>
+<span id="cb277-4"><a href="making-pretty-maps.html#cb277-4" tabindex="-1"></a>  <span class="co"># facet_wrap creates different facets of the figure (in this case based on the species)</span></span>
+<span id="cb277-5"><a href="making-pretty-maps.html#cb277-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Species, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb277-6"><a href="making-pretty-maps.html#cb277-6" tabindex="-1"></a></span>
+<span id="cb277-7"><a href="making-pretty-maps.html#cb277-7" tabindex="-1"></a>ynp_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/rangeMapFacet-1.png" width="672" /></p>
+<p>This plot is more clear. Let’s change the colors of the species points</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="making-pretty-maps.html#cb278-1" tabindex="-1"></a><span class="co"># We&#39;ll use the palette &quot;Green-Brown&quot; for the animal points</span></span>
+<span id="cb278-2"><a href="making-pretty-maps.html#cb278-2" tabindex="-1"></a>animal_cols <span class="ot">&lt;-</span> <span class="fu">hcl.colors</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">palette =</span> <span class="st">&quot;Green-Brown&quot;</span>)</span>
+<span id="cb278-3"><a href="making-pretty-maps.html#cb278-3" tabindex="-1"></a><span class="fu">names</span>(animal_cols) <span class="ot">&lt;-</span> <span class="fu">unique</span>(ynp_animals<span class="sc">$</span>Species)</span>
+<span id="cb278-4"><a href="making-pretty-maps.html#cb278-4" tabindex="-1"></a>animal_cols</span></code></pre></div>
+<pre><code>##          Elk   Black Bear Grizzly Bear         Wolf 
+##    &quot;#004B40&quot;    &quot;#89D9CF&quot;    &quot;#E4C6A1&quot;    &quot;#533600&quot;</code></pre>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="making-pretty-maps.html#cb280-1" tabindex="-1"></a>ynp_plot <span class="ot">&lt;-</span> ynp_plot <span class="sc">+</span></span>
+<span id="cb280-2"><a href="making-pretty-maps.html#cb280-2" tabindex="-1"></a>  <span class="co"># We could pick another palette for the ranges, or we could use a built-in viridis palette</span></span>
+<span id="cb280-3"><a href="making-pretty-maps.html#cb280-3" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;B&quot;</span>) <span class="sc">+</span></span>
+<span id="cb280-4"><a href="making-pretty-maps.html#cb280-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> animal_cols) <span class="sc">+</span></span>
+<span id="cb280-5"><a href="making-pretty-maps.html#cb280-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb280-6"><a href="making-pretty-maps.html#cb280-6" tabindex="-1"></a>ynp_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/ynpRangePalette-1.png" width="672" /></p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="making-pretty-maps.html#cb281-1" tabindex="-1"></a><span class="co"># Finally, let&#39;s adjust the x-coordinate labels, since they&#39;re printing on top of each other</span></span>
+<span id="cb281-2"><a href="making-pretty-maps.html#cb281-2" tabindex="-1"></a>x_min <span class="ot">&lt;-</span> <span class="fu">signif</span>(<span class="fu">min</span>(ynp_animals<span class="sc">$</span>Longitude), <span class="dv">3</span>)</span>
+<span id="cb281-3"><a href="making-pretty-maps.html#cb281-3" tabindex="-1"></a>x_max <span class="ot">&lt;-</span> <span class="fu">signif</span>(<span class="fu">max</span>(ynp_animals<span class="sc">$</span>Longitude), <span class="dv">3</span>)</span>
+<span id="cb281-4"><a href="making-pretty-maps.html#cb281-4" tabindex="-1"></a><span class="fu">seq</span>(x_min, x_max, <span class="at">by =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] -111 -110 -109</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="making-pretty-maps.html#cb283-1" tabindex="-1"></a>ynp_plot <span class="ot">&lt;-</span> ynp_plot <span class="sc">+</span></span>
+<span id="cb283-2"><a href="making-pretty-maps.html#cb283-2" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(x_min, x_max, <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb283-3"><a href="making-pretty-maps.html#cb283-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Intensity of Use&quot;</span>) </span>
+<span id="cb283-4"><a href="making-pretty-maps.html#cb283-4" tabindex="-1"></a></span>
+<span id="cb283-5"><a href="making-pretty-maps.html#cb283-5" tabindex="-1"></a>ynp_plot </span></code></pre></div>
+<p><img src="_main_files/figure-html/changeScaleX-1.png" width="672" /></p>
+<div id="hillshade" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Hillshade<a href="making-pretty-maps.html#hillshade" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This plot is fine. But if we wanted, we could make the background a bit more interesting.
+Let’s add a hillshade, or an elevation raster that adds a shadow effect to look 3D</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="making-pretty-maps.html#cb284-1" tabindex="-1"></a><span class="co"># Load the DEM (Digital Elevation Model)</span></span>
+<span id="cb284-2"><a href="making-pretty-maps.html#cb284-2" tabindex="-1"></a><span class="co"># We will derive everything from this raster to create the hillshade raster</span></span>
+<span id="cb284-3"><a href="making-pretty-maps.html#cb284-3" tabindex="-1"></a>ynp_dem <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Visualization/Yellowstone_DEM.tif&quot;</span>)</span>
+<span id="cb284-4"><a href="making-pretty-maps.html#cb284-4" tabindex="-1"></a></span>
+<span id="cb284-5"><a href="making-pretty-maps.html#cb284-5" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb284-6"><a href="making-pretty-maps.html#cb284-6" tabindex="-1"></a>ynp_dem</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 783, 781, 1  (nrow, ncol, nlyr)
+## resolution  : 0.002777778, 0.002777778  (x, y)
+## extent      : -111.3775, -109.2081, 43.30056, 45.47556  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat NAD83 (EPSG:4269) 
+## source      : Yellowstone_DEM.tif 
+## name        :      DEM 
+## min value   : 1291.389 
+## max value   : 4047.209</code></pre>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="making-pretty-maps.html#cb286-1" tabindex="-1"></a><span class="fu">plot</span>(ynp_dem)</span>
+<span id="cb286-2"><a href="making-pretty-maps.html#cb286-2" tabindex="-1"></a><span class="fu">plot</span>(ynp<span class="sc">$</span>geometry, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/dem-1.png" width="672" /></p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="making-pretty-maps.html#cb287-1" tabindex="-1"></a><span class="co"># To create a hillshade, we need both slope and aspect</span></span>
+<span id="cb287-2"><a href="making-pretty-maps.html#cb287-2" tabindex="-1"></a><span class="co"># which can be derived using the function &#39;terrain&#39;</span></span>
+<span id="cb287-3"><a href="making-pretty-maps.html#cb287-3" tabindex="-1"></a>ynp_slope <span class="ot">&lt;-</span> <span class="fu">terrain</span>(ynp_dem, <span class="at">v =</span> <span class="st">&quot;slope&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
+<span id="cb287-4"><a href="making-pretty-maps.html#cb287-4" tabindex="-1"></a>ynp_aspect <span class="ot">&lt;-</span> <span class="fu">terrain</span>(ynp_dem, <span class="at">v =</span> <span class="st">&quot;aspect&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
+<span id="cb287-5"><a href="making-pretty-maps.html#cb287-5" tabindex="-1"></a></span>
+<span id="cb287-6"><a href="making-pretty-maps.html#cb287-6" tabindex="-1"></a><span class="co"># Now derive hillshade</span></span>
+<span id="cb287-7"><a href="making-pretty-maps.html#cb287-7" tabindex="-1"></a>ynp_hillshade <span class="ot">&lt;-</span> <span class="fu">shade</span>(ynp_slope, ynp_aspect)</span>
+<span id="cb287-8"><a href="making-pretty-maps.html#cb287-8" tabindex="-1"></a>ynp_hillshade</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 783, 781, 1  (nrow, ncol, nlyr)
+## resolution  : 0.002777778, 0.002777778  (x, y)
+## extent      : -111.3775, -109.2081, 43.30056, 45.47556  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat NAD83 (EPSG:4269) 
+## source(s)   : memory
+## name        :   hillshade 
+## min value   : -0.04331134 
+## max value   :  0.99961031</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="making-pretty-maps.html#cb289-1" tabindex="-1"></a><span class="fu">plot</span>(ynp_hillshade)</span>
+<span id="cb289-2"><a href="making-pretty-maps.html#cb289-2" tabindex="-1"></a><span class="fu">plot</span>(ynp<span class="sc">$</span>geometry, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/hillshade-1.png" width="672" /></p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="making-pretty-maps.html#cb290-1" tabindex="-1"></a><span class="co"># We need to turn the raster into a dataframe so that ggplot can handle it</span></span>
+<span id="cb290-2"><a href="making-pretty-maps.html#cb290-2" tabindex="-1"></a><span class="fu">names</span>(ynp_hillshade) <span class="ot">&lt;-</span> <span class="st">&quot;hillshade&quot;</span></span>
+<span id="cb290-3"><a href="making-pretty-maps.html#cb290-3" tabindex="-1"></a>ynp_hill_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(ynp_hillshade, <span class="at">xy =</span> T)</span>
+<span id="cb290-4"><a href="making-pretty-maps.html#cb290-4" tabindex="-1"></a><span class="fu">head</span>(ynp_hill_df)</span></code></pre></div>
+<pre><code>##             x        y hillshade
+## 783 -111.3733 45.47139 0.7732976
+## 784 -111.3706 45.47139 0.7462534
+## 785 -111.3678 45.47139 0.7070008
+## 786 -111.3650 45.47139 0.6975097
+## 787 -111.3622 45.47139 0.7025581
+## 788 -111.3594 45.47139 0.7414129</code></pre>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="making-pretty-maps.html#cb292-1" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb292-2"><a href="making-pretty-maps.html#cb292-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb292-3"><a href="making-pretty-maps.html#cb292-3" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> ynp_hill_df,</span>
+<span id="cb292-4"><a href="making-pretty-maps.html#cb292-4" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> hillshade))</span></code></pre></div>
+<p><img src="_main_files/figure-html/hillshadeDF-1.png" width="672" /></p>
+<p>When we plot the hillshade raster with other spatial objects, ggplot is able to tell that the raster is a spatial object too, and plots it with the correct projection</p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="making-pretty-maps.html#cb293-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb293-2"><a href="making-pretty-maps.html#cb293-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> ynp_hill_df,</span>
+<span id="cb293-3"><a href="making-pretty-maps.html#cb293-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> hillshade)) <span class="sc">+</span></span>
+<span id="cb293-4"><a href="making-pretty-maps.html#cb293-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ynp, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb293-5"><a href="making-pretty-maps.html#cb293-5" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(x_min, x_max, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotHillshade-1.png" width="672" /></p>
+<p>Right now we can’t see anything, so let’s adjust the hillshade colors</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="making-pretty-maps.html#cb294-1" tabindex="-1"></a>ynp_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb294-2"><a href="making-pretty-maps.html#cb294-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> ynp_hill_df,</span>
+<span id="cb294-3"><a href="making-pretty-maps.html#cb294-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> hillshade),</span>
+<span id="cb294-4"><a href="making-pretty-maps.html#cb294-4" tabindex="-1"></a>              <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># remove hillshade legend</span></span>
+<span id="cb294-5"><a href="making-pretty-maps.html#cb294-5" tabindex="-1"></a>  <span class="co"># Let&#39;s change the hillshade to a greyscale gradient</span></span>
+<span id="cb294-6"><a href="making-pretty-maps.html#cb294-6" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="st">&quot;hillshade_lower_res&quot;</span>,</span>
+<span id="cb294-7"><a href="making-pretty-maps.html#cb294-7" tabindex="-1"></a>                       <span class="at">low =</span> <span class="st">&quot;grey0&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;grey0&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey100&quot;</span>,</span>
+<span id="cb294-8"><a href="making-pretty-maps.html#cb294-8" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="cb294-9"><a href="making-pretty-maps.html#cb294-9" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ynp, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb294-10"><a href="making-pretty-maps.html#cb294-10" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(x_min, x_max, <span class="at">by =</span> <span class="dv">1</span>))</span>
+<span id="cb294-11"><a href="making-pretty-maps.html#cb294-11" tabindex="-1"></a>ynp_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotHillshadeGrey-1.png" width="672" /></p>
+<p>Neat!</p>
+<p>Now let’s add the animal data back to the map</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="making-pretty-maps.html#cb295-1" tabindex="-1"></a> ynp_plot <span class="sc">+</span></span>
+<span id="cb295-2"><a href="making-pretty-maps.html#cb295-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Use), <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb295-3"><a href="making-pretty-maps.html#cb295-3" tabindex="-1"></a>          <span class="at">data =</span> range) <span class="sc">+</span></span>
+<span id="cb295-4"><a href="making-pretty-maps.html#cb295-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude, <span class="at">col =</span> Species),</span>
+<span id="cb295-5"><a href="making-pretty-maps.html#cb295-5" tabindex="-1"></a>             <span class="at">data =</span> ynp_animals, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb295-6"><a href="making-pretty-maps.html#cb295-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">data =</span> ynp_animals, </span>
+<span id="cb295-7"><a href="making-pretty-maps.html#cb295-7" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;grey30&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb295-8"><a href="making-pretty-maps.html#cb295-8" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;B&quot;</span>) <span class="sc">+</span></span>
+<span id="cb295-9"><a href="making-pretty-maps.html#cb295-9" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> animal_cols) <span class="sc">+</span></span>
+<span id="cb295-10"><a href="making-pretty-maps.html#cb295-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Species, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb295-11"><a href="making-pretty-maps.html#cb295-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotHillshadeAnimals-1.png" width="672" /></p>
+<p>Oops, ggplot as a default can’t handle more than one palette for ‘fill’ so it changed the hillshade to the same gradient as the animal ranges.</p>
+<p>To fix this, we can use the package <code>ggnewscale</code></p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="making-pretty-maps.html#cb296-1" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
+<span id="cb296-2"><a href="making-pretty-maps.html#cb296-2" tabindex="-1"></a></span>
+<span id="cb296-3"><a href="making-pretty-maps.html#cb296-3" tabindex="-1"></a> ynp_plot <span class="ot">&lt;-</span> ynp_plot <span class="sc">+</span></span>
+<span id="cb296-4"><a href="making-pretty-maps.html#cb296-4" tabindex="-1"></a>  <span class="fu">new_scale</span>(<span class="st">&quot;fill&quot;</span>) <span class="sc">+</span> <span class="co"># let&#39;s you add a new fill scale</span></span>
+<span id="cb296-5"><a href="making-pretty-maps.html#cb296-5" tabindex="-1"></a>   <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Use), <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb296-6"><a href="making-pretty-maps.html#cb296-6" tabindex="-1"></a>          <span class="at">data =</span> range) <span class="sc">+</span></span>
+<span id="cb296-7"><a href="making-pretty-maps.html#cb296-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude, <span class="at">col =</span> Species),</span>
+<span id="cb296-8"><a href="making-pretty-maps.html#cb296-8" tabindex="-1"></a>             <span class="at">data =</span> ynp_animals, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb296-9"><a href="making-pretty-maps.html#cb296-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">data =</span> ynp_animals, </span>
+<span id="cb296-10"><a href="making-pretty-maps.html#cb296-10" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;grey30&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb296-11"><a href="making-pretty-maps.html#cb296-11" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;B&quot;</span>) <span class="sc">+</span></span>
+<span id="cb296-12"><a href="making-pretty-maps.html#cb296-12" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> animal_cols) <span class="sc">+</span></span>
+<span id="cb296-13"><a href="making-pretty-maps.html#cb296-13" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Species, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb296-14"><a href="making-pretty-maps.html#cb296-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb296-15"><a href="making-pretty-maps.html#cb296-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Intensity of Use&quot;</span>) </span>
+<span id="cb296-16"><a href="making-pretty-maps.html#cb296-16" tabindex="-1"></a> ynp_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/changeHillshadePalette-1.png" width="672" /></p>
+<p>Yay!</p>
+</div>
+<div id="inset" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Inset<a href="making-pretty-maps.html#inset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s add an inset map so we know where in the US Yellowstone is located</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="making-pretty-maps.html#cb297-1" tabindex="-1"></a><span class="co"># Let&#39;s make a map of the contiguous US with Yellowstone</span></span>
+<span id="cb297-2"><a href="making-pretty-maps.html#cb297-2" tabindex="-1"></a>us_inset <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb297-3"><a href="making-pretty-maps.html#cb297-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> contig_usa, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb297-4"><a href="making-pretty-maps.html#cb297-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ynp) <span class="sc">+</span></span>
+<span id="cb297-5"><a href="making-pretty-maps.html#cb297-5" tabindex="-1"></a>  <span class="co"># this theme option voids out all backgrounds and labels</span></span>
+<span id="cb297-6"><a href="making-pretty-maps.html#cb297-6" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb297-7"><a href="making-pretty-maps.html#cb297-7" tabindex="-1"></a>us_inset</span></code></pre></div>
+<p><img src="_main_files/figure-html/inset-1.png" width="672" /></p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="making-pretty-maps.html#cb298-1" tabindex="-1"></a><span class="co"># Cowplot both plots together</span></span>
+<span id="cb298-2"><a href="making-pretty-maps.html#cb298-2" tabindex="-1"></a>check_ynp <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb298-3"><a href="making-pretty-maps.html#cb298-3" tabindex="-1"></a>  <span class="fu">draw_plot</span>(ynp_plot)  <span class="sc">+</span></span>
+<span id="cb298-4"><a href="making-pretty-maps.html#cb298-4" tabindex="-1"></a>  <span class="fu">draw_plot</span>(us_inset, </span>
+<span id="cb298-5"><a href="making-pretty-maps.html#cb298-5" tabindex="-1"></a>            <span class="at">x =</span> <span class="fl">0.675</span>, <span class="at">y =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="making-pretty-maps.html#cb299-1" tabindex="-1"></a>check_ynp</span></code></pre></div>
+<p><img src="Plots/check_ynp.png" width="6000" style="display: block; margin: auto;" /></p>
+<p>Right now, it’s not immediately clear where Yellowstone is so let’s make the outline red</p>
+<p><img src="_main_files/figure-html/ynpRed-1.png" width="672" /></p>
+<p>This works fine, but maybe we want to make a red box around the general area where Yellowstone is located</p>
+<p><img src="_main_files/figure-html/ynpBox-1.png" width="672" /></p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="making-pretty-maps.html#cb300-1" tabindex="-1"></a><span class="co"># Now we have a map of yellowstone and where it&#39;s located</span></span>
+<span id="cb300-2"><a href="making-pretty-maps.html#cb300-2" tabindex="-1"></a><span class="co"># (We could also adjust the inset map&#39;s location if needed)</span></span>
+<span id="cb300-3"><a href="making-pretty-maps.html#cb300-3" tabindex="-1"></a>ynp_map <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span></span>
+<span id="cb300-4"><a href="making-pretty-maps.html#cb300-4" tabindex="-1"></a>  <span class="fu">draw_plot</span>(ynp_plot)  <span class="sc">+</span></span>
+<span id="cb300-5"><a href="making-pretty-maps.html#cb300-5" tabindex="-1"></a>  <span class="fu">draw_plot</span>(us_inset, </span>
+<span id="cb300-6"><a href="making-pretty-maps.html#cb300-6" tabindex="-1"></a>            <span class="at">x =</span> <span class="fl">0.675</span>, <span class="at">y =</span> <span class="fl">0.05</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="making-pretty-maps.html#cb301-1" tabindex="-1"></a>ynp_map</span></code></pre></div>
+<p><img src="Plots/ynp_map.png" width="6000" style="display: block; margin: auto;" /></p>
+<pre><code>##            used  (Mb) gc trigger   (Mb)  max used   (Mb)
+## Ncells  2314503 123.7    8141852  434.9  10224004  546.1
+## Vcells 10390425  79.3  149906776 1143.7 156086225 1190.9</code></pre>
+</div>
+</div>
+<div id="landcover" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Landcover<a href="making-pretty-maps.html#landcover" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s make a landcover map of the ecorgions in the Four Corners and adjust colors that make sense to the landcover type</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="making-pretty-maps.html#cb303-1" tabindex="-1"></a><span class="co"># Load the boundaries of different landcover types within the Four Corners</span></span>
+<span id="cb303-2"><a href="making-pretty-maps.html#cb303-2" tabindex="-1"></a>regions <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;Data/Visualization/Landcover/Regions&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb303-3"><a href="making-pretty-maps.html#cb303-3" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(contig_usa))</span></code></pre></div>
+<pre><code>## Reading layer `Regions&#39; from data source 
+##   `C:\Users\RonanHart\Documents\Projects\R_Spatial_Workshop\Data\Visualization\Landcover\Regions&#39; 
+##   using driver `ESRI Shapefile&#39;
+## Simple feature collection with 3 features and 1 field
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -2155845 ymin: 681645 xmax: -445725 ymax: 2612715
+## Projected CRS: NAD_1983_Albers</code></pre>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="making-pretty-maps.html#cb305-1" tabindex="-1"></a>regions</span></code></pre></div>
+<pre><code>## Simple feature collection with 3 features and 1 field
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -2155845 ymin: 681645 xmax: -445725 ymax: 2612715
+## Projected CRS: NAD83(2011) / Conus Albers
+##             Region                       geometry
+## 1      Great Basin POLYGON ((-1393095 2612715,...
+## 2 Southeast Desert POLYGON ((-1866735 1896405,...
+## 3 Southern Rockies POLYGON ((-1268685 2285745,...</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="making-pretty-maps.html#cb307-1" tabindex="-1"></a><span class="co"># add the land boundaries to the map and make it slightly transparent</span></span>
+<span id="cb307-2"><a href="making-pretty-maps.html#cb307-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb307-3"><a href="making-pretty-maps.html#cb307-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> contig_usa) <span class="sc">+</span></span>
+<span id="cb307-4"><a href="making-pretty-maps.html#cb307-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Region), <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb307-5"><a href="making-pretty-maps.html#cb307-5" tabindex="-1"></a>          <span class="at">data =</span> regions)</span></code></pre></div>
+<p><img src="_main_files/figure-html/regions-1.png" width="672" /></p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="making-pretty-maps.html#cb308-1" tabindex="-1"></a><span class="co"># Create a polygon of just the Four Corners region</span></span>
+<span id="cb308-2"><a href="making-pretty-maps.html#cb308-2" tabindex="-1"></a>corners_4 <span class="ot">&lt;-</span> contig_usa <span class="sc">%&gt;%</span></span>
+<span id="cb308-3"><a href="making-pretty-maps.html#cb308-3" tabindex="-1"></a>  <span class="fu">filter</span>(STATE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Utah&quot;</span>, <span class="st">&quot;Colorado&quot;</span>, <span class="st">&quot;Arizona&quot;</span>, <span class="st">&quot;New Mexico&quot;</span>))</span>
+<span id="cb308-4"><a href="making-pretty-maps.html#cb308-4" tabindex="-1"></a><span class="fu">ggplot</span>(corners_4) <span class="sc">+</span></span>
+<span id="cb308-5"><a href="making-pretty-maps.html#cb308-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/fourCorners-1.png" width="672" /></p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="making-pretty-maps.html#cb309-1" tabindex="-1"></a><span class="co"># add the landcover boundaries to this map</span></span>
+<span id="cb309-2"><a href="making-pretty-maps.html#cb309-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb309-3"><a href="making-pretty-maps.html#cb309-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> corners_4) <span class="sc">+</span></span>
+<span id="cb309-4"><a href="making-pretty-maps.html#cb309-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions,</span>
+<span id="cb309-5"><a href="making-pretty-maps.html#cb309-5" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> Region), <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/regionMap-1.png" width="672" /></p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="making-pretty-maps.html#cb310-1" tabindex="-1"></a><span class="co"># Make some mapping adjustments</span></span>
+<span id="cb310-2"><a href="making-pretty-maps.html#cb310-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb310-3"><a href="making-pretty-maps.html#cb310-3" tabindex="-1"></a>  <span class="co"># add the US underlayer</span></span>
+<span id="cb310-4"><a href="making-pretty-maps.html#cb310-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> contig_usa, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb310-5"><a href="making-pretty-maps.html#cb310-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions,</span>
+<span id="cb310-6"><a href="making-pretty-maps.html#cb310-6" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> Region)) <span class="sc">+</span></span>
+<span id="cb310-7"><a href="making-pretty-maps.html#cb310-7" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> corners_4, <span class="at">col =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb310-8"><a href="making-pretty-maps.html#cb310-8" tabindex="-1"></a>  <span class="co"># Zoom the plot window to the 4 Corners region</span></span>
+<span id="cb310-9"><a href="making-pretty-maps.html#cb310-9" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb310-10"><a href="making-pretty-maps.html#cb310-10" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;ymin&quot;</span>], <span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;ymax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb310-11"><a href="making-pretty-maps.html#cb310-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/adjust-1.png" width="672" /></p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="making-pretty-maps.html#cb311-1" tabindex="-1"></a><span class="co"># Load the landcover rasters</span></span>
+<span id="cb311-2"><a href="making-pretty-maps.html#cb311-2" tabindex="-1"></a>basin <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Visualization/Landcover/Great_Basin.tif&quot;</span>)</span>
+<span id="cb311-3"><a href="making-pretty-maps.html#cb311-3" tabindex="-1"></a>desert <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Visualization/Landcover/Southeast_Desert.tif&quot;</span>)</span>
+<span id="cb311-4"><a href="making-pretty-maps.html#cb311-4" tabindex="-1"></a>rockies <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Visualization/Landcover/Southern_Rockies.tif&quot;</span>)</span>
+<span id="cb311-5"><a href="making-pretty-maps.html#cb311-5" tabindex="-1"></a></span>
+<span id="cb311-6"><a href="making-pretty-maps.html#cb311-6" tabindex="-1"></a>basin</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 3197, 3199, 1  (nrow, ncol, nlyr)
+## resolution  : 300, 300  (x, y)
+## extent      : -2155875, -1196175, 1653645, 2612745  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD_1983_Albers 
+## source      : Great_Basin.tif 
+## name        : Great_Basin 
+## min value   :          42 
+## max value   :         584</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="making-pretty-maps.html#cb313-1" tabindex="-1"></a>desert</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 4050, 5304, 1  (nrow, ncol, nlyr)
+## resolution  : 300, 300  (x, y)
+## extent      : -2036715, -445515, 681405, 1896405  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD_1983_Albers 
+## source      : Southeast_Desert.tif 
+## name        : Southeast_Desert 
+## min value   :               39 
+## max value   :              584</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="making-pretty-maps.html#cb315-1" tabindex="-1"></a>rockies</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 3596, 3072, 1  (nrow, ncol, nlyr)
+## resolution  : 300, 300  (x, y)
+## extent      : -1616265, -694665, 1206945, 2285745  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD_1983_Albers 
+## source      : Southern_Rockies.tif 
+## name        : Southern_Rockies 
+## min value   :               46 
+## max value   :              584</code></pre>
+<p><img src="_main_files/figure-html/plotLandcover-1.png" width="672" /><img src="_main_files/figure-html/plotLandcover-2.png" width="672" /><img src="_main_files/figure-html/plotLandcover-3.png" width="672" /></p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="making-pretty-maps.html#cb317-1" tabindex="-1"></a><span class="co"># Merge into one raster</span></span>
+<span id="cb317-2"><a href="making-pretty-maps.html#cb317-2" tabindex="-1"></a>land <span class="ot">&lt;-</span> <span class="fu">merge</span>(basin, desert, rockies)</span>
+<span id="cb317-3"><a href="making-pretty-maps.html#cb317-3" tabindex="-1"></a>land</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 6438, 5701, 1  (nrow, ncol, nlyr)
+## resolution  : 300, 300  (x, y)
+## extent      : -2155875, -445575, 681405, 2612805  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD_1983_Albers 
+## source(s)   : memory
+## name        : Great_Basin 
+## min value   :          39 
+## max value   :         584</code></pre>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="making-pretty-maps.html#cb319-1" tabindex="-1"></a><span class="fu">plot</span>(land)</span></code></pre></div>
+<p><img src="_main_files/figure-html/merge-1.png" width="672" /></p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="making-pretty-maps.html#cb320-1" tabindex="-1"></a><span class="co"># Project the 4 corners polygon to the CRS of the landcover raster</span></span>
+<span id="cb320-2"><a href="making-pretty-maps.html#cb320-2" tabindex="-1"></a><span class="co"># (it&#39;s easier to project a vector than a raster)</span></span>
+<span id="cb320-3"><a href="making-pretty-maps.html#cb320-3" tabindex="-1"></a><span class="fu">st_crs</span>(land)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: NAD_1983_Albers 
+##   wkt:
+## PROJCRS[&quot;NAD_1983_Albers&quot;,
+##     BASEGEOGCRS[&quot;NAD83&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101004,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4269]],
+##     CONVERSION[&quot;Albers Equal Area&quot;,
+##         METHOD[&quot;Albers Equal Area&quot;,
+##             ID[&quot;EPSG&quot;,9822]],
+##         PARAMETER[&quot;Latitude of false origin&quot;,23,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8821]],
+##         PARAMETER[&quot;Longitude of false origin&quot;,-96,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8822]],
+##         PARAMETER[&quot;Latitude of 1st standard parallel&quot;,29.5,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8823]],
+##         PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,45.5,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8824]],
+##         PARAMETER[&quot;Easting at false origin&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8826]],
+##         PARAMETER[&quot;Northing at false origin&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8827]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;easting&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]],
+##         AXIS[&quot;northing&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]]]</code></pre>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="making-pretty-maps.html#cb322-1" tabindex="-1"></a>corners_4 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(corners_4, <span class="fu">st_crs</span>(land))</span>
+<span id="cb322-2"><a href="making-pretty-maps.html#cb322-2" tabindex="-1"></a><span class="fu">plot</span>(land)</span>
+<span id="cb322-3"><a href="making-pretty-maps.html#cb322-3" tabindex="-1"></a><span class="fu">plot</span>(corners_4<span class="sc">$</span>geometry, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/project4Corners-1.png" width="672" /></p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="making-pretty-maps.html#cb323-1" tabindex="-1"></a><span class="co"># Crop and mask the landcover raster to just the 4 Corner states</span></span>
+<span id="cb323-2"><a href="making-pretty-maps.html#cb323-2" tabindex="-1"></a>land <span class="ot">&lt;-</span> <span class="fu">crop</span>(land, corners_4) <span class="sc">%&gt;%</span></span>
+<span id="cb323-3"><a href="making-pretty-maps.html#cb323-3" tabindex="-1"></a>  <span class="fu">mask</span>(corners_4)</span>
+<span id="cb323-4"><a href="making-pretty-maps.html#cb323-4" tabindex="-1"></a><span class="fu">plot</span>(land)</span>
+<span id="cb323-5"><a href="making-pretty-maps.html#cb323-5" tabindex="-1"></a><span class="fu">plot</span>(corners_4<span class="sc">$</span>geometry, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/cropMask-1.png" width="672" /></p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="making-pretty-maps.html#cb324-1" tabindex="-1"></a><span class="co"># Right now, the landcover raster is labeled by numbers, where each number corresponds to a land type. </span></span>
+<span id="cb324-2"><a href="making-pretty-maps.html#cb324-2" tabindex="-1"></a><span class="co"># We don&#39;t know what the numbers on their own mean, but we have a dataframe that has this information</span></span>
+<span id="cb324-3"><a href="making-pretty-maps.html#cb324-3" tabindex="-1"></a>land_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Visualization/Landcover/Landcover_Attributes.csv&quot;</span>) </span>
+<span id="cb324-4"><a href="making-pretty-maps.html#cb324-4" tabindex="-1"></a><span class="fu">head</span>(land_info[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>##   Value         NVC_CLASS  SC                  NVC_SUBCL
+## 1     0                                                 
+## 2     1 Forest &amp; Woodland 1.A Tropical Forest &amp; Woodland
+## 3     2 Forest &amp; Woodland 1.A Tropical Forest &amp; Woodland
+## 4     3 Forest &amp; Woodland 1.A Tropical Forest &amp; Woodland
+## 5     4 Forest &amp; Woodland 1.A Tropical Forest &amp; Woodland
+## 6     5 Forest &amp; Woodland 1.A Tropical Forest &amp; Woodland
+##                          NVC_FORM
+## 1                                
+## 2 Tropical Flooded &amp; Swamp Forest
+## 3 Tropical Flooded &amp; Swamp Forest
+## 4 Tropical Flooded &amp; Swamp Forest
+## 5                        Mangrove
+## 6  Tropical Dry Forest &amp; Woodland</code></pre>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="making-pretty-maps.html#cb326-1" tabindex="-1"></a><span class="co"># the column &#39;Value&#39; has numbers that correspond to the values in the landcover raster</span></span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="making-pretty-maps.html#cb327-1" tabindex="-1"></a><span class="co"># Change the landcover raster into a dataframe</span></span>
+<span id="cb327-2"><a href="making-pretty-maps.html#cb327-2" tabindex="-1"></a><span class="fu">names</span>(land) <span class="ot">&lt;-</span> <span class="st">&quot;land_class&quot;</span></span>
+<span id="cb327-3"><a href="making-pretty-maps.html#cb327-3" tabindex="-1"></a></span>
+<span id="cb327-4"><a href="making-pretty-maps.html#cb327-4" tabindex="-1"></a>land_cover <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(land, <span class="at">xy =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb327-5"><a href="making-pretty-maps.html#cb327-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">land_class =</span> <span class="fu">round</span>(land_class)) <span class="sc">%&gt;%</span></span>
+<span id="cb327-6"><a href="making-pretty-maps.html#cb327-6" tabindex="-1"></a>  <span class="co"># join with the dataframe of the land classes</span></span>
+<span id="cb327-7"><a href="making-pretty-maps.html#cb327-7" tabindex="-1"></a>  <span class="fu">left_join</span>(land_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;land_class&quot;</span> <span class="ot">=</span> <span class="st">&quot;Value&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb327-8"><a href="making-pretty-maps.html#cb327-8" tabindex="-1"></a>  <span class="co"># remove NA cells</span></span>
+<span id="cb327-9"><a href="making-pretty-maps.html#cb327-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(NVC_CLASS)) </span>
+<span id="cb327-10"><a href="making-pretty-maps.html#cb327-10" tabindex="-1"></a>  </span>
+<span id="cb327-11"><a href="making-pretty-maps.html#cb327-11" tabindex="-1"></a><span class="fu">head</span>(land_cover[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>##          x       y land_class               NVC_CLASS   SC
+## 1 -1475625 2251755        489    Desert &amp; Semi-Desert  3.B
+## 2 -1475325 2251755        489    Desert &amp; Semi-Desert  3.B
+## 3 -1475025 2251755        244       Forest &amp; Woodland  1.B
+## 4 -1474725 2251755        428 Shrub &amp; Herb Vegetation 2.C.
+## 5 -1474425 2251755        489    Desert &amp; Semi-Desert  3.B
+## 6 -1475925 2251455        489    Desert &amp; Semi-Desert  3.B</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="making-pretty-maps.html#cb329-1" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb329-2"><a href="making-pretty-maps.html#cb329-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb329-3"><a href="making-pretty-maps.html#cb329-3" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> land_cover, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> land_class))</span></code></pre></div>
+<p><img src="_main_files/figure-html/checkLandcover-1.png" width="672" /></p>
+<p>Now we can plot based on the land classifications instead of the numbers.</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="making-pretty-maps.html#cb330-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb330-2"><a href="making-pretty-maps.html#cb330-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> land_cover,</span>
+<span id="cb330-3"><a href="making-pretty-maps.html#cb330-3" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> NVC_CLASS)) <span class="sc">+</span></span>
+<span id="cb330-4"><a href="making-pretty-maps.html#cb330-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> corners_4, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotLandClass-1.png" width="672" /></p>
+<p>Again, the default colors look a little ugly. We could pick colors with <code>hcl.pals()</code> again. But since these colors represent land types, let’s pick colors that would describe each land type.</p>
+<p>I used the website <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf">Colors in R</a> to get these colors.</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="making-pretty-maps.html#cb331-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(land_cover<span class="sc">$</span>NVC_CLASS))</span></code></pre></div>
+<pre><code>##  [1] &quot;Agricultural &amp; Developed Vegetation&quot;            
+##  [2] &quot;Aquatic Vegetation&quot;                             
+##  [3] &quot;Desert &amp; Semi-Desert&quot;                           
+##  [4] &quot;Developed &amp; Other Human Use&quot;                    
+##  [5] &quot;Forest &amp; Woodland&quot;                              
+##  [6] &quot;Introduced &amp; Semi Natural Vegetation&quot;           
+##  [7] &quot;Nonvascular &amp; Sparse Vascular Rock Vegetation&quot;  
+##  [8] &quot;Open Rock Vegetation&quot;                           
+##  [9] &quot;Open Water&quot;                                     
+## [10] &quot;Polar &amp; High Montane Scrub, Grassland &amp; Barrens&quot;
+## [11] &quot;Recently Disturbed or Modified&quot;                 
+## [12] &quot;Shrub &amp; Herb Vegetation&quot;</code></pre>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="making-pretty-maps.html#cb333-1" tabindex="-1"></a><span class="co"># Assign colors to each class name</span></span>
+<span id="cb333-2"><a href="making-pretty-maps.html#cb333-2" tabindex="-1"></a>land_cols <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb333-3"><a href="making-pretty-maps.html#cb333-3" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;Agricultural &amp; Developed Vegetation&quot;</span> <span class="ot">=</span> <span class="st">&quot;#88b66c&quot;</span>, </span>
+<span id="cb333-4"><a href="making-pretty-maps.html#cb333-4" tabindex="-1"></a>          <span class="st">&quot;Aquatic Vegetation&quot;</span> <span class="ot">=</span> <span class="st">&quot;#b0e2ff&quot;</span>,</span>
+<span id="cb333-5"><a href="making-pretty-maps.html#cb333-5" tabindex="-1"></a>           <span class="st">&quot;Desert &amp; Semi-Desert&quot;</span> <span class="ot">=</span> <span class="st">&quot;#f9d896&quot;</span>,</span>
+<span id="cb333-6"><a href="making-pretty-maps.html#cb333-6" tabindex="-1"></a>          <span class="st">&quot;Developed &amp; Other Human Use&quot;</span> <span class="ot">=</span> <span class="st">&quot;#874e5c&quot;</span>,</span>
+<span id="cb333-7"><a href="making-pretty-maps.html#cb333-7" tabindex="-1"></a>          <span class="st">&quot;Forest &amp; Woodland&quot;</span> <span class="ot">=</span> <span class="st">&quot;#376822&quot;</span>,</span>
+<span id="cb333-8"><a href="making-pretty-maps.html#cb333-8" tabindex="-1"></a>          <span class="st">&quot;Introduced &amp; Semi Natural Vegetation&quot;</span> <span class="ot">=</span> <span class="st">&quot;#8f8228&quot;</span>,</span>
+<span id="cb333-9"><a href="making-pretty-maps.html#cb333-9" tabindex="-1"></a>          <span class="st">&quot;Nonvascular &amp; Sparse Vascular Rock Vegetation&quot;</span> <span class="ot">=</span> <span class="st">&quot;#e8f2d4&quot;</span>,</span>
+<span id="cb333-10"><a href="making-pretty-maps.html#cb333-10" tabindex="-1"></a>          <span class="st">&quot;Open Rock Vegetation&quot;</span> <span class="ot">=</span> <span class="st">&quot;#d7b895&quot;</span>,</span>
+<span id="cb333-11"><a href="making-pretty-maps.html#cb333-11" tabindex="-1"></a>          <span class="st">&quot;Open Water&quot;</span> <span class="ot">=</span> <span class="st">&quot;#a8c6fc&quot;</span>,</span>
+<span id="cb333-12"><a href="making-pretty-maps.html#cb333-12" tabindex="-1"></a>          <span class="st">&quot;Polar &amp; High Montane Scrub, Grassland &amp; Barrens&quot;</span> <span class="ot">=</span> <span class="st">&quot;#fffafb&quot;</span>,</span>
+<span id="cb333-13"><a href="making-pretty-maps.html#cb333-13" tabindex="-1"></a>          <span class="st">&quot;Recently Disturbed or Modified&quot;</span> <span class="ot">=</span> <span class="st">&quot;#8c451a&quot;</span>,</span>
+<span id="cb333-14"><a href="making-pretty-maps.html#cb333-14" tabindex="-1"></a>          <span class="st">&quot;Shrub &amp; Herb Vegetation&quot;</span> <span class="ot">=</span> <span class="st">&quot;#dae8b0&quot;</span>)</span>
+<span id="cb333-15"><a href="making-pretty-maps.html#cb333-15" tabindex="-1"></a>  )</span>
+<span id="cb333-16"><a href="making-pretty-maps.html#cb333-16" tabindex="-1"></a></span>
+<span id="cb333-17"><a href="making-pretty-maps.html#cb333-17" tabindex="-1"></a><span class="co"># Adjust the dataframe to be more clear</span></span>
+<span id="cb333-18"><a href="making-pretty-maps.html#cb333-18" tabindex="-1"></a>land_cols<span class="sc">$</span>land_type <span class="ot">=</span> <span class="fu">row.names</span>(land_cols)</span>
+<span id="cb333-19"><a href="making-pretty-maps.html#cb333-19" tabindex="-1"></a><span class="fu">row.names</span>(land_cols) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb333-20"><a href="making-pretty-maps.html#cb333-20" tabindex="-1"></a>land_cols</span></code></pre></div>
+<pre><code>##       cols                                       land_type
+## 1  #88b66c             Agricultural &amp; Developed Vegetation
+## 2  #b0e2ff                              Aquatic Vegetation
+## 3  #f9d896                            Desert &amp; Semi-Desert
+## 4  #874e5c                     Developed &amp; Other Human Use
+## 5  #376822                               Forest &amp; Woodland
+## 6  #8f8228            Introduced &amp; Semi Natural Vegetation
+## 7  #e8f2d4   Nonvascular &amp; Sparse Vascular Rock Vegetation
+## 8  #d7b895                            Open Rock Vegetation
+## 9  #a8c6fc                                      Open Water
+## 10 #fffafb Polar &amp; High Montane Scrub, Grassland &amp; Barrens
+## 11 #8c451a                  Recently Disturbed or Modified
+## 12 #dae8b0                         Shrub &amp; Herb Vegetation</code></pre>
+<p>A test to see what these colors look like</p>
+<p><img src="_main_files/figure-html/colorTest-1.png" width="672" /></p>
+<p>(Hint: I picked my colors and then checked them with <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">“Coblis”</a>, a color-blind simulator, to see if the colors are distinguishable even for different types of colorblindness. I then adjusted to get a palette with colors that go well together.)</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="making-pretty-maps.html#cb335-1" tabindex="-1"></a><span class="co"># Add everything together</span></span>
+<span id="cb335-2"><a href="making-pretty-maps.html#cb335-2" tabindex="-1"></a>landcover_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb335-3"><a href="making-pretty-maps.html#cb335-3" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_transform</span>(can_mex, <span class="fu">st_crs</span>(corners_4)), <span class="at">col =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb335-4"><a href="making-pretty-maps.html#cb335-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_transform</span>(contig_usa, <span class="fu">st_crs</span>(corners_4)),</span>
+<span id="cb335-5"><a href="making-pretty-maps.html#cb335-5" tabindex="-1"></a>          <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-6"><a href="making-pretty-maps.html#cb335-6" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> land_cover,</span>
+<span id="cb335-7"><a href="making-pretty-maps.html#cb335-7" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> NVC_CLASS)) <span class="sc">+</span></span>
+<span id="cb335-8"><a href="making-pretty-maps.html#cb335-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> corners_4, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-9"><a href="making-pretty-maps.html#cb335-9" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> land_cols<span class="sc">$</span>cols,</span>
+<span id="cb335-10"><a href="making-pretty-maps.html#cb335-10" tabindex="-1"></a>                    <span class="at">breaks =</span> land_cols<span class="sc">$</span>land_type) <span class="sc">+</span></span>
+<span id="cb335-11"><a href="making-pretty-maps.html#cb335-11" tabindex="-1"></a>  <span class="co"># add the land boundaries, change the linetype to dotted and make the fill transparent</span></span>
+<span id="cb335-12"><a href="making-pretty-maps.html#cb335-12" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> regions, </span>
+<span id="cb335-13"><a href="making-pretty-maps.html#cb335-13" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">&quot;grey20&quot;</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb335-14"><a href="making-pretty-maps.html#cb335-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb335-15"><a href="making-pretty-maps.html#cb335-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Land Cover Classification&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-16"><a href="making-pretty-maps.html#cb335-16" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;xmin&quot;</span>], <span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;xmax&quot;</span>])) <span class="sc">+</span></span>
+<span id="cb335-17"><a href="making-pretty-maps.html#cb335-17" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;ymin&quot;</span>], <span class="fu">st_bbox</span>(corners_4)[<span class="st">&quot;ymax&quot;</span>]))</span>
+<span id="cb335-18"><a href="making-pretty-maps.html#cb335-18" tabindex="-1"></a>landcover_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/landcoverMap-1.png" width="672" /></p>
+<div id="map-elements" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Map Elements<a href="making-pretty-maps.html#map-elements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s add classic map elements to this map, like a north arrow, scale bar, etc.</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="making-pretty-maps.html#cb336-1" tabindex="-1"></a><span class="co"># We need the package &#39;ggsn&#39; for these elements</span></span>
+<span id="cb336-2"><a href="making-pretty-maps.html#cb336-2" tabindex="-1"></a><span class="fu">library</span>(ggsn)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="making-pretty-maps.html#cb337-1" tabindex="-1"></a>landcover_plot <span class="sc">+</span></span>
+<span id="cb337-2"><a href="making-pretty-maps.html#cb337-2" tabindex="-1"></a>  <span class="fu">north</span>(corners_4)  <span class="co"># north arrow for map</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/northArrow-1.png" width="672" /></p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="making-pretty-maps.html#cb338-1" tabindex="-1"></a><span class="co"># we can use this function to see the different options for the north arrow</span></span>
+<span id="cb338-2"><a href="making-pretty-maps.html#cb338-2" tabindex="-1"></a><span class="fu">northSymbols</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/northSymbols-1.png" width="672" /></p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="making-pretty-maps.html#cb339-1" tabindex="-1"></a>landcover_plot <span class="ot">&lt;-</span> landcover_plot <span class="sc">+</span></span>
+<span id="cb339-2"><a href="making-pretty-maps.html#cb339-2" tabindex="-1"></a>  <span class="co"># let&#39;s choose option 14</span></span>
+<span id="cb339-3"><a href="making-pretty-maps.html#cb339-3" tabindex="-1"></a>  <span class="fu">north</span>(corners_4, <span class="at">symbol =</span> <span class="dv">14</span>) </span>
+<span id="cb339-4"><a href="making-pretty-maps.html#cb339-4" tabindex="-1"></a>landcover_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/addArrow-1.png" width="672" /></p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="making-pretty-maps.html#cb340-1" tabindex="-1"></a><span class="co"># Check the arguments for the scalebar function</span></span>
+<span id="cb340-2"><a href="making-pretty-maps.html#cb340-2" tabindex="-1"></a>?scalebar</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="making-pretty-maps.html#cb341-1" tabindex="-1"></a>landcover_plot <span class="ot">&lt;-</span> landcover_plot <span class="sc">+</span></span>
+<span id="cb341-2"><a href="making-pretty-maps.html#cb341-2" tabindex="-1"></a>  <span class="fu">scalebar</span>(corners_4, <span class="at">location =</span> <span class="st">&quot;bottomleft&quot;</span>, </span>
+<span id="cb341-3"><a href="making-pretty-maps.html#cb341-3" tabindex="-1"></a>           <span class="at">dist =</span> <span class="dv">150</span>, <span class="at">dist_unit =</span> <span class="st">&quot;km&quot;</span>, <span class="at">transform =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb341-4"><a href="making-pretty-maps.html#cb341-4" tabindex="-1"></a>           <span class="at">st.dist =</span> <span class="fl">0.03</span>, <span class="at">st.bottom =</span> <span class="cn">FALSE</span>, <span class="at">st.size =</span> <span class="dv">3</span>) </span>
+<span id="cb341-5"><a href="making-pretty-maps.html#cb341-5" tabindex="-1"></a>landcover_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/addScalebar-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spatial-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="where-to-obtain-data-further-resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://https://github.com/ronanhart/R_spatial_workshop/04-Visualizaton.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Spatial Data in R | R Spatial and Visualization Workshop</title>
+  <meta name="description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Spatial Data in R | R Spatial and Visualization Workshop" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="github-repo" content="ronanhart/R_spatial_workshop" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Spatial Data in R | R Spatial and Visualization Workshop" />
+  
+  <meta name="twitter:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  
+
+<meta name="author" content="Ronan Hart" />
+
+
+<meta name="date" content="2023-09-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gis-basics.html"/>
+<link rel="next" href="spatial-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Ecology Center: R Spatial Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to the R Spatial and Visualization Workshop!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i>Table of Contents</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#goals-of-this-workshop"><i class="fa fa-check"></i>Goals of this workshop:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#notes-on-updates"><i class="fa fa-check"></i>Notes on Updates</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-gis-in-r"><i class="fa fa-check"></i>Why GIS in R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites-packages-and-preparation"><i class="fa fa-check"></i>Prerequisites, Packages, and Preparation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>2</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="gis-basics.html"><a href="gis-basics.html#datums-projections-and-coordinate-systems"><i class="fa fa-check"></i><b>2.1</b> Datums, Projections, and Coordinate Systems</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#datums"><i class="fa fa-check"></i>Datums</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#projections"><i class="fa fa-check"></i>Projections</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#coordinate-reference-system"><i class="fa fa-check"></i>Coordinate Reference System</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="gis-basics.html"><a href="gis-basics.html#spatial-data"><i class="fa fa-check"></i><b>2.2</b> Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#vectors"><i class="fa fa-check"></i>Vectors</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#rasters"><i class="fa fa-check"></i>Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="gis-basics.html"><a href="gis-basics.html#vectors-vs-rasters-pros-cons"><i class="fa fa-check"></i><b>2.3</b> Vectors vs Rasters: pros &amp; cons</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html"><i class="fa fa-check"></i><b>3</b> Spatial Data in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#vectors-1"><i class="fa fa-check"></i><b>3.1</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-spreadsheet"><i class="fa fa-check"></i><b>3.1.1</b> Loading vector data from a spreadsheet</a></li>
+<li class="chapter" data-level="3.1.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-shapefile"><i class="fa fa-check"></i><b>3.1.2</b> Loading vector data from a shapefile</a></li>
+<li class="chapter" data-level="3.1.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#projecting-vector-data"><i class="fa fa-check"></i><b>3.1.3</b> Projecting vector data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#saving-vector-data"><i class="fa fa-check"></i><b>3.1.4</b> Saving vector data</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#a-note-about-sf-and-tidyverse"><i class="fa fa-check"></i>A note about <code>sf</code> and <code>tidyverse</code></a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#rasters-1"><i class="fa fa-check"></i><b>3.2</b> Rasters</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#load-a-raster"><i class="fa fa-check"></i><b>3.2.1</b> Load a raster</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#create-a-raster"><i class="fa fa-check"></i><b>3.2.2</b> Create a raster</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#project-a-raster"><i class="fa fa-check"></i><b>3.2.3</b> Project a raster</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#save-a-raster"><i class="fa fa-check"></i><b>3.2.4</b> Save a raster</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn-1"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="spatial-analysis.html"><a href="spatial-analysis.html"><i class="fa fa-check"></i><b>4</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="spatial-analysis.html"><a href="spatial-analysis.html#selecting-attributes"><i class="fa fa-check"></i><b>4.1</b> Selecting Attributes</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-analysis.html"><a href="spatial-analysis.html#select-features-by-location"><i class="fa fa-check"></i><b>4.2</b> Select features by location</a></li>
+<li class="chapter" data-level="4.3" data-path="spatial-analysis.html"><a href="spatial-analysis.html#joining-attributes"><i class="fa fa-check"></i><b>4.3</b> Joining Attributes</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-analysis.html"><a href="spatial-analysis.html#extract-raster-values"><i class="fa fa-check"></i><b>4.4</b> Extract Raster Values</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-analysis.html"><a href="spatial-analysis.html#distance"><i class="fa fa-check"></i><b>4.5</b> Distance</a></li>
+<li class="chapter" data-level="4.6" data-path="spatial-analysis.html"><a href="spatial-analysis.html#calculate-terrain-characteristics"><i class="fa fa-check"></i><b>4.6</b> Calculate Terrain Characteristics</a></li>
+<li class="chapter" data-level="4.7" data-path="spatial-analysis.html"><a href="spatial-analysis.html#re-classify-rasters"><i class="fa fa-check"></i><b>4.7</b> Re-Classify Rasters</a></li>
+<li class="chapter" data-level="4.8" data-path="spatial-analysis.html"><a href="spatial-analysis.html#raster-cell-stats"><i class="fa fa-check"></i><b>4.8</b> Raster Cell Stats</a></li>
+<li class="chapter" data-level="4.9" data-path="spatial-analysis.html"><a href="spatial-analysis.html#a-note-about-loops"><i class="fa fa-check"></i><b>4.9</b> A Note About Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html"><i class="fa fa-check"></i><b>5</b> Making Pretty Maps</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#usa-population"><i class="fa fa-check"></i><b>5.1</b> USA Population</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#change-in-population"><i class="fa fa-check"></i><b>5.1.1</b> Change in Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#yellowstone"><i class="fa fa-check"></i><b>5.2</b> Yellowstone</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#hillshade"><i class="fa fa-check"></i><b>5.2.1</b> Hillshade</a></li>
+<li class="chapter" data-level="5.2.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#inset"><i class="fa fa-check"></i><b>5.2.2</b> Inset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#landcover"><i class="fa fa-check"></i><b>5.3</b> Landcover</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#map-elements"><i class="fa fa-check"></i><b>5.3.1</b> Map Elements</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html"><i class="fa fa-check"></i><b>6</b> Where to Obtain Data &amp; Further Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources"><i class="fa fa-check"></i><b>6.1</b> Data Sources</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#maps-package"><i class="fa fa-check"></i><b>6.1.1</b> <code>maps</code> package</a></li>
+<li class="chapter" data-level="6.1.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#utah-gis"><i class="fa fa-check"></i><b>6.1.2</b> Utah GIS</a></li>
+<li class="chapter" data-level="6.1.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#other-environmental-rasters"><i class="fa fa-check"></i><b>6.1.3</b> Other Environmental Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#more-resources"><i class="fa fa-check"></i><b>6.2</b> More Resources</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#learn-more-about-gis-in-general"><i class="fa fa-check"></i><b>6.2.1</b> Learn more about GIS in general</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#acknowledgements"><i class="fa fa-check"></i><b>6.3</b> Acknowledgements</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources-used-in-this-workshop"><i class="fa fa-check"></i><b>6.3.1</b> Data sources used in this workshop:</a></li>
+<li class="chapter" data-level="6.3.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#figure-citations"><i class="fa fa-check"></i><b>6.3.2</b> Figure Citations</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Spatial and Visualization Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-data-in-r" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Spatial Data in R<a href="spatial-data-in-r.html#spatial-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="vectors-1" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Vectors<a href="spatial-data-in-r.html#vectors-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The primary packages that deal with these features are <a href="https://cran.r-project.org/web/packages/sf/index.html"><code>sf</code></a> and <a href="https://cran.r-project.org/web/packages/sp/index.html"><code>sp</code></a></p>
+<p><strong>sf</strong> means “simple feature” while <strong>sp</strong> is short for “spatial.” <a href="https://cengel.github.io/R-spatial/intro.html#conceptualizing-spatial-vector-objects-in-r">This website</a> goes into more detail about these packages and the specifics about objects from these packages.</p>
+<p>Please note, however, that <code>sp</code> is being deprecated soon and R users are encouraged to solely use <code>sf</code>. So while <code>sp</code> functions still work for now, we’re going to consider it deprecated and just go over <code>sf</code> in this workshop.</p>
+<div id="loading-vector-data-from-a-spreadsheet" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Loading vector data from a spreadsheet<a href="spatial-data-in-r.html#loading-vector-data-from-a-spreadsheet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You will often have a spreadsheet of data that have two columns of latitude and longitude (and potentially other columns for the attributes of these features).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="spatial-data-in-r.html#cb5-1" tabindex="-1"></a>sites <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Examples/Sites.csv&quot;</span>)</span>
+<span id="cb5-2"><a href="spatial-data-in-r.html#cb5-2" tabindex="-1"></a><span class="fu">head</span>(sites)</span></code></pre></div>
+<pre><code>##   Site Latitude Longitude
+## 1    1 38.94893 -110.9233
+## 2    2 40.40730 -112.5923
+## 3    3 40.58137 -110.1357
+## 4    4 41.04609 -113.3415
+## 5    5 40.78323 -110.8535
+## 6    6 41.07762 -112.0717</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="spatial-data-in-r.html#cb7-1" tabindex="-1"></a><span class="fu">class</span>(sites)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>How can we convert this data table into a spatial object?</p>
+<p>We’ll use the function <code>st_as_sf()</code> to convert an object of another class to an <code>sf</code> object. As with any function, you can always type <code>?st_as_sf</code> in the console to remind yourself what the function does and what arguments you need to add. In this case, the non-optional arguments are <code>x</code> (the object we want to convert, in this case our sites data frame) and <code>coords</code> (the columns in the data frame that have the coordinate data).</p>
+<p>The argument <code>crs</code> is optional but we should add it so that our spatial object has a coordinate reference system. Because our coordinates are lat/long, we should tell <code>st_as_sf</code> that our crs is WGS84 lat/long (Remember that the EPSG code for WGS84 lat/long is <a href="https://www.spatialreference.org/ref/epsg/4326/">4326</a>).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="spatial-data-in-r.html#cb9-1" tabindex="-1"></a>sites_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(sites, </span>
+<span id="cb9-2"><a href="spatial-data-in-r.html#cb9-2" tabindex="-1"></a>                     <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>), </span>
+<span id="cb9-3"><a href="spatial-data-in-r.html#cb9-3" tabindex="-1"></a>                     <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb9-4"><a href="spatial-data-in-r.html#cb9-4" tabindex="-1"></a><span class="fu">head</span>(sites_sf)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 1 field
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -113.3415 ymin: 38.94893 xmax: -110.1357 ymax: 41.07762
+## Geodetic CRS:  WGS 84
+##   Site                   geometry
+## 1    1 POINT (-110.9233 38.94893)
+## 2    2  POINT (-112.5923 40.4073)
+## 3    3 POINT (-110.1357 40.58137)
+## 4    4 POINT (-113.3415 41.04609)
+## 5    5 POINT (-110.8535 40.78323)
+## 6    6 POINT (-112.0717 41.07762)</code></pre>
+<p>Now when we look at the <code>head</code> of <code>sites_sf</code> it also prints out some information about this spatial object: it is a simple feature, it is a <code>POINT</code> object, the min/max coordinates (the bounding box), and the CRS. Note that the “Longitude” and “Latitude” columns turned into a “geometry” column. We can also check this information with separate functions: <code>st_bbox</code> and <code>st_crs</code></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="spatial-data-in-r.html#cb11-1" tabindex="-1"></a><span class="fu">st_bbox</span>(sites_sf)</span></code></pre></div>
+<pre><code>##       xmin       ymin       xmax       ymax 
+## -113.79094   37.09849 -109.43727   41.08479</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="spatial-data-in-r.html#cb13-1" tabindex="-1"></a><span class="fu">st_crs</span>(sites_sf)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: EPSG:4326 
+##   wkt:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+##         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         ENSEMBLEACCURACY[2.0]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     USAGE[
+##         SCOPE[&quot;Horizontal component of 3D system.&quot;],
+##         AREA[&quot;World.&quot;],
+##         BBOX[-90,-180,90,180]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+<p><code>st_crs</code> printed out a lot of information, but the important things to note are that we (the user) inputted EPSG: 4326, its datum is “World Geodetic System 1984” (or WGS 84), its axes are latitude and longitude, and its units are “degree” (as opposed to a linear unit like m that we might see in a projected crs). It’s always good practice to double check the CRS of your object before you perform any analysis.</p>
+<p>Note that now when we look at the <code>class</code> of <code>sites_sf</code> it has <strong>two</strong> classes: <code>sf</code> and <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="spatial-data-in-r.html#cb15-1" tabindex="-1"></a><span class="fu">class</span>(sites_sf)</span></code></pre></div>
+<pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<p>This is one of the great things about <code>sf</code>: because <code>sf</code> objects remain as class <code>data.frame</code>, it makes it easy to work with an <code>sf</code> object like you would with any data frame.</p>
+<p>Now that it’s a spatial object, let’s plot it and see what it looks like!</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="spatial-data-in-r.html#cb17-1" tabindex="-1"></a><span class="fu">plot</span>(sites_sf, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotBase-1.png" width="672" /></p>
+<p>This object only has one attribute (“Site”). If it had more than one, plotting in base R (i.e. using the <code>plot</code> function) plots all attributes (it will actually only plot 10 and will give you a warning if there are more than 10 attributes).</p>
+<p>To just plot the feature’s shape, we can use <code>st_geometry</code> to extract the geometry of the vector</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="spatial-data-in-r.html#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(sites_sf), <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotBase2-1.png" width="672" /></p>
+<p>We can also use <code>ggplot2</code> to plot <code>sf</code> objects. <code>ggplot2</code> has a function called <code>geom_sf</code>, which makes it easy to visualize <code>sf</code> objects with <code>ggplot2</code></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="spatial-data-in-r.html#cb19-1" tabindex="-1"></a><span class="fu">ggplot</span>(sites_sf) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="spatial-data-in-r.html#cb19-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="co"># note that we don&#39;t need to tell ggplot what it should consider x and y to be; that&#39;s already built in with the &quot;geometry&quot; column!</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/sfGGplot-1.png" width="672" /></p>
+<p>Remember, though, that this workshop will not cover how to make nice maps in R (that will be in the next workshop). I just bring this up because you would want to be sure the data you’re working with looks like what you might expect it to, so you would want to make a quick plot before moving on to analysis.</p>
+</div>
+<div id="loading-vector-data-from-a-shapefile" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Loading vector data from a shapefile<a href="spatial-data-in-r.html#loading-vector-data-from-a-shapefile" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A lot of the time, you will have spatial data already saved as a shapefile. How do we load that into R?</p>
+<p>We’ll use the function <code>st_read</code> which takes two arguments: <code>dsn</code> (data source name), which is essentially the folder where the shapefile is located, and <code>layer</code>, which is the name of file (without any extensions). <code>layer</code> is technically optional because <code>dsn</code> will choose the first file in that folder, so if the shapefile is the only file in that folder, then <code>dsn</code> will automatically choose the file. But I like to specify the layer name to avoid any mishaps.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="spatial-data-in-r.html#cb20-1" tabindex="-1"></a><span class="co"># Shapefile: Interstates in Utah</span></span>
+<span id="cb20-2"><a href="spatial-data-in-r.html#cb20-2" tabindex="-1"></a>interstate_sf <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">&quot;Data/Examples/utah_interstate&quot;</span>, <span class="at">layer =</span> <span class="st">&quot;utah_interstate&quot;</span>)</span></code></pre></div>
+<pre><code>## Reading layer `utah_interstate&#39; from data source 
+##   `C:\Users\RonanHart\Documents\Projects\R_Spatial_Workshop\Data\Examples\utah_interstate&#39; 
+##   using driver `ESRI Shapefile&#39;
+## Simple feature collection with 1848 features and 9 fields
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: -114.0437 ymin: 37.00002 xmax: -109.0513 ymax: 42.00117
+## Geodetic CRS:  WGS 84</code></pre>
+<p>You’ll note that as we read in a shapefile with <code>st_read</code>, it automatically prints out the information about this feature (if you don’t want R to print this, put <code>quiet = FALSE</code> in the function).</p>
+<p>Again, we can check this information separately (in case we forget or we need to check later in the analysis). We can also check the first few rows of the data frame to see what kind of attributes there are, and we can plot the feature to make sure it looks like what we expect it to be.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="spatial-data-in-r.html#cb22-1" tabindex="-1"></a><span class="fu">st_bbox</span>(interstate_sf)</span></code></pre></div>
+<pre><code>##       xmin       ymin       xmax       ymax 
+## -114.04367   37.00002 -109.05128   42.00117</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="spatial-data-in-r.html#cb24-1" tabindex="-1"></a><span class="fu">st_crs</span>(interstate_sf)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: WGS 84 
+##   wkt:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     DATUM[&quot;World Geodetic System 1984&quot;,
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;latitude&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;longitude&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="spatial-data-in-r.html#cb26-1" tabindex="-1"></a><span class="fu">head</span>(interstate_sf)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 9 fields
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: -112.9847 ymin: 38.5741 xmax: -111.8053 ymax: 40.83991
+## Geodetic CRS:  WGS 84
+##   OBJECTID      FULLNAME      NAME POSTTYPE SPEED_LMT DOT_HWYNAM DOT_SRFTYP
+## 1      523   I-15 NB FWY   I-15 NB      FWY        75       I-15          P
+## 2      649 I-215W SB FWY I-215W SB      FWY        65      I-215          P
+## 3      857   I-80 WB FWY   I-80 WB      FWY        75       I-80          P
+## 4     1006 I-215W NB FWY I-215W NB      FWY        65      I-215          P
+## 5     1032   I-15 NB FWY   I-15 NB      FWY        75       I-15          P
+## 6     1106 I-215E SB FWY I-215E SB      FWY        65      I-215          P
+##   DOT_AADT                   UNIQUE_ID                       geometry
+## 1    21000   12SUH60347079_I-15 NB_FWY LINESTRING (-112.6033 38.57...
+## 2       NA 12TVL19841035_I-215W SB_FWY LINESTRING (-111.9491 40.74...
+## 3       NA   12TUL32701512_I-80 WB_FWY LINESTRING (-112.9847 40.76...
+## 4    37000 12TVL22892135_I-215W NB_FWY LINESTRING (-111.9145 40.83...
+## 5    22000   12SUJ79150753_I-15 NB_FWY LINESTRING (-112.4074 38.89...
+## 6    68000 12TVL31740094_I-215E SB_FWY LINESTRING (-111.8053 40.67...</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="spatial-data-in-r.html#cb28-1" tabindex="-1"></a><span class="fu">ggplot</span>(interstate_sf) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="spatial-data-in-r.html#cb28-2" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/checkSF2-1.png" width="672" /></p>
+</div>
+<div id="projecting-vector-data" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Projecting vector data<a href="spatial-data-in-r.html#projecting-vector-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So far all of our vector data has only been in WGS 84 lat/long CRS. More than likely you will want to work in a projected coordinate system. So how do we re-project (or transform) features in R?</p>
+<p>We will use the <code>sf</code> function <code>st_transform()</code></p>
+<p>This function needs the object you want to re-project and the target CRS.</p>
+<p>What CRS should we work in? As was stated in the “GIS basics” chapter, UTM is a popular projection because it’s localized and allows you to work with with linear metrics like length, area, and distance. Since both of these features (our site data and Utah interstates) are located in Utah, we would use UTM 12N. We can stay in the WGS 84 datum, but for the purposes of demonstration, let’s change to NAD83. (Remember from the previous chapter that there is not much difference between these datums, so it’s up to you if you want to use a more localized datum (NAD83) or a more recent datum (WGS84)). The EPSG code for NAD83 UTM 12N is <a href="https://www.spatialreference.org/ref/epsg/26912/">26912</a>. (If you want to work in WGS84 UTM 12N, the EPSG code is <a href="https://www.spatialreference.org/ref/epsg/32612/">32612</a>)</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="spatial-data-in-r.html#cb29-1" tabindex="-1"></a>interstate_sf_proj <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(interstate_sf, <span class="at">crs =</span> <span class="dv">26912</span>)</span>
+<span id="cb29-2"><a href="spatial-data-in-r.html#cb29-2" tabindex="-1"></a><span class="fu">st_crs</span>(interstate_sf_proj)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+##   User input: EPSG:26912 
+##   wkt:
+## PROJCRS[&quot;NAD83 / UTM zone 12N&quot;,
+##     BASEGEOGCRS[&quot;NAD83&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4269]],
+##     CONVERSION[&quot;UTM zone 12N&quot;,
+##         METHOD[&quot;Transverse Mercator&quot;,
+##             ID[&quot;EPSG&quot;,9807]],
+##         PARAMETER[&quot;Latitude of natural origin&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8801]],
+##         PARAMETER[&quot;Longitude of natural origin&quot;,-111,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8802]],
+##         PARAMETER[&quot;Scale factor at natural origin&quot;,0.9996,
+##             SCALEUNIT[&quot;unity&quot;,1],
+##             ID[&quot;EPSG&quot;,8805]],
+##         PARAMETER[&quot;False easting&quot;,500000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8806]],
+##         PARAMETER[&quot;False northing&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8807]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;(E)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         AXIS[&quot;(N)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##     USAGE[
+##         SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
+##         AREA[&quot;North America - between 114°W and 108°W - onshore and offshore. Canada - Alberta; Northwest Territories; Nunavut; Saskatchewan. United States (USA) - Arizona; Colorado; Idaho; Montana; New Mexico; Utah; Wyoming.&quot;],
+##         BBOX[31.33,-114,84,-108]],
+##     ID[&quot;EPSG&quot;,26912]]</code></pre>
+<p>Note that the coordinates of the WGS84 object compared the coordinates of the projected object are different.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="spatial-data-in-r.html#cb31-1" tabindex="-1"></a><span class="fu">st_geometry</span>(interstate_sf)</span></code></pre></div>
+<pre><code>## Geometry set for 1848 features 
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: -114.0437 ymin: 37.00002 xmax: -109.0513 ymax: 42.00117
+## Geodetic CRS:  WGS 84
+## First 5 geometries:</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="spatial-data-in-r.html#cb33-1" tabindex="-1"></a><span class="fu">st_geometry</span>(interstate_sf_proj)</span></code></pre></div>
+<pre><code>## Geometry set for 1848 features 
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 242993.7 ymin: 4098090 xmax: 668288.9 ymax: 4651339
+## Projected CRS: NAD83 / UTM zone 12N
+## First 5 geometries:</code></pre>
+<p>The coordinates for the object in WGS84 are in lat/long and the units are decimal degrees. The coordiantes for the projected object are in UTM and the untis are meters.</p>
+<p><strong>REMINDER:</strong> You should <strong>always</strong> double-check the CRS of every feature and object you’re working with because you want to make sure everything is projected to the <strong>same</strong> CRS! If they’re not, it could result in inaccurate analysis and plotting. Depending on what functions you’re using, R may give you a warning or error that the CRS of one feature and another don’t match, but it’s best not to rely on this and just double-check yourself.</p>
+</div>
+<div id="saving-vector-data" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Saving vector data<a href="spatial-data-in-r.html#saving-vector-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once you’ve created or modified a spatial object, most likely you want to save it so you can use it later or share with collaborators. There are many files types that can hold spatial data, but the most commonly used are ESRI Shapefile (which can be used in ArcGIS software), KML (which can be used with Google Earth), GeoJSON, and PostgreSQL. If you’re curious what other file types are out there, you can use function <code>st_drivers()</code> for <code>sf</code> objects. In this workshop, I will focus just on ESRI Shapefiles.</p>
+<p>If you’ve worked with shapefiles before, you’ve likely noticed that a shapefile is actually a collection of files with the extensions .dbf, .prj, .shp, and .shx. It’s often easier to organize and share shapefiles if they’re in their own folder. If you don’t already have a folder ready for any shapefiles that you’re ready to save, you can, of course, manually make one in the File Explorer. But you can also create folders in R! I, personally, often like to do this because it helps streamline my process and keeps the workflow reproducible. To do so we’ll use the functions <code>dir.exists()</code> to check if the directory (or folder) exists or not, and if it doesn’t we’ll use <code>dir.create()</code> to create a directory.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="spatial-data-in-r.html#cb35-1" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="st">&quot;Data/Examples/Sites_shp&quot;</span> <span class="co"># name what you want the folder to be and save it in an object</span></span>
+<span id="cb35-2"><a href="spatial-data-in-r.html#cb35-2" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="spatial-data-in-r.html#cb35-3" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(out_dir)){ <span class="co"># this if statement is basically saying &quot;if out_dir does NOT exist...&quot; (the NOT is from the exclamation mark)</span></span>
+<span id="cb35-4"><a href="spatial-data-in-r.html#cb35-4" tabindex="-1"></a>  <span class="fu">dir.create</span>(out_dir) <span class="co"># and if out_dir does NOT exist, then dir.create will create it</span></span>
+<span id="cb35-5"><a href="spatial-data-in-r.html#cb35-5" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now that we’ve created a new directory for this shapefile to go to, let’s save our shapefile! For <code>sf</code> objects we’ll use the function <code>st_write</code>. This function takes the object you’re saving, the dsn (or the folder) you want to save it to, the layer (or the name you want to save the file as, do NOT add an extension), and the driver (meaning if you’re saving it as an ESRI Shapefile, KML, etc.)</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="spatial-data-in-r.html#cb36-1" tabindex="-1"></a><span class="fu">st_write</span>(sites_sf, <span class="at">dsn =</span> out_dir, <span class="at">layer =</span> <span class="st">&quot;Sites_sf&quot;</span>, <span class="at">driver =</span> <span class="st">&quot;ESRI Shapefile&quot;</span>)</span></code></pre></div>
+</div>
+<div id="a-note-about-sf-and-tidyverse" class="section level3 unnumbered hasAnchor">
+<h3>A note about <code>sf</code> and <code>tidyverse</code><a href="spatial-data-in-r.html#a-note-about-sf-and-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As mentioned earlier, <code>sf</code> works really well with <code>tidyverse</code>. If you are familiar with <code>tidyverse</code> then you know that one pro of this package is the pipe (<code>%&gt;%</code>) which lets you perform multiple functions at once without getting cluttered and hard to read. Functions for <code>sf</code> can easily be incorporated into the <code>tidyverse</code> piping method as well. For an example, we can load a csv file, convert it to an <code>sf</code> object, project it, and save it all at once using the pipes.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="spatial-data-in-r.html#cb37-1" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;Data/Examples/Sites.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="spatial-data-in-r.html#cb37-2" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="spatial-data-in-r.html#cb37-3" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">26912</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="spatial-data-in-r.html#cb37-4" tabindex="-1"></a>  <span class="fu">st_write</span>(<span class="at">dsn =</span> <span class="st">&quot;data&quot;</span>, <span class="at">layer =</span> <span class="st">&quot;Sites_shp&quot;</span>, <span class="at">driver =</span> <span class="st">&quot;ESRI Shapefile&quot;</span>)</span></code></pre></div>
+<p>Of course, this requires that you already know what the column names for the coordinates are, and this might not be the best example for a series of functions to use with the pipe. But this type of process is a useful tool to know, especially if you are already familiar with and frequently use <code>tidyverse</code>.</p>
+</div>
+<div id="your-turn" class="section level3 unnumbered hasAnchor">
+<h3>Your Turn!<a href="spatial-data-in-r.html#your-turn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the attached “worksheet”, there are some exerices to help you practice these concepts and functions. Try them out!</p>
+<hr />
+</div>
+</div>
+<div id="rasters-1" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Rasters<a href="spatial-data-in-r.html#rasters-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The primary package that deals with rasters is <a href="https://cran.r-project.org/web/packages/terra/index.html"><code>terra</code></a>. <a href="https://cran.r-project.org/web/packages/raster/index.html"><code>raster</code></a> also works with rasters but, just like <code>sp</code>, will be deprecated soon, so in this workshop we will work with <code>terra</code>. (Note that <code>raster</code> is functionally very similar to <code>terra</code>, so it is easy to switch between the two. But while <code>raster</code> is still functional, it will no longer be updated).</p>
+<div id="load-a-raster" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Load a raster<a href="spatial-data-in-r.html#load-a-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When you want to load a raster that is saved in a directory, you’ll use the function <code>rast</code>. When loading a raster that is already saved, the only argument you need is the filename (including the directory and extension)</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="spatial-data-in-r.html#cb38-1" tabindex="-1"></a>elev <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Examples/elevation.tif&quot;</span>)</span>
+<span id="cb38-2"><a href="spatial-data-in-r.html#cb38-2" tabindex="-1"></a>elev</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 334, 390, 1  (nrow, ncol, nlyr)
+## resolution  : 0.000278, 0.000278  (x, y)
+## extent      : -114.0275, -113.9191, 36.40381, 36.49667  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : elevation.tif 
+## name        : elevation 
+## min value   :  645.7881 
+## max value   : 1137.6703</code></pre>
+<p>When we examine the raster (by simply calling the object like we did above), we get a lot of useful information.</p>
+<ul>
+<li><code>class</code>: the class of the raster (this could be <code>RasterLayer</code>, <code>RasterStack</code>, or <code>RasterBrick</code>)</li>
+<li><code>dimensions</code>: the number of rows, columns, and cells</li>
+<li><code>resolution</code>: the size of the cells</li>
+<li><code>extent</code>: the min/max x and y</li>
+<li><code>crs</code>: the coordinate reference system</li>
+<li><code>values</code>: the min/max values this raster contains</li>
+</ul>
+<p>I recommend <em>always</em> examining a raster after you load it in to make sure the information looks like what you would expect it to be.</p>
+<p>You can also check all of this information with separate functions:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="spatial-data-in-r.html#cb40-1" tabindex="-1"></a><span class="fu">class</span>(elev)</span></code></pre></div>
+<pre><code>## [1] &quot;SpatRaster&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;terra&quot;</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="spatial-data-in-r.html#cb42-1" tabindex="-1"></a><span class="fu">nrow</span>(elev)</span></code></pre></div>
+<pre><code>## [1] 334</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="spatial-data-in-r.html#cb44-1" tabindex="-1"></a><span class="fu">ncol</span>(elev)</span></code></pre></div>
+<pre><code>## [1] 390</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="spatial-data-in-r.html#cb46-1" tabindex="-1"></a><span class="fu">ncell</span>(elev)</span></code></pre></div>
+<pre><code>## [1] 130260</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="spatial-data-in-r.html#cb48-1" tabindex="-1"></a><span class="fu">res</span>(elev) <span class="co"># the cell resolution of the raster</span></span></code></pre></div>
+<pre><code>## [1] 0.000278 0.000278</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="spatial-data-in-r.html#cb50-1" tabindex="-1"></a><span class="fu">ext</span>(elev)</span></code></pre></div>
+<pre><code>## SpatExtent : -114.027500001, -113.919080001, 36.403814658, 36.496666658 (xmin, xmax, ymin, ymax)</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="spatial-data-in-r.html#cb52-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">crs</span>(elev)) <span class="co"># I put cat() around crs() because it will otherwise print out a full string full of &quot;\n&quot; (which tell R to print on a new line, so using cat() will make this output more readable)</span></span></code></pre></div>
+<pre><code>## GEOGCRS[&quot;WGS 84&quot;,
+##     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+##         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         ENSEMBLEACCURACY[2.0]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     USAGE[
+##         SCOPE[&quot;Horizontal component of 3D system.&quot;],
+##         AREA[&quot;World.&quot;],
+##         BBOX[-90,-180,90,180]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="spatial-data-in-r.html#cb54-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">values</span>(elev)) <span class="co"># put this in summary() so we can get an idea of the spread of values (rather than a list of all of the values themselves)</span></span></code></pre></div>
+<pre><code>##    elevation     
+##  Min.   : 645.8  
+##  1st Qu.: 798.5  
+##  Median : 869.5  
+##  Mean   : 864.4  
+##  3rd Qu.: 932.0  
+##  Max.   :1137.7</code></pre>
+<p>We can also plot the raster to check that it looks like what we would expect it to be</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="spatial-data-in-r.html#cb56-1" tabindex="-1"></a><span class="fu">plot</span>(elev)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotRast-1.png" width="672" /></p>
+<p>We can also plot a raster with <code>ggplot2</code>, but we need to do an extra step of converting it to a data frame first. We’ll use the base R function <code>as.data.frame</code> and we need to be sure to put <code>xy = TRUE</code> in the arguments. After we do that, we can use the function <code>geom_raster()</code> within <code>ggplot</code>. Within the <code>aes()</code> function in <code>geom_raster()</code>, we need to put the columns that correspond to the x and y locations and what the fill value should represent (in this case, elevation).</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="spatial-data-in-r.html#cb57-1" tabindex="-1"></a>elev_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(elev, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb57-2"><a href="spatial-data-in-r.html#cb57-2" tabindex="-1"></a><span class="fu">head</span>(elev_df) <span class="co"># the data frame of a raster contains columns for the x and y locations and the corresponding cell value</span></span></code></pre></div>
+<pre><code>##           x        y elevation
+## 1 -114.0274 36.49653  1082.456
+## 2 -114.0271 36.49653  1081.739
+## 3 -114.0268 36.49653  1080.975
+## 4 -114.0265 36.49653  1079.712
+## 5 -114.0262 36.49653  1077.750
+## 6 -114.0260 36.49653  1075.466</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="spatial-data-in-r.html#cb59-1" tabindex="-1"></a><span class="fu">ggplot</span>(elev_df) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="spatial-data-in-r.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> elevation))</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotRastGGplot-1.png" width="672" /></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="spatial-data-in-r.html#cb60-1" tabindex="-1"></a><span class="co"># You can use the pipe to run this process all at once</span></span>
+<span id="cb60-2"><a href="spatial-data-in-r.html#cb60-2" tabindex="-1"></a>elev <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="spatial-data-in-r.html#cb60-3" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb60-4"><a href="spatial-data-in-r.html#cb60-4" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb60-5"><a href="spatial-data-in-r.html#cb60-5" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> elevation)) <span class="co"># This requires that you know the column name of the raster values</span></span></code></pre></div>
+<p>An important thing to note is that, depending on the size of the raster, it might be too computationally expensive to convert a raster to a data frame and R may give you an error.</p>
+<p>(Another reminder that we will not cover how to make these maps look nice, this is just a quick way to check that your raster looks the way that you think it should)</p>
+<div id="loading-a-raster-with-more-than-one-band" class="section level4 unnumbered hasAnchor">
+<h4>Loading a raster with more than one band<a href="spatial-data-in-r.html#loading-a-raster-with-more-than-one-band" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the example above, the raster we loaded only had one band. Let’s try loading in a raster downloaded from <a href="https://nsidc.org/data/g02158">SNODAS</a> (Snow Data Assimilation System) which has 2 bands: SWE (snow water equivalent) and snow depth. (SNODAS offers daily rasters, and this example raster is from 02-23-2019). <code>terra</code> makes it easy to load a stacked raster because we can just use the same function <code>rast</code>.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="spatial-data-in-r.html#cb61-1" tabindex="-1"></a>snow_stack <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Examples/snow_20190223.tif&quot;</span>)</span>
+<span id="cb61-2"><a href="spatial-data-in-r.html#cb61-2" tabindex="-1"></a>snow_stack</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 12, 13, 2  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : -114.025, -113.9167, 36.4, 36.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : snow_20190223.tif 
+## names       : snow_20190223_1, snow_20190223_2 
+## min values  :               0,               0 
+## max values  :              24,             150</code></pre>
+<p>Let’s plot the raster stack just to make sure it looks like what we might expect:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="spatial-data-in-r.html#cb63-1" tabindex="-1"></a><span class="fu">plot</span>(snow_stack)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotStk-1.png" width="672" /></p>
+<p>Note that plotting a raster stack will plot all the layers at once.</p>
+<p>The benefit of working with a stack of rasters is that if you need to perform a computation on all of your rasters, you can stack them all togther and the computation will run for every raster layer in the stack. To stack rasters together we use the function <code>c()</code>, similar to how we would add elements to vector.</p>
+<p><strong>However</strong>, rasters will only stack together if they have the same <strong>dimensions</strong>, <strong>resolution</strong>, <strong>extent</strong>, and <strong>crs</strong>.</p>
+<p>For example, if we try to stack our elevation raster and stack of snow rasters together:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="spatial-data-in-r.html#cb64-1" tabindex="-1"></a><span class="fu">c</span>(elev, snow_stack)</span></code></pre></div>
+<p><code>Error: [rast] extents do not match</code></p>
+<p>We get an error that the extents don’t match</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="spatial-data-in-r.html#cb65-1" tabindex="-1"></a><span class="fu">ext</span>(elev)</span></code></pre></div>
+<pre><code>## SpatExtent : -114.027500001, -113.919080001, 36.403814658, 36.496666658 (xmin, xmax, ymin, ymax)</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="spatial-data-in-r.html#cb67-1" tabindex="-1"></a><span class="fu">ext</span>(snow_stack)</span></code></pre></div>
+<pre><code>## SpatExtent : -114.025, -113.916666666667, 36.3999999996667, 36.4999999996667 (xmin, xmax, ymin, ymax)</code></pre>
+<p>They’re very close, but they need to be <em>exact</em>. <strong>Why can’t I just not stack them and run seperate computations on these rasters?</strong> You can, but your raster cells will be slightly off from each other and may result in inaccurate results and inference.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:stack2"></span>
+<img src="Plots/pictures/raster_stack.png" alt="A stack of rasters, showing how each cell would correspond to the ones on top and below" width="50%" />
+<p class="caption">
+Figure 3.1: A stack of rasters, showing how each cell would correspond to the ones on top and below
+</p>
+</div>
+<p>In a future section, we’ll talk about how to make your rasters line up so you can stack them all together.</p>
+</div>
+</div>
+<div id="create-a-raster" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Create a raster<a href="spatial-data-in-r.html#create-a-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To create a raster from scratch, we’ll use the same function <code>rast()</code> but instead of the filename or band as arguments, we’ll include the extent and resolution that we want. In this example, let’s just make something random.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="spatial-data-in-r.html#cb69-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># this is to make the randomness of runif the same every time </span></span>
+<span id="cb69-2"><a href="spatial-data-in-r.html#cb69-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>)</span>
+<span id="cb69-3"><a href="spatial-data-in-r.html#cb69-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>)</span>
+<span id="cb69-4"><a href="spatial-data-in-r.html#cb69-4" tabindex="-1"></a>r_new <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="at">xmin =</span> x, <span class="at">xmax =</span> x <span class="sc">+</span> <span class="dv">10</span>, <span class="at">ymin =</span> y, <span class="at">ymax =</span> y <span class="sc">+</span> <span class="dv">10</span>, <span class="at">resolution =</span> <span class="dv">1</span>)</span>
+<span id="cb69-5"><a href="spatial-data-in-r.html#cb69-5" tabindex="-1"></a>r_new</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 2.655087, 12.65509, 3.721239, 13.72124  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84</code></pre>
+<p>Note that because we didn’t specify the CRS in the arguments, it defaulted to WGS84 lat/long.</p>
+<p>Right now this raster is empty. We can check with the function <code>values()</code></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="spatial-data-in-r.html#cb71-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">values</span>(r_new))</span></code></pre></div>
+<pre><code>##      lyr.1
+## [1,]   NaN
+## [2,]   NaN
+## [3,]   NaN
+## [4,]   NaN
+## [5,]   NaN
+## [6,]   NaN</code></pre>
+<p>We’ll use the same function to assign fill the raster with values. If you noticed, there are 100 total cells that need to be filled, and let’s fill them with random numbers.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="spatial-data-in-r.html#cb73-1" tabindex="-1"></a><span class="fu">values</span>(r_new) <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>)</span>
+<span id="cb73-2"><a href="spatial-data-in-r.html#cb73-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">values</span>(r_new))</span></code></pre></div>
+<pre><code>##          lyr.1
+## [1,] 0.5728534
+## [2,] 0.9082078
+## [3,] 0.2016819
+## [4,] 0.8983897
+## [5,] 0.9446753
+## [6,] 0.6607978</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="spatial-data-in-r.html#cb75-1" tabindex="-1"></a>r_new</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 10, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 2.655087, 12.65509, 3.721239, 13.72124  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 
+## source(s)   : memory
+## name        :      lyr.1 
+## min value   : 0.01339033 
+## max value   : 0.99190609</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="spatial-data-in-r.html#cb77-1" tabindex="-1"></a><span class="fu">plot</span>(r_new)</span></code></pre></div>
+<p><img src="_main_files/figure-html/addVals-1.png" width="672" /></p>
+<p><strong>Why would you need to create a raster from scratch?</strong></p>
+<ol style="list-style-type: decimal">
+<li>If you’ve written code to perform a calculation or an analysis on a raster, it’s good to check that your code is doing what you think it’s doing. A good way to test the code is to try it out on a “dummy” raster</li>
+<li>If you’re asking for help on your code (on <a href="https://stackoverflow.com/">Stack Overflow</a> for example), it’s good practice to either include your data (which is often very difficult to do) or to create a reproducible example. Knowing how to create fake data or fake rasters is useful to know.</li>
+<li>We’ll see in the next section another useful reason for creating a raster from scratch.</li>
+</ol>
+</div>
+<div id="project-a-raster" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Project a raster<a href="spatial-data-in-r.html#project-a-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s go back to the elevation raster we loaded earlier. If you noticed, the CRS of this raster is WGS84 UTM12N, as opposed to NAD83 UTM12N that we used earlier for our vector data.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="spatial-data-in-r.html#cb78-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">crs</span>(elev))</span></code></pre></div>
+<pre><code>## GEOGCRS[&quot;WGS 84&quot;,
+##     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+##         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+##         MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         ENSEMBLEACCURACY[2.0]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     USAGE[
+##         SCOPE[&quot;Horizontal component of 3D system.&quot;],
+##         AREA[&quot;World.&quot;],
+##         BBOX[-90,-180,90,180]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+<p>If we were going to do some sort of analysis on our vector data and raster data, we want all of our spatial objects to be in the same CRS so that we know that our layers are <em>truly</em> stacked on top of the other (for plotting and analysis). For that reason, we need to project this raster to NAD83 UTM12N. To do so, we’ll use the function <code>project</code></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="spatial-data-in-r.html#cb80-1" tabindex="-1"></a>elev_proj <span class="ot">&lt;-</span> <span class="fu">project</span>(<span class="at">x =</span> elev, <span class="st">&quot;epsg:26912&quot;</span>)</span>
+<span id="cb80-2"><a href="spatial-data-in-r.html#cb80-2" tabindex="-1"></a>elev_proj</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 384, 364, 1  (nrow, ncol, nlyr)
+## resolution  : 27.59883, 27.59883  (x, y)
+## extent      : 228498.9, 238544.8, 4032704, 4043302  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## name        : elevation 
+## min value   :   645.913 
+## max value   :  1136.788</code></pre>
+<p>Wait, let’s take a look at the cell resolution again…</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="spatial-data-in-r.html#cb82-1" tabindex="-1"></a><span class="fu">res</span>(elev_proj)</span></code></pre></div>
+<pre><code>## [1] 27.59883 27.59883</code></pre>
+<p>This elevation raster came from the <a href="https://www.usgs.gov/3d-elevation-program">USGS’s 3D Elevation Program</a>. When I downloaded it, I specified a 1-arcsecond resolution (arcsecond is the unit for long/lat projections), which is equivalent to a 30mX30m resolution in a linear projection (like UTM). So why is the resolution after projecting not actually 30mX30m?</p>
+<p>What’s happening is that <em>every</em> cell needs to be projected, causing the cells to be warped and results in slightly off cell measurements.</p>
+<p>What if we tried specifying the cell resolution in the <code>projectRaster</code> function?</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="spatial-data-in-r.html#cb84-1" tabindex="-1"></a>elev_proj_2 <span class="ot">&lt;-</span> <span class="fu">project</span>(elev, <span class="st">&quot;epsg:26912&quot;</span>, <span class="at">res =</span> <span class="dv">30</span>)</span>
+<span id="cb84-2"><a href="spatial-data-in-r.html#cb84-2" tabindex="-1"></a>elev_proj_2</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 353, 335, 1  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228498.9, 238548.9, 4032704, 4043294  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## name        : elevation 
+## min value   :  645.8972 
+## max value   : 1136.5520</code></pre>
+<p>We could do this. But can we be sure that all of the cells in this raster would align one-to-one in all of our other rasters? And if they don’t align, can we be sure our analysis and computation on all of our rasters would be correct?</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="spatial-data-in-r.html#cb86-1" tabindex="-1"></a>snow_proj <span class="ot">&lt;-</span> <span class="fu">project</span>(snow_stack, <span class="st">&quot;epsg:26912&quot;</span>, <span class="at">res =</span> <span class="dv">30</span>)</span>
+<span id="cb86-2"><a href="spatial-data-in-r.html#cb86-2" tabindex="-1"></a>snow_proj</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 389, 334, 2  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228709.8, 238729.8, 4031990, 4043660  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## names       : snow_20190223_1, snow_20190223_2 
+## min values  :         0.00000,          0.0000 
+## max values  :        23.99983,        149.8608</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="spatial-data-in-r.html#cb88-1" tabindex="-1"></a><span class="fu">c</span>(elev_proj_2, snow_proj)</span></code></pre></div>
+<p><code>Error: [rast] extents do not match</code></p>
+<p>Furthermore, there’s something else happening when rasters are projected. Let’s double-check the help file, <code>?project</code>. It looks like there’s another argument called <code>method</code> that defaults to <code>"bilinear"</code>. Ok…well what does that mean? Bilinear interpretation is basically a way of estimating a value in between two other values.</p>
+<p>This essentially means that when you use <code>project</code>, the raster cells are being warped and shifted slightly, so R can’t just simply move the entire raster over, but it needs to know how to estimate the cell values in their new location and new resolution. So should it estimate a value in between two cell values or pick the actual value of the cell it’s closest to? Either way, this will slightly adjust the data:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="spatial-data-in-r.html#cb89-1" tabindex="-1"></a>elev_bilinear <span class="ot">&lt;-</span> <span class="fu">project</span>(elev, <span class="st">&quot;epsg:26912&quot;</span>, <span class="at">res =</span> <span class="dv">30</span>, <span class="at">method =</span> <span class="st">&quot;bilinear&quot;</span>)</span>
+<span id="cb89-2"><a href="spatial-data-in-r.html#cb89-2" tabindex="-1"></a>elev_sum <span class="ot">&lt;-</span> <span class="fu">project</span>(elev, <span class="st">&quot;epsg:26912&quot;</span>, <span class="at">res =</span> <span class="dv">30</span>, <span class="at">method =</span> <span class="st">&quot;sum&quot;</span>)</span>
+<span id="cb89-3"><a href="spatial-data-in-r.html#cb89-3" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="spatial-data-in-r.html#cb89-4" tabindex="-1"></a><span class="co"># check the spread of values in the orginal raster</span></span>
+<span id="cb89-5"><a href="spatial-data-in-r.html#cb89-5" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">values</span>(elev))</span></code></pre></div>
+<pre><code>##    elevation     
+##  Min.   : 645.8  
+##  1st Qu.: 798.5  
+##  Median : 869.5  
+##  Mean   : 864.4  
+##  3rd Qu.: 932.0  
+##  Max.   :1137.7</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="spatial-data-in-r.html#cb91-1" tabindex="-1"></a><span class="co"># check the spread of values in the raster estimated with bilinear </span></span>
+<span id="cb91-2"><a href="spatial-data-in-r.html#cb91-2" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">values</span>(elev_bilinear))</span></code></pre></div>
+<pre><code>##    elevation     
+##  Min.   : 645.9  
+##  1st Qu.: 798.5  
+##  Median : 869.5  
+##  Mean   : 864.4  
+##  3rd Qu.: 932.1  
+##  Max.   :1136.6  
+##  NA&#39;s   :6873</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="spatial-data-in-r.html#cb93-1" tabindex="-1"></a><span class="co"># check the spread of values in the raster estimated with nearest neighbor </span></span>
+<span id="cb93-2"><a href="spatial-data-in-r.html#cb93-2" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">values</span>(elev_sum))</span></code></pre></div>
+<pre><code>##    elevation       
+##  Min.   :   0.001  
+##  1st Qu.: 930.229  
+##  Median :1015.933  
+##  Mean   :1004.808  
+##  3rd Qu.:1089.200  
+##  Max.   :1329.881  
+##  NA&#39;s   :6197</code></pre>
+<p>There’s no right or wrong answer on which method you pick. The <code>project</code> help file recommends using <code>bilinear</code> for continuous rasters (like this elevation raster we’re working with) and <code>sum</code> (or <code>min</code>, <code>q1</code>, <code>med</code>, <code>q3</code>, <code>max</code>, <code>average</code>, <code>mode</code>, or <code>rms</code>) for categorical rasters (in fact, you <em>shouldn’t</em> use <code>bilinear</code> for categorical rasters because it will pick a value that’s in between two values which aren’t real numbers, but are actually stand-ins for a category). In my work I use <code>sum</code> for continuous rasters as well, but <code>bilinear</code> is valid to use as well. (Again, as with everything, it depends on your analysis and your system.) We’ll continue to use <code>bilinear</code> in this workshop.</p>
+<p>One thing to keep in mind with projecting rasters is that <strong>you should not over-project and re-sample your rasters over and over again</strong>. Imagine printing a picture and then making a copy of that printed picture. And then making a copy of the copy. And then a copy of that <em>that</em> copy. Over and over again. Eventually you end up with a warped image that only vaguely resembles the original image. A similar thing can happen if you project and re-sample your rasters even more than once.</p>
+<p>(FYI there is no issue with projecting and re-projecting your vector data over and over again. This is because vector data are made up of lines and vertices which are relatively easy to project, and the data within a vector stays the same while it’s being projected.)</p>
+<p>Ok, so now that we know the dangers of projecting rasters, what <strong>is</strong> the best way project a raster? I recommend (and <code>projectRaster</code> also recommends) creating a template raster and using that template as a mold for all of your rasters. (<em>hint: this is where it comes in handy to know how to make a blank raster</em>)</p>
+<p>So let’s create a template raster with our desired CRS, cell resolution, and extent. To choose the cell resolution, I recommend picking your set of rasters with the smallest resolution (but keep in mind that this will affect disk space and computation time, so again there’s no right or wrong answer). In this case, elevation (30mX30m) has a smaller resolution than snow (1kmX1km). The extent should be the min and max area of focus, such as your study area.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="spatial-data-in-r.html#cb95-1" tabindex="-1"></a><span class="co"># create a blank raster with desired parameters. We don&#39;t need to add any values to it</span></span>
+<span id="cb95-2"><a href="spatial-data-in-r.html#cb95-2" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="at">crs =</span> <span class="st">&quot;epsg:26912&quot;</span>, <span class="at">resolution =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">30</span>),</span>
+<span id="cb95-3"><a href="spatial-data-in-r.html#cb95-3" tabindex="-1"></a>                   <span class="at">xmin =</span> <span class="dv">228560</span>, <span class="at">xmax =</span> <span class="dv">238910</span>, <span class="at">ymin =</span> <span class="dv">4032145</span>, <span class="at">ymax =</span> <span class="dv">4043815</span>)</span>
+<span id="cb95-4"><a href="spatial-data-in-r.html#cb95-4" tabindex="-1"></a>template</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 389, 345, 1  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228560, 238910, 4032145, 4043815  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912)</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="spatial-data-in-r.html#cb97-1" tabindex="-1"></a><span class="co"># use the template to project our rasters</span></span>
+<span id="cb97-2"><a href="spatial-data-in-r.html#cb97-2" tabindex="-1"></a><span class="co"># from = focal raster</span></span>
+<span id="cb97-3"><a href="spatial-data-in-r.html#cb97-3" tabindex="-1"></a><span class="co"># to = the raster object with the desired parameters</span></span>
+<span id="cb97-4"><a href="spatial-data-in-r.html#cb97-4" tabindex="-1"></a><span class="co"># method = the method to compute new values </span></span>
+<span id="cb97-5"><a href="spatial-data-in-r.html#cb97-5" tabindex="-1"></a>elev_proj_template <span class="ot">&lt;-</span> <span class="fu">project</span>(elev, template)</span>
+<span id="cb97-6"><a href="spatial-data-in-r.html#cb97-6" tabindex="-1"></a>snow_proj_template <span class="ot">&lt;-</span> <span class="fu">project</span>(snow_stack, template)</span>
+<span id="cb97-7"><a href="spatial-data-in-r.html#cb97-7" tabindex="-1"></a>elev_proj_template</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 389, 345, 1  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228560, 238910, 4032145, 4043815  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## name        : elevation 
+## min value   :  645.8929 
+## max value   : 1136.4094</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="spatial-data-in-r.html#cb99-1" tabindex="-1"></a>snow_proj_template</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 389, 345, 2  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228560, 238910, 4032145, 4043815  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## names       : snow_20190223_1, snow_20190223_2 
+## min values  :         0.00000,          0.0000 
+## max values  :        23.99982,        149.8712</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="spatial-data-in-r.html#cb101-1" tabindex="-1"></a><span class="co"># now we can stack them! This way we know for sure that all cells align with every layer</span></span>
+<span id="cb101-2"><a href="spatial-data-in-r.html#cb101-2" tabindex="-1"></a>stack <span class="ot">&lt;-</span> <span class="fu">c</span>(elev_proj_template, snow_proj_template)</span>
+<span id="cb101-3"><a href="spatial-data-in-r.html#cb101-3" tabindex="-1"></a>stack</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 389, 345, 3  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228560, 238910, 4032145, 4043815  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## names       : elevation, snow_20190223_1, snow_20190223_2 
+## min values  :  645.8929,         0.00000,          0.0000 
+## max values  : 1136.4094,        23.99982,        149.8712</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="spatial-data-in-r.html#cb103-1" tabindex="-1"></a><span class="fu">plot</span>(stack)</span></code></pre></div>
+<p><img src="_main_files/figure-html/createTemp-1.png" width="672" /></p>
+<p>Right now the bands’ names (besides “elevation”) are not very descriptive, but we can change their names so that we can more easily remember which band is which. In this case, band 1 is elevation, band 2 is SWE, and band 3 is snow depth. To change the band names, we’ll use the function <code>names()</code></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="spatial-data-in-r.html#cb104-1" tabindex="-1"></a><span class="fu">names</span>(stack) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elevation&quot;</span>, <span class="st">&quot;swe&quot;</span>, <span class="st">&quot;snow_depth&quot;</span>)</span>
+<span id="cb104-2"><a href="spatial-data-in-r.html#cb104-2" tabindex="-1"></a>stack</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 389, 345, 3  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 228560, 238910, 4032145, 4043815  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source(s)   : memory
+## names       : elevation,      swe, snow_depth 
+## min values  :  645.8929,  0.00000,     0.0000 
+## max values  : 1136.4094, 23.99982,   149.8712</code></pre>
+</div>
+<div id="save-a-raster" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Save a raster<a href="spatial-data-in-r.html#save-a-raster" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To save a raster we’ll use the function <code>writeRaster</code>. We need to include the raster object that we’re saving, the full file name (including the directory). We can also specify the file type with <code>filetype</code>, but this is often not necessary because <code>writeRaster</code> can guess based on the file extension you provide in <code>filename</code> (e.g., if you save a raster as “filename.tif”, <code>writeRaster</code> automatically guesses that you want to save this raster as a GeoTIFF)</p>
+<p>(If you need to save your raster as something besides a GeoTIFF, you can check the different file types by checking the help document for this function by typing <code>?writeRaster</code> in the console and scrolling down to <code>filetype</code>.)</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="spatial-data-in-r.html#cb106-1" tabindex="-1"></a><span class="fu">writeRaster</span>(stack, <span class="st">&quot;Data/Examples/elev_snow_stack.tif&quot;</span>)</span></code></pre></div>
+<p>Note that some raster functions have optional arguments to add filenames and formats so that the funciton will automatically save the output after performing its function.</p>
+</div>
+<div id="your-turn-1" class="section level3 unnumbered hasAnchor">
+<h3>Your Turn!<a href="spatial-data-in-r.html#your-turn-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the attached “worksheet”, there are some exercises to help you practice these concepts and functions. Try them out!</p>
+<hr />
+<p>Now that we know the basics of working with vector and raster data in R, let’s learn how to manipulate and perform computations on these spatial objects.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gis-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spatial-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://https://github.com/ronanhart/R_spatial_workshop/02-R_Spatial.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

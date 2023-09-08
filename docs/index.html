@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>R Spatial and Visualization Workshop</title>
+  <meta name="description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="R Spatial and Visualization Workshop" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="github-repo" content="ronanhart/R_spatial_workshop" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Spatial and Visualization Workshop" />
+  
+  <meta name="twitter:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  
+
+<meta name="author" content="Ronan Hart" />
+
+
+<meta name="date" content="2023-09-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="gis-basics.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Ecology Center: R Spatial Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to the R Spatial and Visualization Workshop!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i>Table of Contents</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#goals-of-this-workshop"><i class="fa fa-check"></i>Goals of this workshop:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#notes-on-updates"><i class="fa fa-check"></i>Notes on Updates</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-gis-in-r"><i class="fa fa-check"></i>Why GIS in R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites-packages-and-preparation"><i class="fa fa-check"></i>Prerequisites, Packages, and Preparation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>2</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="gis-basics.html"><a href="gis-basics.html#datums-projections-and-coordinate-systems"><i class="fa fa-check"></i><b>2.1</b> Datums, Projections, and Coordinate Systems</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#datums"><i class="fa fa-check"></i>Datums</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#projections"><i class="fa fa-check"></i>Projections</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#coordinate-reference-system"><i class="fa fa-check"></i>Coordinate Reference System</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="gis-basics.html"><a href="gis-basics.html#spatial-data"><i class="fa fa-check"></i><b>2.2</b> Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#vectors"><i class="fa fa-check"></i>Vectors</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#rasters"><i class="fa fa-check"></i>Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="gis-basics.html"><a href="gis-basics.html#vectors-vs-rasters-pros-cons"><i class="fa fa-check"></i><b>2.3</b> Vectors vs Rasters: pros &amp; cons</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html"><i class="fa fa-check"></i><b>3</b> Spatial Data in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#vectors-1"><i class="fa fa-check"></i><b>3.1</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-spreadsheet"><i class="fa fa-check"></i><b>3.1.1</b> Loading vector data from a spreadsheet</a></li>
+<li class="chapter" data-level="3.1.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-shapefile"><i class="fa fa-check"></i><b>3.1.2</b> Loading vector data from a shapefile</a></li>
+<li class="chapter" data-level="3.1.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#projecting-vector-data"><i class="fa fa-check"></i><b>3.1.3</b> Projecting vector data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#saving-vector-data"><i class="fa fa-check"></i><b>3.1.4</b> Saving vector data</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#a-note-about-sf-and-tidyverse"><i class="fa fa-check"></i>A note about <code>sf</code> and <code>tidyverse</code></a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#rasters-1"><i class="fa fa-check"></i><b>3.2</b> Rasters</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#load-a-raster"><i class="fa fa-check"></i><b>3.2.1</b> Load a raster</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#create-a-raster"><i class="fa fa-check"></i><b>3.2.2</b> Create a raster</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#project-a-raster"><i class="fa fa-check"></i><b>3.2.3</b> Project a raster</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#save-a-raster"><i class="fa fa-check"></i><b>3.2.4</b> Save a raster</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn-1"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="spatial-analysis.html"><a href="spatial-analysis.html"><i class="fa fa-check"></i><b>4</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="spatial-analysis.html"><a href="spatial-analysis.html#selecting-attributes"><i class="fa fa-check"></i><b>4.1</b> Selecting Attributes</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-analysis.html"><a href="spatial-analysis.html#select-features-by-location"><i class="fa fa-check"></i><b>4.2</b> Select features by location</a></li>
+<li class="chapter" data-level="4.3" data-path="spatial-analysis.html"><a href="spatial-analysis.html#joining-attributes"><i class="fa fa-check"></i><b>4.3</b> Joining Attributes</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-analysis.html"><a href="spatial-analysis.html#extract-raster-values"><i class="fa fa-check"></i><b>4.4</b> Extract Raster Values</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-analysis.html"><a href="spatial-analysis.html#distance"><i class="fa fa-check"></i><b>4.5</b> Distance</a></li>
+<li class="chapter" data-level="4.6" data-path="spatial-analysis.html"><a href="spatial-analysis.html#calculate-terrain-characteristics"><i class="fa fa-check"></i><b>4.6</b> Calculate Terrain Characteristics</a></li>
+<li class="chapter" data-level="4.7" data-path="spatial-analysis.html"><a href="spatial-analysis.html#re-classify-rasters"><i class="fa fa-check"></i><b>4.7</b> Re-Classify Rasters</a></li>
+<li class="chapter" data-level="4.8" data-path="spatial-analysis.html"><a href="spatial-analysis.html#raster-cell-stats"><i class="fa fa-check"></i><b>4.8</b> Raster Cell Stats</a></li>
+<li class="chapter" data-level="4.9" data-path="spatial-analysis.html"><a href="spatial-analysis.html#a-note-about-loops"><i class="fa fa-check"></i><b>4.9</b> A Note About Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html"><i class="fa fa-check"></i><b>5</b> Making Pretty Maps</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#usa-population"><i class="fa fa-check"></i><b>5.1</b> USA Population</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#change-in-population"><i class="fa fa-check"></i><b>5.1.1</b> Change in Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#yellowstone"><i class="fa fa-check"></i><b>5.2</b> Yellowstone</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#hillshade"><i class="fa fa-check"></i><b>5.2.1</b> Hillshade</a></li>
+<li class="chapter" data-level="5.2.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#inset"><i class="fa fa-check"></i><b>5.2.2</b> Inset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#landcover"><i class="fa fa-check"></i><b>5.3</b> Landcover</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#map-elements"><i class="fa fa-check"></i><b>5.3.1</b> Map Elements</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html"><i class="fa fa-check"></i><b>6</b> Where to Obtain Data &amp; Further Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources"><i class="fa fa-check"></i><b>6.1</b> Data Sources</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#maps-package"><i class="fa fa-check"></i><b>6.1.1</b> <code>maps</code> package</a></li>
+<li class="chapter" data-level="6.1.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#utah-gis"><i class="fa fa-check"></i><b>6.1.2</b> Utah GIS</a></li>
+<li class="chapter" data-level="6.1.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#other-environmental-rasters"><i class="fa fa-check"></i><b>6.1.3</b> Other Environmental Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#more-resources"><i class="fa fa-check"></i><b>6.2</b> More Resources</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#learn-more-about-gis-in-general"><i class="fa fa-check"></i><b>6.2.1</b> Learn more about GIS in general</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#acknowledgements"><i class="fa fa-check"></i><b>6.3</b> Acknowledgements</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources-used-in-this-workshop"><i class="fa fa-check"></i><b>6.3.1</b> Data sources used in this workshop:</a></li>
+<li class="chapter" data-level="6.3.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#figure-citations"><i class="fa fa-check"></i><b>6.3.2</b> Figure Citations</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Spatial and Visualization Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">R Spatial and Visualization Workshop</h1>
+<p class="author"><em>Ronan Hart</em></p>
+<p class="date"><em>2023-09-08</em></p>
+</div>
+<div id="welcome-to-the-r-spatial-and-visualization-workshop" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Welcome to the R Spatial and Visualization Workshop!<a href="index.html#welcome-to-the-r-spatial-and-visualization-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>(This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series)</p>
+<div id="table-of-contents" class="section level2 unnumbered hasAnchor">
+<h2>Table of Contents<a href="index.html#table-of-contents" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Chapter 1: Introduction and Prerequisites</strong></p>
+<p><strong>Chapter 2: Introduction to GIS</strong></p>
+<p>This chapter is recommended if you have never taken any GIS course, it is your first time working with spatial data, or you would like a refresher on the basics of GIS.</p>
+<p><strong>Chapter 3: Spatial Data in R</strong></p>
+<p>This chapter is recommended if you have worked with spatial data in other programs or software such as the ArcGIS suite but are unfamiliar with how to load or manipulate spatial data in R.</p>
+<p><strong>Chapter 4: Spatial Analysis</strong></p>
+<p>This is the meat of this workshop. This chapter goes over how to perform some spatial analyses you are likely going to use. This is not comprehensive to every possible function or analysis that one might need.</p>
+<p><strong>Chapter 5: Visualization</strong></p>
+<p>Once you’ve performed your spatial analysis, you likely need to make some nice-looking maps to include in a manuscript or presentation. This chapter goes over some tips and tricks to make your maps a little more visually appealing, such as how to adjust the color palettes, add map elements like a north arrow and scale bar, including an inset, and more.</p>
+<p><strong>Chapter 6: Conclusions and Resources</strong></p>
+<p>This brief chapter offers some resources on where to find spatial data you may need in your analyses and where I obtained the data used in the workshop.</p>
+<hr />
+</div>
+<div id="goals-of-this-workshop" class="section level2 unnumbered hasAnchor">
+<h2>Goals of this workshop:<a href="index.html#goals-of-this-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Reiterate the basics of GIS</li>
+<li>Teach you the processes that you might have learned in ArcGIS or other GIS software that you can code yourself in R</li>
+<li>Teach you some tips and tricks to make pretty maps</li>
+</ul>
+<p>If you would like to follow along, try out some of the examples, and work on some practice exercises, go to this workshop’s <a href="https://github.com/ronanhart/R_Spatial_Workshop">github page</a> and download the data from the Data folder and the “worksheet” page called worksheet.R</p>
+<hr />
+</div>
+<div id="notes-on-updates" class="section level2 unnumbered hasAnchor">
+<h2>Notes on Updates<a href="index.html#notes-on-updates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Chapters 4 and 5 are certainly not comprehensive to every function, analysis, or option for performing spatial analysis or creating pretty maps. If you have a suggestion to something specific that either you use often or something you need to use but don’t know how to do it in R, please contact me and I am happy to add it!</p>
+<p>Please note that this workshop mainly covers how to make maps using <code>ggplot2</code> and not base R plotting. It is my goal to one day include these options as well. However, 1) I have only ever plotted and made maps with <code>ggplot2</code>, so I will first have to familiarize myself with base R plotting, which may take a bit of time; and 2) I made this in my free-time as a graduate student and now a full-time worker, so updates will happen slowly.</p>
+<hr />
+</div>
+<div id="why-gis-in-r" class="section level2 unnumbered hasAnchor">
+<h2>Why GIS in R?<a href="index.html#why-gis-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You may be asking why you even need to learn how to code spatial processes in R, especially if you already know how to use ArcGIS. (Well, maybe you’re not actually asking that question if you’re taking this class.) But here are a few reasons why:</p>
+<ul>
+<li>Free
+<ul>
+<li>you most often need to pay companies to use their GIS software (or be a student to use a university’s license). What happens when you’re no longer a student nor hired by a company/organization that already has a license?</li>
+</ul></li>
+<li>Reproducible
+<ul>
+<li>Some journals require you to publish your code alongside your manuscript</li>
+<li>If you are collaborating on a project, you can easily share your methods and scripts with your collaborators.</li>
+</ul></li>
+<li>Open-Source
+<ul>
+<li>company-owned software is often hidden behind a “black box” so you might not be 100% certain what a function or tool is doing.</li>
+<li>Functions in R are completely open to the public so you can be certain that a function is doing what you think it’s doing</li>
+</ul></li>
+<li>Customizable
+<ul>
+<li>You can write your code to suit your specific problem and answer your specific questions</li>
+<li>You can write custom functions and loops so that you can repeat processes on multiple features and rasters without having to copy and paste code</li>
+</ul></li>
+</ul>
+<p>Reproducibility and customization are not unique to R but rather an advantage to using code for GIS in general. In a few weeks there will be a workshop on coding in python for GIS tools, which is just as useful (especially because you can use the package <code>arcpy</code> in python to code directly to ArcGIS), so I also recommend taking that workshop if you’re interested.</p>
+<p>Not to say that programs such as ArcGIS should never be used. On the contrary, since it was the way I first learned GIS, I will sometimes return to it to make a map on the fly or quickly visualize and double-check a polygon or raster. All programs have their pros and cons, and this workshop is to simply add another tool in your spatial analysis toolbox.</p>
+<hr />
+</div>
+<div id="prerequisites-packages-and-preparation" class="section level2 unnumbered hasAnchor">
+<h2>Prerequisites, Packages, and Preparation<a href="index.html#prerequisites-packages-and-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before we begin, please be sure you have done the follow preparations:</p>
+<ol style="list-style-type: decimal">
+<li>Make sure you have a recent version of <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/">RStudio</a> installed</li>
+</ol>
+<ul>
+<li>to check your version of R, type <code>R.version</code> in the console. <code>version.string</code> will have the version number and its release date. The most recent version (as of 2022-03-30) is 4.1.3 (released on 2022-03-10). <strong>Version 4.1.2 is perfectly fine for this workshop.</strong></li>
+<li>to check your version of RStudio, Go to Help (in the toolbar at the top) &gt; Check for Updates. RStudio 2022.02.1+461 is the most recent version. <strong>Version 2021.09.2+382 is perfectly fine for this workshop.</strong></li>
+</ul>
+<p><img src="Plots/pictures/help.png" width="25%" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Install (if needed) and load the following packages:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb2-3"><a href="index.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>(Optional but recommended) Create a new RStudio project. This will make it easier to access files within your code and keep everything organized. <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">Here’s a guide on how to do that</a></li>
+</ol>
+<p>After taking care of that, let’s get started!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="gis-basics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://https://github.com/ronanhart/R_spatial_workshop/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

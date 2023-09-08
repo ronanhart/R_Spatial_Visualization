@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Spatial Analysis | R Spatial and Visualization Workshop</title>
+  <meta name="description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Spatial Analysis | R Spatial and Visualization Workshop" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  <meta name="github-repo" content="ronanhart/R_spatial_workshop" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Spatial Analysis | R Spatial and Visualization Workshop" />
+  
+  <meta name="twitter:description" content="This workshop was originally created for the Utah State University’s Ecology Center’s R Workshop Series" />
+  
+
+<meta name="author" content="Ronan Hart" />
+
+
+<meta name="date" content="2023-09-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="spatial-data-in-r.html"/>
+<link rel="next" href="making-pretty-maps.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Ecology Center: R Spatial Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to the R Spatial and Visualization Workshop!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i>Table of Contents</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#goals-of-this-workshop"><i class="fa fa-check"></i>Goals of this workshop:</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#notes-on-updates"><i class="fa fa-check"></i>Notes on Updates</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-gis-in-r"><i class="fa fa-check"></i>Why GIS in R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites-packages-and-preparation"><i class="fa fa-check"></i>Prerequisites, Packages, and Preparation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>2</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="gis-basics.html"><a href="gis-basics.html#datums-projections-and-coordinate-systems"><i class="fa fa-check"></i><b>2.1</b> Datums, Projections, and Coordinate Systems</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#datums"><i class="fa fa-check"></i>Datums</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#projections"><i class="fa fa-check"></i>Projections</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#coordinate-reference-system"><i class="fa fa-check"></i>Coordinate Reference System</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="gis-basics.html"><a href="gis-basics.html#spatial-data"><i class="fa fa-check"></i><b>2.2</b> Spatial Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#vectors"><i class="fa fa-check"></i>Vectors</a></li>
+<li class="chapter" data-level="" data-path="gis-basics.html"><a href="gis-basics.html#rasters"><i class="fa fa-check"></i>Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="gis-basics.html"><a href="gis-basics.html#vectors-vs-rasters-pros-cons"><i class="fa fa-check"></i><b>2.3</b> Vectors vs Rasters: pros &amp; cons</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html"><i class="fa fa-check"></i><b>3</b> Spatial Data in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#vectors-1"><i class="fa fa-check"></i><b>3.1</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-spreadsheet"><i class="fa fa-check"></i><b>3.1.1</b> Loading vector data from a spreadsheet</a></li>
+<li class="chapter" data-level="3.1.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#loading-vector-data-from-a-shapefile"><i class="fa fa-check"></i><b>3.1.2</b> Loading vector data from a shapefile</a></li>
+<li class="chapter" data-level="3.1.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#projecting-vector-data"><i class="fa fa-check"></i><b>3.1.3</b> Projecting vector data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#saving-vector-data"><i class="fa fa-check"></i><b>3.1.4</b> Saving vector data</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#a-note-about-sf-and-tidyverse"><i class="fa fa-check"></i>A note about <code>sf</code> and <code>tidyverse</code></a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#rasters-1"><i class="fa fa-check"></i><b>3.2</b> Rasters</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#load-a-raster"><i class="fa fa-check"></i><b>3.2.1</b> Load a raster</a></li>
+<li class="chapter" data-level="3.2.2" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#create-a-raster"><i class="fa fa-check"></i><b>3.2.2</b> Create a raster</a></li>
+<li class="chapter" data-level="3.2.3" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#project-a-raster"><i class="fa fa-check"></i><b>3.2.3</b> Project a raster</a></li>
+<li class="chapter" data-level="3.2.4" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#save-a-raster"><i class="fa fa-check"></i><b>3.2.4</b> Save a raster</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-in-r.html"><a href="spatial-data-in-r.html#your-turn-1"><i class="fa fa-check"></i>Your Turn!</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="spatial-analysis.html"><a href="spatial-analysis.html"><i class="fa fa-check"></i><b>4</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="spatial-analysis.html"><a href="spatial-analysis.html#selecting-attributes"><i class="fa fa-check"></i><b>4.1</b> Selecting Attributes</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-analysis.html"><a href="spatial-analysis.html#select-features-by-location"><i class="fa fa-check"></i><b>4.2</b> Select features by location</a></li>
+<li class="chapter" data-level="4.3" data-path="spatial-analysis.html"><a href="spatial-analysis.html#joining-attributes"><i class="fa fa-check"></i><b>4.3</b> Joining Attributes</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-analysis.html"><a href="spatial-analysis.html#extract-raster-values"><i class="fa fa-check"></i><b>4.4</b> Extract Raster Values</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-analysis.html"><a href="spatial-analysis.html#distance"><i class="fa fa-check"></i><b>4.5</b> Distance</a></li>
+<li class="chapter" data-level="4.6" data-path="spatial-analysis.html"><a href="spatial-analysis.html#calculate-terrain-characteristics"><i class="fa fa-check"></i><b>4.6</b> Calculate Terrain Characteristics</a></li>
+<li class="chapter" data-level="4.7" data-path="spatial-analysis.html"><a href="spatial-analysis.html#re-classify-rasters"><i class="fa fa-check"></i><b>4.7</b> Re-Classify Rasters</a></li>
+<li class="chapter" data-level="4.8" data-path="spatial-analysis.html"><a href="spatial-analysis.html#raster-cell-stats"><i class="fa fa-check"></i><b>4.8</b> Raster Cell Stats</a></li>
+<li class="chapter" data-level="4.9" data-path="spatial-analysis.html"><a href="spatial-analysis.html#a-note-about-loops"><i class="fa fa-check"></i><b>4.9</b> A Note About Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html"><i class="fa fa-check"></i><b>5</b> Making Pretty Maps</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#usa-population"><i class="fa fa-check"></i><b>5.1</b> USA Population</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#change-in-population"><i class="fa fa-check"></i><b>5.1.1</b> Change in Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#yellowstone"><i class="fa fa-check"></i><b>5.2</b> Yellowstone</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#hillshade"><i class="fa fa-check"></i><b>5.2.1</b> Hillshade</a></li>
+<li class="chapter" data-level="5.2.2" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#inset"><i class="fa fa-check"></i><b>5.2.2</b> Inset</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#landcover"><i class="fa fa-check"></i><b>5.3</b> Landcover</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="making-pretty-maps.html"><a href="making-pretty-maps.html#map-elements"><i class="fa fa-check"></i><b>5.3.1</b> Map Elements</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html"><i class="fa fa-check"></i><b>6</b> Where to Obtain Data &amp; Further Resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources"><i class="fa fa-check"></i><b>6.1</b> Data Sources</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#maps-package"><i class="fa fa-check"></i><b>6.1.1</b> <code>maps</code> package</a></li>
+<li class="chapter" data-level="6.1.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#utah-gis"><i class="fa fa-check"></i><b>6.1.2</b> Utah GIS</a></li>
+<li class="chapter" data-level="6.1.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#other-environmental-rasters"><i class="fa fa-check"></i><b>6.1.3</b> Other Environmental Rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#more-resources"><i class="fa fa-check"></i><b>6.2</b> More Resources</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#learn-more-about-gis-in-general"><i class="fa fa-check"></i><b>6.2.1</b> Learn more about GIS in general</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#acknowledgements"><i class="fa fa-check"></i><b>6.3</b> Acknowledgements</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#data-sources-used-in-this-workshop"><i class="fa fa-check"></i><b>6.3.1</b> Data sources used in this workshop:</a></li>
+<li class="chapter" data-level="6.3.2" data-path="where-to-obtain-data-further-resources.html"><a href="where-to-obtain-data-further-resources.html#figure-citations"><i class="fa fa-check"></i><b>6.3.2</b> Figure Citations</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Spatial and Visualization Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-analysis" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Spatial Analysis<a href="spatial-analysis.html#spatial-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Now let’s do some analysis with the data we’ve acquired already:</p>
+<ul>
+<li>Sites point data <code>sites_sf</code></li>
+<li>Utah interstates <code>interstate_sf_proj</code></li>
+</ul>
+<p>We also have some data that I’ve included in the exercises portion of the “worksheet”: a different elevation + snow raster stack (this one is in the NW corner of Utah),</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="spatial-analysis.html#cb107-1" tabindex="-1"></a>elev_snow_stk</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 240, 240, 3  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : -112, -110, 40, 42  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : elev_snow_nw_stack.tif 
+## names       : elevation,  swe, snow_depth 
+## min values  :  1280.021,    0,          0 
+## max values  :  4087.231, 1108,       3196</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="spatial-analysis.html#cb109-1" tabindex="-1"></a><span class="fu">plot</span>(elev_snow_stk)</span></code></pre></div>
+<p><img src="_main_files/figure-html/showRaster-1.png" width="672" /></p>
+<p>a set of plots as a point feature,</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="spatial-analysis.html#cb110-1" tabindex="-1"></a><span class="fu">head</span>(plots_sf)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 1 field
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -111.6469 ymin: 40.40336 xmax: -110.4603 ymax: 41.81642
+## Geodetic CRS:  WGS 84
+##   Plots                   geometry
+## 1     A POINT (-111.5881 40.53102)
+## 2     B POINT (-111.6469 40.74425)
+## 3     C  POINT (-110.626 41.14571)
+## 4     D POINT (-111.2318 41.81642)
+## 5     E POINT (-110.4603 40.40336)
+## 6     F POINT (-111.0046 41.79678)</code></pre>
+<p>and a polygon feature of land management boundaries in Utah</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="spatial-analysis.html#cb112-1" tabindex="-1"></a>ownership_sf <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;Data/Exercises/UT_land_ownership&quot;</span>, <span class="at">quiet =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="spatial-analysis.html#cb112-2" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">26912</span>)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 5 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 388066 ymin: 4410117 xmax: 403492.2 ymax: 4414856
+## Projected CRS: NAD83 / UTM zone 12N
+##   OBJECTID   OWNER AGENCY ADMIN          DESIG                       geometry
+## 1  2974453 Federal    BLM   BLM Bankhead Jones MULTIPOLYGON (((388854 4411...
+## 2  2974454 Federal    BLM   BLM Bankhead Jones MULTIPOLYGON (((394528.1 44...
+## 3  2974455 Federal    BLM   BLM Bankhead Jones MULTIPOLYGON (((388473.6 44...
+## 4  2974456 Federal    BLM   BLM Bankhead Jones MULTIPOLYGON (((399793.3 44...
+## 5  2974457 Federal    BLM   BLM Bankhead Jones MULTIPOLYGON (((389300.1 44...
+## 6  2974458 Federal    BLM   BLM Bankhead Jones MULTIPOLYGON (((403492.2 44...</code></pre>
+<p><img src="_main_files/figure-html/showManage-1.png" width="672" /></p>
+<p>Let’s plot one of the rasters with our sites point vector and Utah highways line vector. To plot just one raster layer in a stack we can either index it with double brackets or with the name:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="spatial-analysis.html#cb114-1" tabindex="-1"></a><span class="co"># these are different ways to get the same raster layer</span></span>
+<span id="cb114-2"><a href="spatial-analysis.html#cb114-2" tabindex="-1"></a>elev_snow_stk[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 240, 240, 1  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : -112, -110, 40, 42  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : elev_snow_nw_stack.tif 
+## name        : elevation 
+## min value   :  1280.021 
+## max value   :  4087.231</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="spatial-analysis.html#cb116-1" tabindex="-1"></a>elev_snow_stk<span class="sc">$</span>elevation</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 240, 240, 1  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : -112, -110, 40, 42  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : elev_snow_nw_stack.tif 
+## name        : elevation 
+## min value   :  1280.021 
+## max value   :  4087.231</code></pre>
+<pre><code>## Reading layer `utah_interstate&#39; from data source 
+##   `C:\Users\RonanHart\Documents\Projects\R_Spatial_Workshop\Data\Examples\utah_interstate&#39; 
+##   using driver `ESRI Shapefile&#39;
+## Simple feature collection with 1848 features and 9 fields
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: -114.0437 ymin: 37.00002 xmax: -109.0513 ymax: 42.00117
+## Geodetic CRS:  WGS 84</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="spatial-analysis.html#cb119-1" tabindex="-1"></a><span class="fu">plot</span>(elev_snow_stk<span class="sc">$</span>elevation)</span>
+<span id="cb119-2"><a href="spatial-analysis.html#cb119-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(interstate_sf), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>) <span class="co"># add = TRUE will add other elements to the plot without erasing previous elements and creating a new plot </span></span>
+<span id="cb119-3"><a href="spatial-analysis.html#cb119-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(sites_sf), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">add =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb119-4"><a href="spatial-analysis.html#cb119-4" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(plots_sf), <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotAll-1.png" width="672" /></p>
+<p>(This can also be done with <code>ggplot</code> using <code>as.data.frame</code>)</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="spatial-analysis.html#cb120-1" tabindex="-1"></a>elev_snow_stk<span class="sc">$</span>elevation <span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="spatial-analysis.html#cb120-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb120-3"><a href="spatial-analysis.html#cb120-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb120-4"><a href="spatial-analysis.html#cb120-4" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> elevation)) <span class="sc">+</span></span>
+<span id="cb120-5"><a href="spatial-analysis.html#cb120-5" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">rev</span>(<span class="fu">terrain.colors</span>(<span class="dv">10</span>))) <span class="sc">+</span></span>
+<span id="cb120-6"><a href="spatial-analysis.html#cb120-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> interstate_sf) <span class="sc">+</span></span>
+<span id="cb120-7"><a href="spatial-analysis.html#cb120-7" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> sites_sf) <span class="sc">+</span></span>
+<span id="cb120-8"><a href="spatial-analysis.html#cb120-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> plots_sf, <span class="at">shape =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb120-9"><a href="spatial-analysis.html#cb120-9" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="dv">4326</span>) <span class="sc">+</span></span>
+<span id="cb120-10"><a href="spatial-analysis.html#cb120-10" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">ext</span>(elev_snow_stk)[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]) <span class="sc">+</span></span>
+<span id="cb120-11"><a href="spatial-analysis.html#cb120-11" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">ext</span>(elev_snow_stk)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)])</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotAll_ggplot-1.png" width="672" /></p>
+<p>Let’s start on some analysis and computations that we can run on these data.</p>
+<div id="selecting-attributes" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Selecting Attributes<a href="spatial-analysis.html#selecting-attributes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Perhaps you have vector data and you want to select only certain attributes or attributes that reach a focal threshold. To do so we need to set up a logical statement, and we can do this in base R or in <code>tidyverse</code>.</p>
+<p>Let’s say we want to select boundaries that are operated by BLM. In the shapefile of management boundaries, this information is located in the column “AGENCY”</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="spatial-analysis.html#cb121-1" tabindex="-1"></a><span class="fu">unique</span>(ownership_sf<span class="sc">$</span>AGENCY)</span></code></pre></div>
+<pre><code>##  [1] &quot;BLM&quot;     &quot;BR&quot;      &quot;DOD&quot;     &quot;DOE&quot;     &quot;NPS&quot;     &quot;Private&quot; &quot;USFS&quot;   
+##  [8] &quot;USFWS&quot;   &quot;DNR&quot;     &quot;OS&quot;      &quot;SITLA&quot;   &quot;UDOT&quot;    &quot;Tribal&quot;</code></pre>
+<p>In base R we can use the function <code>which</code> and in <code>tidyverse</code> we can use the function <code>filter</code></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="spatial-analysis.html#cb123-1" tabindex="-1"></a><span class="co"># base R</span></span>
+<span id="cb123-2"><a href="spatial-analysis.html#cb123-2" tabindex="-1"></a>blm_boundary <span class="ot">&lt;-</span> ownership_sf[ownership_sf<span class="sc">$</span>AGENCY <span class="sc">==</span> <span class="st">&quot;BLM&quot;</span>, ]</span>
+<span id="cb123-3"><a href="spatial-analysis.html#cb123-3" tabindex="-1"></a><span class="co"># alternatively you can use the base R function subset()</span></span>
+<span id="cb123-4"><a href="spatial-analysis.html#cb123-4" tabindex="-1"></a>blm_boundary <span class="ot">&lt;-</span> <span class="fu">subset</span>(ownership_sf, ownership_sf<span class="sc">$</span>AGENCY <span class="sc">==</span> <span class="st">&quot;BLM&quot;</span>)</span>
+<span id="cb123-5"><a href="spatial-analysis.html#cb123-5" tabindex="-1"></a></span>
+<span id="cb123-6"><a href="spatial-analysis.html#cb123-6" tabindex="-1"></a><span class="co"># tidyverse</span></span>
+<span id="cb123-7"><a href="spatial-analysis.html#cb123-7" tabindex="-1"></a>blm_boundary <span class="ot">&lt;-</span> ownership_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb123-8"><a href="spatial-analysis.html#cb123-8" tabindex="-1"></a>  <span class="fu">filter</span>(AGENCY <span class="sc">==</span> <span class="st">&quot;BLM&quot;</span>)</span>
+<span id="cb123-9"><a href="spatial-analysis.html#cb123-9" tabindex="-1"></a></span>
+<span id="cb123-10"><a href="spatial-analysis.html#cb123-10" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb123-11"><a href="spatial-analysis.html#cb123-11" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ownership_sf, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb123-12"><a href="spatial-analysis.html#cb123-12" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> blm_boundary, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey30&quot;</span>,</span>
+<span id="cb123-13"><a href="spatial-analysis.html#cb123-13" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/selectBLM-1.png" width="672" /></p>
+<p>Using these functions, you can set up any logical statement using <code>==</code>, <code>%in%</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, or <code>!</code> and select for the specific attributes you need.</p>
+</div>
+<div id="select-features-by-location" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Select features by location<a href="spatial-analysis.html#select-features-by-location" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s make select the management boundaries based on if they are intersected by a major highway. For <code>sf</code> we’ll use the function <code>st_intersect</code></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="spatial-analysis.html#cb124-1" tabindex="-1"></a>ownership_roads <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(interstate_sf_proj, ownership_sf) <span class="co"># the first argument is the target shape and the second argument the shape we&#39;re selecting from</span></span>
+<span id="cb124-2"><a href="spatial-analysis.html#cb124-2" tabindex="-1"></a><span class="fu">class</span>(ownership_roads)</span></code></pre></div>
+<pre><code>## [1] &quot;sgbp&quot; &quot;list&quot;</code></pre>
+<p>The output is an <code>sgbp</code> object, or “Sparse Geometry Binary Predicate”. Basically it returns a list of vectors of integers, which refer to the indices of each polygon that intersects.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="spatial-analysis.html#cb126-1" tabindex="-1"></a><span class="fu">dim</span>(ownership_roads)</span></code></pre></div>
+<pre><code>## [1]  1848 15197</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="spatial-analysis.html#cb128-1" tabindex="-1"></a><span class="fu">nrow</span>(interstate_sf_proj)</span></code></pre></div>
+<pre><code>## [1] 1848</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="spatial-analysis.html#cb130-1" tabindex="-1"></a><span class="fu">nrow</span>(ownership_sf)</span></code></pre></div>
+<pre><code>## [1] 15197</code></pre>
+<p>So the dimensions of this list are the the number of rows in the target shape (the highways) and the number of rows in the intersecting shape (the management boundaries).</p>
+<p>Lets look at the first five elements of this list:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="spatial-analysis.html#cb132-1" tabindex="-1"></a>ownership_roads[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 4687
+## 
+## [[2]]
+## [1] 6408
+## 
+## [[3]]
+## [1] 12997
+## 
+## [[4]]
+## [1] 6406
+## 
+## [[5]]
+## [1] 4687</code></pre>
+<p>This means that the 1st row of the road polyline intersects with the 6459th row of the management polygon, the 2nd row of the road polyline intersects with the 6455th row of the management polygon, and etc.</p>
+<p>If we wanted to know the specifc index of a specific road that intersected with a management boundary, it would be useful to keep all of these indices seperate. Since we just want to know which boundaries intersect a road, we can collapse this whole list together.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="spatial-analysis.html#cb134-1" tabindex="-1"></a>ownership_roads_index <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">unlist</span>(ownership_roads)) <span class="co"># just pull the unique indices</span></span>
+<span id="cb134-2"><a href="spatial-analysis.html#cb134-2" tabindex="-1"></a>ownership_roads_intersect <span class="ot">&lt;-</span> ownership_sf[ownership_roads_index, ] </span>
+<span id="cb134-3"><a href="spatial-analysis.html#cb134-3" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="spatial-analysis.html#cb134-4" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb134-5"><a href="spatial-analysis.html#cb134-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ownership_sf, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb134-6"><a href="spatial-analysis.html#cb134-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> ownership_roads_intersect, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey30&quot;</span>,</span>
+<span id="cb134-7"><a href="spatial-analysis.html#cb134-7" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb134-8"><a href="spatial-analysis.html#cb134-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> interstate_sf_proj, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/intersect-1.png" width="672" /></p>
+<p>If you look at the help file for <code>?st_intersects</code>, you’ll see there are a lot of different functions that select features based on another feature.</p>
+</div>
+<div id="joining-attributes" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Joining Attributes<a href="spatial-analysis.html#joining-attributes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s load in a table of some data collected at each plot</p>
+<pre><code>##   Plots      Species       Date AboveGroundBiomass MeanHeight PercentCover
+## 1     A R. maritimus 2021-05-01          20.597457   1.930570     82.09463
+## 2     A    B. cernua 2021-05-01          49.769924   2.410401     78.93562
+## 3     A    S. acutus 2021-05-01          93.470523   3.342334     47.76196
+## 4     B R. maritimus 2021-05-02           9.946616   1.695365     20.26923
+## 5     B    B. cernua 2021-05-02          91.287592   4.460992     23.96294
+## 6     B    S. acutus 2021-05-02          25.801678   2.173297     79.73088</code></pre>
+<p>Let’s join this table to the Plots feature so we could do some spatial analysis and mapping of the collected data. To join two tables together, we need to input the two tables and the name of the column that exists in both tables (so the join function knows how to match attributes together). In this case, that would be the Plots column.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="spatial-analysis.html#cb136-1" tabindex="-1"></a><span class="fu">head</span>(plots_sf<span class="sc">$</span>Plots)</span></code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="spatial-analysis.html#cb138-1" tabindex="-1"></a><span class="fu">head</span>(plot_data<span class="sc">$</span>Plots)</span></code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;B&quot; &quot;B&quot; &quot;B&quot;</code></pre>
+<p>We can use the <code>tidyverse</code>’s <code>join</code> functions. (If you don’t know how joins work, I would recommend looking at the help file by typing <code>?left_join</code> in the console)</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="spatial-analysis.html#cb140-1" tabindex="-1"></a>plots_join <span class="ot">&lt;-</span> <span class="fu">left_join</span>(plots_sf, plot_data, <span class="at">by =</span> <span class="st">&quot;Plots&quot;</span>)</span>
+<span id="cb140-2"><a href="spatial-analysis.html#cb140-2" tabindex="-1"></a><span class="fu">head</span>(plots_join)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 6 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -111.5881 ymin: 40.53102 xmax: -111.5881 ymax: 40.53102
+## Geodetic CRS:  WGS 84
+##   Plots      Species       Date AboveGroundBiomass MeanHeight PercentCover
+## 1     A R. maritimus 2021-05-01           20.59746 1.93057046     82.09463
+## 2     A    B. cernua 2021-05-01           49.76992 2.41040058     78.93562
+## 3     A    S. acutus 2021-05-01           93.47052 3.34233369     47.76196
+## 4     A R. maritimus 2021-05-08           17.65568 0.06695167     64.70602
+## 5     A    B. cernua 2021-05-08           71.76185 2.99782913      2.33312
+## 6     A    S. acutus 2021-05-08           21.21425 3.97119930     86.12095
+##                     geometry
+## 1 POINT (-111.5881 40.53102)
+## 2 POINT (-111.5881 40.53102)
+## 3 POINT (-111.5881 40.53102)
+## 4 POINT (-111.5881 40.53102)
+## 5 POINT (-111.5881 40.53102)
+## 6 POINT (-111.5881 40.53102)</code></pre>
+<p>Great! At this point you could then do some spatial analysis based on location, or make a map based on average biomass, for example. However, that’s outside the scope of this workshop.</p>
+<p>Joining two tables together is a valuable tool to know, not just for GIS but for any data management.</p>
+</div>
+<div id="extract-raster-values" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Extract Raster Values<a href="spatial-analysis.html#extract-raster-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What if we need to get data from our rasters at our specific site locations? We can use the function <code>extract()</code>.</p>
+<p>Let’s load a landcover raster so we can classify the habitat types of our sites</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="spatial-analysis.html#cb142-1" tabindex="-1"></a>landcover <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;Data/Examples/landcover.tif&quot;</span>)</span>
+<span id="cb142-2"><a href="spatial-analysis.html#cb142-2" tabindex="-1"></a>landcover</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 18675, 14838, 1  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 229319.6, 674459.6, 4094414, 4654664  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source      : landcover.tif 
+## name        : landcover 
+## min value   :       137 
+## max value   :       584</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="spatial-analysis.html#cb144-1" tabindex="-1"></a><span class="fu">plot</span>(landcover)</span>
+<span id="cb144-2"><a href="spatial-analysis.html#cb144-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(sites_sf_proj), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/UTlandcover-1.png" width="672" /></p>
+<p><code>extract</code> returns a vector whose indices match the indices of the spatial object. We could leave it as a vector, or we could automatically attach it to the dataframe using <code>$</code></p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="spatial-analysis.html#cb145-1" tabindex="-1"></a>sites_sf_proj<span class="sc">$</span>land_value <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(landcover, sites_sf_proj)<span class="sc">$</span>landcover</span></code></pre></div>
+<p>(Note that I put <code>terra::</code> in front of <code>extract()</code>, that’s because there are multiple packages that have a function called <code>extract()</code>, so we want to specify to R which pacakage we want)</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="spatial-analysis.html#cb146-1" tabindex="-1"></a>sites_sf_proj</span></code></pre></div>
+<pre><code>## Simple feature collection with 15 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 257254.9 ymin: 4106995 xmax: 634770.7 ymax: 4549014
+## Projected CRS: NAD83 / UTM zone 12N
+## First 10 features:
+##    Site                 geometry land_value
+## 1     1   POINT (506648 4311112)        489
+## 2     2 POINT (364889.8 4474182)        148
+## 3     3 POINT (573146.4 4492646)        155
+## 4     4 POINT (303202.3 4546515)        458
+## 5     5 POINT (512358.1 4514704)        549
+## 6     6 POINT (409973.3 4547926)        557
+## 7     7 POINT (388759.4 4549014)        579
+## 8     8 POINT (634770.7 4350035)        316
+## 9     9 POINT (621249.6 4185280)        158
+## 10   10 POINT (524421.3 4431743)        156</code></pre>
+<p>Ok, but what do these numbers mean? Our landcover raster is a categorical raster, so these numbers aren’t actually real numbers but represent a habitat type. Fortunately we have a dataframe indicating what these numbers mean.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="spatial-analysis.html#cb148-1" tabindex="-1"></a>land_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/Examples/landcover_info.csv&quot;</span>)</span>
+<span id="cb148-2"><a href="spatial-analysis.html#cb148-2" tabindex="-1"></a><span class="fu">head</span>(land_info)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##   Value ClassCode         ClassName SubClassCode               SubClassName
+## 1     1         1 Forest &amp; Woodland          1.A Tropical Forest &amp; Woodland
+## 2     2         1 Forest &amp; Woodland          1.A Tropical Forest &amp; Woodland
+## 3     3         1 Forest &amp; Woodland          1.A Tropical Forest &amp; Woodland
+## 4     4         1 Forest &amp; Woodland          1.A Tropical Forest &amp; Woodland
+## 5     5         1 Forest &amp; Woodland          1.A Tropical Forest &amp; Woodland
+## 6     6         1 Forest &amp; Woodland          1.A Tropical Forest &amp; Woodland</code></pre>
+<p>The column “Value” corresponds to the cell value we extracted from the raster. We can use what we learned earlier how to join two tables together. In our previous example, the columns we used to join the tables together were named the same. In this case, they’re not: one is called “land_value” and one is called “Value”. We could rename them so that they match. But <code>left_join()</code> has a way of handling and matching columns, even if they’re not named the same. If we check <code>?left_join</code>, in the “Arguments” section for <code>by</code>, it says “to join by different variables on x and y, use a named vector. For example, <code>by = c("a" = "b")</code> will match <code>x$a</code> to <code>y$b</code>.” So we just need to set <code>by = c("land_value" = "Value")</code></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="spatial-analysis.html#cb150-1" tabindex="-1"></a>sites_sf_land <span class="ot">&lt;-</span> sites_sf_proj <span class="sc">%&gt;%</span></span>
+<span id="cb150-2"><a href="spatial-analysis.html#cb150-2" tabindex="-1"></a>  <span class="fu">left_join</span>(land_info, <span class="fu">c</span>(<span class="st">&quot;land_value&quot;</span> <span class="ot">=</span> <span class="st">&quot;Value&quot;</span>)) </span>
+<span id="cb150-3"><a href="spatial-analysis.html#cb150-3" tabindex="-1"></a><span class="fu">head</span>(sites_sf_land)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 6 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 303202.3 ymin: 4311112 xmax: 573146.4 ymax: 4547926
+## Projected CRS: NAD83 / UTM zone 12N
+##   Site land_value ClassCode                                       ClassName
+## 1    1        489         3                            Desert &amp; Semi-Desert
+## 2    2        148         1                               Forest &amp; Woodland
+## 3    3        155         1                               Forest &amp; Woodland
+## 4    4        458         2                         Shrub &amp; Herb Vegetation
+## 5    5        549         4 Polar &amp; High Montane Scrub, Grassland &amp; Barrens
+## 6    6        557         7             Agricultural &amp; Developed Vegetation
+##   SubClassCode                         SubClassName                 geometry
+## 1          3.B   Cool Semi-Desert Scrub &amp; Grassland   POINT (506648 4311112)
+## 2          1.B Temperate &amp; Boreal Forest &amp; Woodland POINT (364889.8 4474182)
+## 3          1.B Temperate &amp; Boreal Forest &amp; Woodland POINT (573146.4 4492646)
+## 4          2.C                 Shrub &amp; Herb Wetland POINT (303202.3 4546515)
+## 5          4.B     Temperate Alpine to Polar Tundra POINT (512358.1 4514704)
+## 6          7.B   Herbaceous Agricultural Vegetation POINT (409973.3 4547926)</code></pre>
+<p><img src="_main_files/figure-html/plotLandPoints-1.png" width="672" /></p>
+<p>Awesome! Now we know what habitat each of our sites reside in.</p>
+</div>
+<div id="distance" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Distance<a href="spatial-analysis.html#distance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s say we needed to know how far from a major road each of our sites are. We’ll use the function <code>st_distance</code> for our <code>sf</code> objects. We simply need to input the focal feature (the sites) and the feature</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="spatial-analysis.html#cb152-1" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(sites_sf_proj, interstate_sf_proj)</span>
+<span id="cb152-2"><a href="spatial-analysis.html#cb152-2" tabindex="-1"></a><span class="fu">dim</span>(dist)</span></code></pre></div>
+<pre><code>## [1]   15 1848</code></pre>
+<p>What did this do? Why are there so many columns? Remember that our Utah highways feature is a <strong>poly</strong>line, meaning it’s a line of lines. If we look at the dimensions of the highways feature:</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="spatial-analysis.html#cb154-1" tabindex="-1"></a><span class="fu">nrow</span>(interstate_sf_proj)</span></code></pre></div>
+<pre><code>## [1] 1848</code></pre>
+<p>There are <strong>1849</strong> lines (i.e. roads) that make up this whole feature. So <code>st_distance</code> found the distance for each site (the number of rows) for <em>every</em> road (the number of columns). This <em>could</em> be useful information, but presumably we want just the distance of the <em>closest</em> road. Let’s first use <code>st_nearest_feature</code> to find the closest road to each of our sites.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="spatial-analysis.html#cb156-1" tabindex="-1"></a>near_road <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(sites_sf_proj, interstate_sf_proj)</span>
+<span id="cb156-2"><a href="spatial-analysis.html#cb156-2" tabindex="-1"></a>near_road</span></code></pre></div>
+<pre><code>##  [1] 1101 1177 1384  799 1473  630  232  702  557  521  529   99 1430   15  557</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="spatial-analysis.html#cb158-1" tabindex="-1"></a>interstate_sf_proj[near_road,]</span></code></pre></div>
+<pre><code>## Simple feature collection with 15 features and 9 fields
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 282642.9 ymin: 4137639 xmax: 661451 ymax: 4555607
+## Projected CRS: NAD83 / UTM zone 12N
+## First 10 features:
+##      OBJECTID    FULLNAME    NAME POSTTYPE SPEED_LMT DOT_HWYNAM DOT_SRFTYP
+## 1101   234986 I-70 WB FWY I-70 WB      FWY        75       I-70          P
+## 1177   248283 I-80 EB FWY I-80 EB      FWY        75       I-80          P
+## 1384   300050 I-80 EB FWY I-80 EB      FWY        75       I-80          P
+## 799    163766 I-80 WB FWY I-80 WB      FWY        75       I-80          P
+## 1473   320716 I-80 EB FWY I-80 EB      FWY        65       I-80          P
+## 630    130269 I-15 SB FWY I-15 SB      FWY        70       I-15          P
+## 232     45243 I-15 SB FWY I-15 SB      FWY        70       I-15          P
+## 702    143420 I-70 WB FWY I-70 WB      FWY        75       I-70          P
+## 557    117401 I-70 EB FWY I-70 EB      FWY        75       I-70          P
+## 521    108444 I-15 NB FWY I-15 NB      FWY        65       I-15          P
+##      DOT_AADT                  UNIQUE_ID                       geometry
+## 1101       NA  12SWJ07420079_I-70_WB_FWY LINESTRING (506862.7 430072...
+## 1177    12000  12TUL77660482_I-80 EB_FWY LINESTRING (377489.8 450489...
+## 1384    16000  12TVL86655323_I-80 EB_FWY LINESTRING (484274.7 455222...
+## 799        NA  12TTL95291161_I-80 WB_FWY LINESTRING (282642.9 451236...
+## 1473    15000  12TVL67382316_I-80 EB_FWY LINESTRING (465971.3 451778...
+## 630        NA 12TVL499657376_I-15 SB_FWY LINESTRING (415374.9 455118...
+## 232        NA  12TVL13925335_I-15 SB_FWY LINESTRING (414453.3 455253...
+## 702        NA  12SXJ59523424_I-70 WB_FWY LINESTRING (657315.1 433125...
+## 557     10000  12SXJ29161112_I-70 EB_FWY LINESTRING (620558.6 431124...
+## 521    104000  12TVK44904321_I-15_NB_FWY LINESTRING (444841.6 444243...</code></pre>
+<p>Now we have the indices of the roads that are closest to our sites, so we can find the distance of <em>just</em> these roads.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="spatial-analysis.html#cb160-1" tabindex="-1"></a>dist_near_road <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(sites_sf_proj, interstate_sf_proj[near_road,])</span>
+<span id="cb160-2"><a href="spatial-analysis.html#cb160-2" tabindex="-1"></a>dist_near_road[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## Units: [m]
+##            [,1]      [,2]      [,3]      [,4]      [,5]
+##  [1,]  10315.51 232582.47 242147.42 281846.56 210641.52
+##  [2,] 224150.99  33194.84 142629.52  67810.07 110086.22
+##  [3,] 202785.29 195679.41 105586.36 265837.33 109558.50
+##  [4,] 319202.58  85153.11 181162.34  35259.29 164053.11
+##  [5,] 213951.35 134881.34  46277.52 204448.52  45475.54
+##  [6,] 265510.76  53802.73  74425.61 108507.81  59486.92
+##  [7,] 274946.67  45537.59  95569.24  89311.68  80131.79
+##  [8,] 136172.75 299925.04 251423.12 364314.12 237979.89
+##  [9,] 161631.44 401648.70 391502.51 451943.09 366979.12
+## [10,] 132044.13 163762.97 126873.05 230529.64 104020.44
+## [11,]  34586.77 269676.04 268322.22 321111.19 239842.61
+## [12,] 250038.01 249684.87 349826.95 227716.46 311863.50
+## [13,] 244382.54 398276.49 462818.09 407078.61 424773.11
+## [14,] 193621.33 184870.40 278450.62 180463.52 240048.54
+## [15,] 138475.56 365526.65 342070.17 421508.03 321034.17</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="spatial-analysis.html#cb162-1" tabindex="-1"></a><span class="fu">dim</span>(dist_near_road)</span></code></pre></div>
+<pre><code>## [1] 15 15</code></pre>
+<p>This is still giving us the distance of each road to each site but we just want the distance between each site and it’s nearest road. There’s an argument in <code>st_distance()</code> called <code>by_element</code> that tells <code>st_distance()</code> to only find the distance between the first elements of the two objects.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="spatial-analysis.html#cb164-1" tabindex="-1"></a>dist_near_road <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(sites_sf_proj, interstate_sf_proj[near_road,],</span>
+<span id="cb164-2"><a href="spatial-analysis.html#cb164-2" tabindex="-1"></a>                              <span class="at">by_element =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb164-3"><a href="spatial-analysis.html#cb164-3" tabindex="-1"></a>dist_near_road</span></code></pre></div>
+<pre><code>## Units: [m]
+##  [1]  10315.506  33194.842 105586.359  35259.292  45475.541   6297.237
+##  [7]  25526.749  29201.908 125931.670  80267.682  16154.905 102959.472
+## [13]  65466.728  62646.964  65802.131</code></pre>
+<p>There we go! Now we have the distance between each site and it’s nearest road. This output is a vector, so we can add it to our sites data frame with <code>$</code> (or <code>mutate()</code> in <code>tidyverse</code>)</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="spatial-analysis.html#cb166-1" tabindex="-1"></a>sites_sf_proj<span class="sc">$</span>dist_near_road <span class="ot">&lt;-</span> dist_near_road</span>
+<span id="cb166-2"><a href="spatial-analysis.html#cb166-2" tabindex="-1"></a><span class="fu">head</span>(sites_sf_proj)</span></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 303202.3 ymin: 4311112 xmax: 573146.4 ymax: 4547926
+## Projected CRS: NAD83 / UTM zone 12N
+##   Site                 geometry land_value dist_near_road
+## 1    1   POINT (506648 4311112)        489  10315.506 [m]
+## 2    2 POINT (364889.8 4474182)        148  33194.842 [m]
+## 3    3 POINT (573146.4 4492646)        155 105586.359 [m]
+## 4    4 POINT (303202.3 4546515)        458  35259.292 [m]
+## 5    5 POINT (512358.1 4514704)        549  45475.541 [m]
+## 6    6 POINT (409973.3 4547926)        557   6297.237 [m]</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="spatial-analysis.html#cb168-1" tabindex="-1"></a>sites_sf_proj <span class="ot">&lt;-</span> sites_sf_proj <span class="sc">%&gt;%</span></span>
+<span id="cb168-2"><a href="spatial-analysis.html#cb168-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dist_near_road =</span> dist_near_road)</span></code></pre></div>
+<p>(Note that if you look at the help file i.e. <code>?st_distance</code>, there are other functions to calculate geometric measurements for <code>sf</code> objects: <code>st_area</code> and <code>st_length</code>)</p>
+</div>
+<div id="calculate-terrain-characteristics" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Calculate Terrain Characteristics<a href="spatial-analysis.html#calculate-terrain-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>From a DEM (digital elevation model) we can obtain a lot of other rasters that are likely useful in GIS research. The elevation raster we’ve been working with is a DEM. From a DEM we can derive other terrain characteristics :</p>
+<ul>
+<li>Slope: Measurement of “steepness”</li>
+<li>Aspect: Measurements of “Northness” and “Eastness”</li>
+<li>Flow direction of water: the direction of the greatest drop in elevation</li>
+<li>Terrain Ruggedness Index (TRI): the mean of the absolute differences between the value of a cell and the value of its 8 surrounding cells</li>
+<li>Topographic Position Index (TPI): the difference between the value of a cell and the mean value of its 8 surrounding cells</li>
+<li>Roughness: the difference between the maximum and the minimum value of a cell and its 8 surrounding cells</li>
+</ul>
+<p>These definitions came from the help file for the function we can use to derive these characteristics: <code>terrain()</code>.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="spatial-analysis.html#cb169-1" tabindex="-1"></a>slope <span class="ot">&lt;-</span> <span class="fu">terrain</span>(elev_snow_stk<span class="sc">$</span>elevation, <span class="at">v =</span> <span class="st">&quot;slope&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
+<span id="cb169-2"><a href="spatial-analysis.html#cb169-2" tabindex="-1"></a>aspect <span class="ot">&lt;-</span> <span class="fu">terrain</span>(elev_snow_stk<span class="sc">$</span>elevation, <span class="at">v =</span> <span class="st">&quot;aspect&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
+<span id="cb169-3"><a href="spatial-analysis.html#cb169-3" tabindex="-1"></a>roughness <span class="ot">&lt;-</span> <span class="fu">terrain</span>(elev_snow_stk<span class="sc">$</span>elevation, <span class="at">v =</span> <span class="st">&quot;roughness&quot;</span>)</span>
+<span id="cb169-4"><a href="spatial-analysis.html#cb169-4" tabindex="-1"></a>terrain_stk <span class="ot">&lt;-</span> <span class="fu">c</span>(elev_snow_stk<span class="sc">$</span>elevation, slope, aspect, roughness)</span>
+<span id="cb169-5"><a href="spatial-analysis.html#cb169-5" tabindex="-1"></a>terrain_stk</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 240, 240, 4  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : -112, -110, 40, 42  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## sources     : elev_snow_nw_stack.tif  
+##               memory  
+##               memory  
+##               memory  
+## names       : elevation,     slope,       aspect, roughness 
+## min values  :  1280.021, 0.0000000, 3.786645e-05,     0.000 
+## max values  :  4087.231, 0.5922148, 6.283185e+00,  1305.816</code></pre>
+<p>To compute the Northness or Eastness of a cell, we actually have to do one more step to the aspect raster. Aspect is a circular measurement (which is why its units are in degrees or radians), so (if you remember how trigonometry works) to calculate northness and eastness we need to use cosine and sine respectively. Because our units are in radians, we can simply apply the <code>cos()</code> and <code>sin()</code> functions directly to the aspect raster.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="spatial-analysis.html#cb171-1" tabindex="-1"></a>aspect_cos <span class="ot">&lt;-</span> <span class="fu">cos</span>(terrain_stk<span class="sc">$</span>aspect)</span>
+<span id="cb171-2"><a href="spatial-analysis.html#cb171-2" tabindex="-1"></a>aspect_sin <span class="ot">&lt;-</span> <span class="fu">sin</span>(terrain_stk<span class="sc">$</span>aspect)</span>
+<span id="cb171-3"><a href="spatial-analysis.html#cb171-3" tabindex="-1"></a>aspect_stk <span class="ot">&lt;-</span> <span class="fu">c</span>(aspect_cos, aspect_sin)</span>
+<span id="cb171-4"><a href="spatial-analysis.html#cb171-4" tabindex="-1"></a><span class="fu">names</span>(aspect_stk) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cosine_northness&quot;</span>, <span class="st">&quot;sine_eastness&quot;</span>)</span>
+<span id="cb171-5"><a href="spatial-analysis.html#cb171-5" tabindex="-1"></a>aspect_stk</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 240, 240, 2  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : -112, -110, 40, 42  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source(s)   : memory
+## names       : cosine_northness, sine_eastness 
+## min values  :               -1,            -1 
+## max values  :                1,             1</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="spatial-analysis.html#cb173-1" tabindex="-1"></a><span class="fu">plot</span>(aspect_stk)</span></code></pre></div>
+<p><img src="_main_files/figure-html/cosSine-1.png" width="672" /></p>
+</div>
+<div id="re-classify-rasters" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Re-Classify Rasters<a href="spatial-analysis.html#re-classify-rasters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sometimes you may need to <strong>re-classify</strong> a raster. This means that you are assigning or changing raster cell values to new values. You may need to do this to</p>
+<ul>
+<li>replace values with new information</li>
+<li>group or bin specific values together</li>
+<li>set values to NA or set NA cells to a value</li>
+</ul>
+<p>To re-classify a raster in R you use the aptly named function <code>reclassify()</code>. The arguments for <code>reclassify</code> are <code>x</code> (the Raster* object) and <code>rcl</code> (a matrix for reclassification)</p>
+<p>Let’s practice. Let’s say we want to simplify our landcover raster and classify the cells into more general habitat classifications. Fortunately, the landcover data frame already has this information</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="spatial-analysis.html#cb174-1" tabindex="-1"></a><span class="fu">unique</span>(land_info[, <span class="fu">c</span>(<span class="st">&quot;ClassCode&quot;</span>, <span class="st">&quot;ClassName&quot;</span>)])</span></code></pre></div>
+<pre><code>##     ClassCode                                       ClassName
+## 1           1                               Forest &amp; Woodland
+## 116         2                         Shrub &amp; Herb Vegetation
+## 299         3                            Desert &amp; Semi-Desert
+## 489         4 Polar &amp; High Montane Scrub, Grassland &amp; Barrens
+## 498         5                              Aquatic Vegetation
+## 503         6                            Open Rock Vegetation
+## 541         8   Nonvascular &amp; Sparse Vascular Rock Vegetation
+## 544         7             Agricultural &amp; Developed Vegetation
+## 547         9            Introduced &amp; Semi Natural Vegetation
+## 553        10                  Recently Disturbed or Modified
+## 565        11                                      Open Water
+## 568         8                     Developed &amp; Other Human Use</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="spatial-analysis.html#cb176-1" tabindex="-1"></a><span class="fu">summary</span>(land_info[, <span class="fu">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="st">&quot;ClassCode&quot;</span>)])</span></code></pre></div>
+<pre><code>##      Value         ClassCode     
+##  Min.   :  1.0   Min.   : 1.000  
+##  1st Qu.:144.8   1st Qu.: 1.000  
+##  Median :293.5   Median : 2.000  
+##  Mean   :292.3   Mean   : 2.257  
+##  3rd Qu.:440.2   3rd Qu.: 2.000  
+##  Max.   :584.0   Max.   :11.000</code></pre>
+<p>The “Value” column (the data representing the cell values of the landcover raster) has values from 1 to 584 to represent specific habitats within “Forest &amp; Woodland” or “Desert &amp; Semi-Desert” for example, while the “ClassCode” column only has values from 1 to 11 to represent these general habitat types. Much more simple.</p>
+<p>So let’s take these two columns and make a matrix for the <code>rcl</code> argument in <code>reclassify</code>.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="spatial-analysis.html#cb178-1" tabindex="-1"></a>rclLand <span class="ot">&lt;-</span> land_info[, <span class="fu">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="st">&quot;ClassCode&quot;</span>)] </span>
+<span id="cb178-2"><a href="spatial-analysis.html#cb178-2" tabindex="-1"></a>rclLand <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(rclLand)</span>
+<span id="cb178-3"><a href="spatial-analysis.html#cb178-3" tabindex="-1"></a><span class="fu">head</span>(rclLand)</span></code></pre></div>
+<pre><code>##      Value ClassCode
+## [1,]     1         1
+## [2,]     2         1
+## [3,]     3         1
+## [4,]     4         1
+## [5,]     5         1
+## [6,]     6         1</code></pre>
+<p>Now we just need to input this matrix and the landcover raster into the function.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="spatial-analysis.html#cb180-1" tabindex="-1"></a>landcover_rcl <span class="ot">&lt;-</span> <span class="fu">classify</span>(landcover, rclLand)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="spatial-analysis.html#cb181-1" tabindex="-1"></a><span class="fu">names</span>(landcover_rcl) <span class="ot">&lt;-</span> <span class="st">&quot;landcover_rcl&quot;</span></span>
+<span id="cb181-2"><a href="spatial-analysis.html#cb181-2" tabindex="-1"></a>landcover_rcl</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 18675, 14838, 1  (nrow, ncol, nlyr)
+## resolution  : 30, 30  (x, y)
+## extent      : 229319.6, 674459.6, 4094414, 4654664  (xmin, xmax, ymin, ymax)
+## coord. ref. : NAD83 / UTM zone 12N (EPSG:26912) 
+## source      : landcover_rcl.tif 
+## name        : landcover_rcl 
+## min value   :             1 
+## max value   :            11</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="spatial-analysis.html#cb183-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(landcover, landcover_rcl)) <span class="co"># plot them together to compare</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/plotRCL-1.png" width="672" /></p>
+<p>Great!</p>
+</div>
+<div id="raster-cell-stats" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> Raster Cell Stats<a href="spatial-analysis.html#raster-cell-stats" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In my research I often have to perform cell algebra or focal statistics. Maybe you need to know the average elevation or the total herbaceous biomass within a certain area. The way to get these values are with the function <code>cellStats</code>. We simply need to input the raster and the <code>stat</code> function: <code>sum</code>, <code>mean</code>, <code>min</code>, <code>max</code>, <code>sd</code>, or a homemade function. Let’s say we need to calculate some stats of the elevation, SWE, and snow depth within a 5-km area around our sites.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="spatial-analysis.html#cb184-1" tabindex="-1"></a><span class="fu">plot</span>(elev_snow_stk<span class="sc">$</span>elevation)</span>
+<span id="cb184-2"><a href="spatial-analysis.html#cb184-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(sites_sf), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotSites-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We need to know which of our sites are within the extent of the raster. There are probably many ways of doing this. The most straightforward way I can think of getting just the sites that fall within the raster are 1) extracting raster data at each site and 2) filtering to just the sites that have raster data attached.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="spatial-analysis.html#cb185-1" tabindex="-1"></a>sites_rast <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(elev_snow_stk, sites_sf)</span>
+<span id="cb185-2"><a href="spatial-analysis.html#cb185-2" tabindex="-1"></a>sites_rast <span class="co"># notice how only 3 rows (sites) have data</span></span></code></pre></div>
+<pre><code>##    ID elevation swe snow_depth
+## 1   1        NA  NA         NA
+## 2   2        NA  NA         NA
+## 3   3  2585.951 127        542
+## 4   4        NA  NA         NA
+## 5   5  3218.554 502       1640
+## 6   6        NA  NA         NA
+## 7   7        NA  NA         NA
+## 8   8        NA  NA         NA
+## 9   9        NA  NA         NA
+## 10 10  2452.774 109        521
+## 11 11        NA  NA         NA
+## 12 12        NA  NA         NA
+## 13 13        NA  NA         NA
+## 14 14        NA  NA         NA
+## 15 15        NA  NA         NA</code></pre>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="spatial-analysis.html#cb187-1" tabindex="-1"></a>sites_sf <span class="ot">&lt;-</span> <span class="fu">left_join</span>(sites_sf, <span class="fu">as.data.frame</span>(sites_rast), <span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">&quot;Site&quot;</span> <span class="sc">==</span> <span class="st">&quot;ID&quot;</span>)) </span>
+<span id="cb187-2"><a href="spatial-analysis.html#cb187-2" tabindex="-1"></a>sites_sf</span></code></pre></div>
+<pre><code>## Simple feature collection with 15 features and 4 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -113.7909 ymin: 37.09849 xmax: -109.4373 ymax: 41.08479
+## Geodetic CRS:  WGS 84
+## First 10 features:
+##    Site elevation swe snow_depth                   geometry
+## 1     1        NA  NA         NA POINT (-110.9233 38.94893)
+## 2     2        NA  NA         NA  POINT (-112.5923 40.4073)
+## 3     3  2585.951 127        542 POINT (-110.1357 40.58137)
+## 4     4        NA  NA         NA POINT (-113.3415 41.04609)
+## 5     5  3218.554 502       1640 POINT (-110.8535 40.78323)
+## 6     6        NA  NA         NA POINT (-112.0717 41.07762)
+## 7     7        NA  NA         NA POINT (-112.3244 41.08479)
+## 8     8        NA  NA         NA POINT (-109.4373 39.28921)
+## 9     9        NA  NA         NA POINT (-109.6226 37.80686)
+## 10   10  2452.774 109        521 POINT (-110.7138 40.03556)</code></pre>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="spatial-analysis.html#cb189-1" tabindex="-1"></a>sites_sf_rast <span class="ot">&lt;-</span> sites_sf <span class="sc">%&gt;%</span></span>
+<span id="cb189-2"><a href="spatial-analysis.html#cb189-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(elevation) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(swe) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(snow_depth))</span>
+<span id="cb189-3"><a href="spatial-analysis.html#cb189-3" tabindex="-1"></a>sites_sf_rast</span></code></pre></div>
+<pre><code>## Simple feature collection with 3 features and 4 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -110.8535 ymin: 40.03556 xmax: -110.1357 ymax: 40.78323
+## Geodetic CRS:  WGS 84
+##   Site elevation swe snow_depth                   geometry
+## 1    3  2585.951 127        542 POINT (-110.1357 40.58137)
+## 2    5  3218.554 502       1640 POINT (-110.8535 40.78323)
+## 3   10  2452.774 109        521 POINT (-110.7138 40.03556)</code></pre>
+<p>Let’s just do this for one of our sites for now and then we can try it with the others.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="spatial-analysis.html#cb191-1" tabindex="-1"></a>site_sf_rast_01 <span class="ot">&lt;-</span> sites_sf_rast[<span class="dv">1</span>,]</span></code></pre></div>
+<p>First, we need to know which parts of this raster are within 5-km of the site, so we will need to crop the raster. We can do that by first making a buffer with <code>st_buffer()</code></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="spatial-analysis.html#cb192-1" tabindex="-1"></a>site_buff_5km <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(site_sf_rast_01, <span class="dv">5000</span>) <span class="co"># units are in meters, 1000m = 1km</span></span>
+<span id="cb192-2"><a href="spatial-analysis.html#cb192-2" tabindex="-1"></a></span>
+<span id="cb192-3"><a href="spatial-analysis.html#cb192-3" tabindex="-1"></a><span class="fu">plot</span>(elev_snow_stk[[<span class="dv">1</span>]]) <span class="co"># let&#39;s just plot one layer for demonstration</span></span>
+<span id="cb192-4"><a href="spatial-analysis.html#cb192-4" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(site_buff_5km), <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/buffer-1.png" width="672" /></p>
+<p>Now let’s crop the raster to this buffer’s extent. We’ll use the function <code>crop()</code>, which takes in the raster object we want to crop and an “extent object, or any object from which an Extent object can be extracted” (quoted from the <code>crop</code> help file). Because we can make an extent object from our buffer</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="spatial-analysis.html#cb193-1" tabindex="-1"></a><span class="fu">ext</span>(site_buff_5km)</span></code></pre></div>
+<pre><code>## SpatExtent : -110.195356322096, -110.076232859429, 40.5357574438391, 40.626942424945 (xmin, xmax, ymin, ymax)</code></pre>
+<p>We can input our buffer object directly into <code>crop()</code></p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="spatial-analysis.html#cb195-1" tabindex="-1"></a>stack_crop <span class="ot">&lt;-</span> <span class="fu">crop</span>(elev_snow_stk, site_buff_5km)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="spatial-analysis.html#cb196-1" tabindex="-1"></a><span class="fu">plot</span>(stack_crop[[<span class="dv">1</span>]])</span>
+<span id="cb196-2"><a href="spatial-analysis.html#cb196-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(site_buff_5km), <span class="at">add =</span> T)</span>
+<span id="cb196-3"><a href="spatial-analysis.html#cb196-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(site_sf_rast_01), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="_main_files/figure-html/plotSilent-1.png" width="672" /></p>
+<p>Great! Now let’s calculate the mean, median, min/max, and standard deviation of the elevation, SWE, and snow depth within this area.</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="spatial-analysis.html#cb197-1" tabindex="-1"></a>stack_stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb197-2"><a href="spatial-analysis.html#cb197-2" tabindex="-1"></a>  <span class="at">mean_5km =</span> <span class="fu">global</span>(stack_crop, <span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>),</span>
+<span id="cb197-3"><a href="spatial-analysis.html#cb197-3" tabindex="-1"></a>  <span class="at">min_5km =</span> <span class="fu">global</span>(stack_crop, <span class="at">fun =</span> <span class="st">&quot;min&quot;</span>),</span>
+<span id="cb197-4"><a href="spatial-analysis.html#cb197-4" tabindex="-1"></a>  <span class="at">max_5km =</span> <span class="fu">global</span>(stack_crop, <span class="at">fun =</span> <span class="st">&quot;max&quot;</span>),</span>
+<span id="cb197-5"><a href="spatial-analysis.html#cb197-5" tabindex="-1"></a>  <span class="at">sd_5km =</span> <span class="fu">global</span>(stack_crop, <span class="at">fun =</span> <span class="st">&quot;sd&quot;</span>))</span>
+<span id="cb197-6"><a href="spatial-analysis.html#cb197-6" tabindex="-1"></a></span>
+<span id="cb197-7"><a href="spatial-analysis.html#cb197-7" tabindex="-1"></a><span class="co"># let&#39;s add a column for the environment type from the raster and remove the row names</span></span>
+<span id="cb197-8"><a href="spatial-analysis.html#cb197-8" tabindex="-1"></a>stack_stats<span class="sc">$</span>environment <span class="ot">&lt;-</span> <span class="fu">row.names</span>(stack_stats)</span>
+<span id="cb197-9"><a href="spatial-analysis.html#cb197-9" tabindex="-1"></a><span class="fu">row.names</span>(stack_stats) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb197-10"><a href="spatial-analysis.html#cb197-10" tabindex="-1"></a>stack_stats</span></code></pre></div>
+<pre><code>##        mean      min      max        sd environment
+## 1 2522.8263 2138.969 3138.245 234.83332   elevation
+## 2  140.4935   55.000  282.000  51.01483         swe
+## 3  614.5195  284.000 1079.000 175.49777  snow_depth</code></pre>
+<p>We have our stats, but we want to join them with our sites data frame to make them more meaningful. We can’t use the function <code>cbind()</code> because the number of rows don’t match up. Instead, we can use <code>dplyr</code>’s function <code>bind_cols()</code>, which works just like <code>cbind()</code> or <code>do.call(cbind, x)</code> except that it’s a bit smarter and can add <code>NA</code>s if the number of rows or columns doesn’t match.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="spatial-analysis.html#cb199-1" tabindex="-1"></a><span class="fu">bind_cols</span>(site_sf_rast_01, stack_stats)</span></code></pre></div>
+<pre><code>## Simple feature collection with 3 features and 9 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -110.1357 ymin: 40.58137 xmax: -110.1357 ymax: 40.58137
+## Geodetic CRS:  WGS 84
+##   Site elevation swe snow_depth      mean      min      max        sd
+## 1    3  2585.951 127        542 2522.8263 2138.969 3138.245 234.83332
+## 2    3  2585.951 127        542  140.4935   55.000  282.000  51.01483
+## 3    3  2585.951 127        542  614.5195  284.000 1079.000 175.49777
+##   environment                   geometry
+## 1   elevation POINT (-110.1357 40.58137)
+## 2         swe POINT (-110.1357 40.58137)
+## 3  snow_depth POINT (-110.1357 40.58137)</code></pre>
+<p>Great! But we only did this process for one site when presumabaly we would want these data for all available sites. We could copy and paste for each site, but that can get tedious, not to mention out of control if we had more than 3 sites. So the best way to do this would be with <strong>loops</strong>.</p>
+</div>
+<div id="a-note-about-loops" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> A Note About Loops<a href="spatial-analysis.html#a-note-about-loops" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Learning all these functions is all well and good, but what if you have to perform them all on multiple features or rasters? Copying and pasting code over and over again can soon become confusing and messy and cause your code to be inefficient. The better way to address this is (in my opinion) with loops! <code>for</code> loops and <code>lapply</code> are lifesavers and I use them in all of my code. A future workshop will go into more depth on how to use loops (be on the lookout for that!), so I won’t go over them in too much detail. But I do want to show some ways you can use them for GIS applications.</p>
+<p>(These code chunks are for demonstration only, these data and directories don’t actually exist)</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="spatial-analysis.html#cb201-1" tabindex="-1"></a><span class="co"># Example 1: Load a set of shapefiles and find the area for each</span></span>
+<span id="cb201-2"><a href="spatial-analysis.html#cb201-2" tabindex="-1"></a>filenames <span class="ot">&lt;-</span> <span class="fu">list.files</span>(dir) <span class="co"># get a list of shapefile names in a directory</span></span>
+<span id="cb201-3"><a href="spatial-analysis.html#cb201-3" tabindex="-1"></a></span>
+<span id="cb201-4"><a href="spatial-analysis.html#cb201-4" tabindex="-1"></a>area_list <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># create an empty vector for the areas to live in </span></span>
+<span id="cb201-5"><a href="spatial-analysis.html#cb201-5" tabindex="-1"></a></span>
+<span id="cb201-6"><a href="spatial-analysis.html#cb201-6" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(filenames)){</span>
+<span id="cb201-7"><a href="spatial-analysis.html#cb201-7" tabindex="-1"></a>  <span class="co"># load the shapefile</span></span>
+<span id="cb201-8"><a href="spatial-analysis.html#cb201-8" tabindex="-1"></a>  shp <span class="ot">&lt;-</span> <span class="fu">st_read</span>(filenames[i])</span>
+<span id="cb201-9"><a href="spatial-analysis.html#cb201-9" tabindex="-1"></a>  </span>
+<span id="cb201-10"><a href="spatial-analysis.html#cb201-10" tabindex="-1"></a>  <span class="co"># calculate the area</span></span>
+<span id="cb201-11"><a href="spatial-analysis.html#cb201-11" tabindex="-1"></a>  area <span class="ot">&lt;-</span> <span class="fu">st_area</span>(shp)</span>
+<span id="cb201-12"><a href="spatial-analysis.html#cb201-12" tabindex="-1"></a>  </span>
+<span id="cb201-13"><a href="spatial-analysis.html#cb201-13" tabindex="-1"></a>  <span class="co"># put the area into the vector</span></span>
+<span id="cb201-14"><a href="spatial-analysis.html#cb201-14" tabindex="-1"></a>  area_list <span class="ot">&lt;-</span> <span class="fu">c</span>(area_list, area)</span>
+<span id="cb201-15"><a href="spatial-analysis.html#cb201-15" tabindex="-1"></a>}</span>
+<span id="cb201-16"><a href="spatial-analysis.html#cb201-16" tabindex="-1"></a></span>
+<span id="cb201-17"><a href="spatial-analysis.html#cb201-17" tabindex="-1"></a><span class="co"># -----------------------------------------------------------------------------X</span></span>
+<span id="cb201-18"><a href="spatial-analysis.html#cb201-18" tabindex="-1"></a></span>
+<span id="cb201-19"><a href="spatial-analysis.html#cb201-19" tabindex="-1"></a><span class="co"># Example 2: Load a set of shapefiles, generate a buffer for each, and calculate the  #            mean value of a raster within that buffer and the focal feature</span></span>
+<span id="cb201-20"><a href="spatial-analysis.html#cb201-20" tabindex="-1"></a></span>
+<span id="cb201-21"><a href="spatial-analysis.html#cb201-21" tabindex="-1"></a>filenames <span class="ot">&lt;-</span> <span class="fu">list.files</span>(dir) <span class="co"># get a list of shapefile names in a directory</span></span>
+<span id="cb201-22"><a href="spatial-analysis.html#cb201-22" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">raster</span>(raster_filename) <span class="co"># load a raster</span></span>
+<span id="cb201-23"><a href="spatial-analysis.html#cb201-23" tabindex="-1"></a></span>
+<span id="cb201-24"><a href="spatial-analysis.html#cb201-24" tabindex="-1"></a><span class="fu">lapply</span>(filenames, <span class="cf">function</span>(fn){</span>
+<span id="cb201-25"><a href="spatial-analysis.html#cb201-25" tabindex="-1"></a>  <span class="co"># load a shapefile</span></span>
+<span id="cb201-26"><a href="spatial-analysis.html#cb201-26" tabindex="-1"></a>  shp <span class="ot">&lt;-</span> <span class="fu">st_read</span>(fn)</span>
+<span id="cb201-27"><a href="spatial-analysis.html#cb201-27" tabindex="-1"></a>  </span>
+<span id="cb201-28"><a href="spatial-analysis.html#cb201-28" tabindex="-1"></a>  <span class="co"># generate a 10kmX10km buffer </span></span>
+<span id="cb201-29"><a href="spatial-analysis.html#cb201-29" tabindex="-1"></a>  buffer <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(shp, <span class="at">dist =</span> <span class="dv">10000</span>)</span>
+<span id="cb201-30"><a href="spatial-analysis.html#cb201-30" tabindex="-1"></a>  </span>
+<span id="cb201-31"><a href="spatial-analysis.html#cb201-31" tabindex="-1"></a>  <span class="co"># crop the raster to the shape and the buffer</span></span>
+<span id="cb201-32"><a href="spatial-analysis.html#cb201-32" tabindex="-1"></a>  r_shp <span class="ot">&lt;-</span> <span class="fu">crop</span>(r, <span class="fu">extent</span>(shp))</span>
+<span id="cb201-33"><a href="spatial-analysis.html#cb201-33" tabindex="-1"></a>  r_buffer <span class="ot">&lt;-</span> <span class="fu">crop</span>(r, <span class="fu">extent</span>(buffer))</span>
+<span id="cb201-34"><a href="spatial-analysis.html#cb201-34" tabindex="-1"></a>  </span>
+<span id="cb201-35"><a href="spatial-analysis.html#cb201-35" tabindex="-1"></a>  <span class="co"># calculate the mean value of the raster within the buffer and the feature</span></span>
+<span id="cb201-36"><a href="spatial-analysis.html#cb201-36" tabindex="-1"></a>  r_shp_mean <span class="ot">&lt;-</span> <span class="fu">cellStats</span>(r_shp, <span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb201-37"><a href="spatial-analysis.html#cb201-37" tabindex="-1"></a>  r_buff_mean <span class="ot">&lt;-</span> <span class="fu">cellStats</span>(r_shp, <span class="at">stat =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb201-38"><a href="spatial-analysis.html#cb201-38" tabindex="-1"></a>  </span>
+<span id="cb201-39"><a href="spatial-analysis.html#cb201-39" tabindex="-1"></a>  <span class="co"># return both means in a list</span></span>
+<span id="cb201-40"><a href="spatial-analysis.html#cb201-40" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(r_shp_mean, r_buff_mean))</span>
+<span id="cb201-41"><a href="spatial-analysis.html#cb201-41" tabindex="-1"></a>})</span>
+<span id="cb201-42"><a href="spatial-analysis.html#cb201-42" tabindex="-1"></a></span>
+<span id="cb201-43"><a href="spatial-analysis.html#cb201-43" tabindex="-1"></a><span class="co"># -----------------------------------------------------------------------------X</span></span>
+<span id="cb201-44"><a href="spatial-analysis.html#cb201-44" tabindex="-1"></a></span>
+<span id="cb201-45"><a href="spatial-analysis.html#cb201-45" tabindex="-1"></a><span class="co"># Example 3: Generate a raster of the sum from a set of RasterStacks</span></span>
+<span id="cb201-46"><a href="spatial-analysis.html#cb201-46" tabindex="-1"></a><span class="co">#            and then save the output raster</span></span>
+<span id="cb201-47"><a href="spatial-analysis.html#cb201-47" tabindex="-1"></a>filenames <span class="ot">&lt;-</span> <span class="fu">list.files</span>(dir) <span class="co"># get a list of raster files in a directory</span></span>
+<span id="cb201-48"><a href="spatial-analysis.html#cb201-48" tabindex="-1"></a>out_names <span class="ot">&lt;-</span> <span class="fu">paste0</span>(filenames, <span class="st">&quot;_sum&quot;</span>)</span>
+<span id="cb201-49"><a href="spatial-analysis.html#cb201-49" tabindex="-1"></a></span>
+<span id="cb201-50"><a href="spatial-analysis.html#cb201-50" tabindex="-1"></a><span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(filenames), <span class="cf">function</span>(i){</span>
+<span id="cb201-51"><a href="spatial-analysis.html#cb201-51" tabindex="-1"></a>  <span class="co"># load RasterStak</span></span>
+<span id="cb201-52"><a href="spatial-analysis.html#cb201-52" tabindex="-1"></a>  stk <span class="ot">&lt;-</span> <span class="fu">stack</span>(filenames[i])</span>
+<span id="cb201-53"><a href="spatial-analysis.html#cb201-53" tabindex="-1"></a>  </span>
+<span id="cb201-54"><a href="spatial-analysis.html#cb201-54" tabindex="-1"></a>  <span class="co"># create a raster that is the sum of all layers in the stack</span></span>
+<span id="cb201-55"><a href="spatial-analysis.html#cb201-55" tabindex="-1"></a>  sum <span class="ot">&lt;-</span> <span class="fu">calc</span>(stk, <span class="at">fun =</span> sum)</span>
+<span id="cb201-56"><a href="spatial-analysis.html#cb201-56" tabindex="-1"></a>  sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(stk) <span class="co"># these two operations are equivalent</span></span>
+<span id="cb201-57"><a href="spatial-analysis.html#cb201-57" tabindex="-1"></a>  </span>
+<span id="cb201-58"><a href="spatial-analysis.html#cb201-58" tabindex="-1"></a>  <span class="fu">writeRaster</span>(sum, out_names[i], <span class="at">format =</span> <span class="st">&quot;GTiff&quot;</span>)</span>
+<span id="cb201-59"><a href="spatial-analysis.html#cb201-59" tabindex="-1"></a>})</span>
+<span id="cb201-60"><a href="spatial-analysis.html#cb201-60" tabindex="-1"></a></span>
+<span id="cb201-61"><a href="spatial-analysis.html#cb201-61" tabindex="-1"></a><span class="co"># -----------------------------------------------------------------------------X</span></span>
+<span id="cb201-62"><a href="spatial-analysis.html#cb201-62" tabindex="-1"></a></span>
+<span id="cb201-63"><a href="spatial-analysis.html#cb201-63" tabindex="-1"></a><span class="co"># Example 4: Pull the number of zeros in a set of rasters</span></span>
+<span id="cb201-64"><a href="spatial-analysis.html#cb201-64" tabindex="-1"></a>filenames <span class="ot">&lt;-</span> <span class="fu">list.files</span>(dir) <span class="co"># get a list of raster files in a directory</span></span>
+<span id="cb201-65"><a href="spatial-analysis.html#cb201-65" tabindex="-1"></a><span class="fu">lapply</span>(filenames, <span class="cf">function</span>(fn){</span>
+<span id="cb201-66"><a href="spatial-analysis.html#cb201-66" tabindex="-1"></a>  <span class="co"># load raster</span></span>
+<span id="cb201-67"><a href="spatial-analysis.html#cb201-67" tabindex="-1"></a>  rast <span class="ot">&lt;-</span> <span class="fu">raster</span>(fn)</span>
+<span id="cb201-68"><a href="spatial-analysis.html#cb201-68" tabindex="-1"></a>  </span>
+<span id="cb201-69"><a href="spatial-analysis.html#cb201-69" tabindex="-1"></a>  <span class="co"># get the number of zeros in the raster</span></span>
+<span id="cb201-70"><a href="spatial-analysis.html#cb201-70" tabindex="-1"></a>  n_0 <span class="ot">&lt;-</span> <span class="fu">getValues</span>(rast) <span class="sc">==</span> <span class="dv">0</span> <span class="sc">%&gt;%</span></span>
+<span id="cb201-71"><a href="spatial-analysis.html#cb201-71" tabindex="-1"></a>      <span class="fu">which</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb201-72"><a href="spatial-analysis.html#cb201-72" tabindex="-1"></a>      <span class="fu">length</span>()</span>
+<span id="cb201-73"><a href="spatial-analysis.html#cb201-73" tabindex="-1"></a>  <span class="fu">return</span>(n_0)</span>
+<span id="cb201-74"><a href="spatial-analysis.html#cb201-74" tabindex="-1"></a>})</span></code></pre></div>
+<p>Even more efficient would be to run these in parallel, but that is way beyond the scope of this workshop</p>
+<hr />
+<p>I hope these functions helped you! The next chapter goes over some ways of obtaining the data we worked on today.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spatial-data-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="making-pretty-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://https://github.com/ronanhart/R_spatial_workshop/03-Spatial_analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
