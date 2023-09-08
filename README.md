@@ -51,4 +51,4 @@ Please note that this workshop mainly covers how to make maps using `ggplot2` an
 
 Now let's get started! 
 
-Go [here](https://ronanhart.github.io/R_Spatial_Workshop/) to begin the workshop.
+Go [here](https://ronanhart.github.io/R_Spatial_Visualization/) to begin the workshop.
